@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Intelligence Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0f2040;
+    --navy-light: #1a3358;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #8a6f2e;
+    --green: #22c55e;
+    --green-dim: #166534;
+    --red: #ef4444;
+    --red-dim: #7f1d1d;
+    --text-primary: #f0f4ff;
+    --text-secondary: #8899bb;
+    --text-dim: #4a5a7a;
+    --border: rgba(201,168,76,0.15);
+    --border-bright: rgba(201,168,76,0.4);
+    --card-bg: rgba(15,32,64,0.7);
+    --card-bg-solid: #0f2040;
+    --glass: rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(10,52,120,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(15,32,64,0.8) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grid lines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .date-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ── MARKET TICKER BAR ── */
+  .ticker-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ticker-bar::-webkit-scrollbar { display: none; }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ticker-symbol {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .ticker-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  .ticker-change {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .ticker-change.up { color: var(--green); background: rgba(34,197,94,0.1); }
+  .ticker-change.down { color: var(--red); background: rgba(239,68,68,0.1); }
+
+  .ticker-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN GRID ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+  .report-nav {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .report-nav-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .report-nav-title {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .report-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+  }
+
+  .report-list { padding: 8px; }
+
+  .report-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .report-item:hover {
+    background: var(--glass);
+    border-color: var(--border);
+  }
+
+  .report-item.active {
+    background: rgba(201,168,76,0.08);
+    border-color: var(--border-bright);
+  }
+
+  .report-item-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .report-item-day {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .report-item-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .report-item.active .report-item-dot { background: var(--gold); }
+  .report-item:not(.active) .report-item-dot { background: var(--text-dim); }
+
+  /* Section nav */
+  .section-nav {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+  }
+
+  .section-nav-label {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 12px 4px;
+  }
+
+  .section-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .section-link:hover { background: var(--glass); color: var(--text-primary); }
+
+  .section-link .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-dim);
+    width: 16px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .content-area { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .card-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    border: 1px solid var(--border-bright);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  /* ── REPORT VIEWER ── */
+  .report-viewer {
+    min-height: 600px;
+    position: relative;
+  }
+
+  .report-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 16px;
+    color: var(--text-dim);
+  }
+
+  .report-placeholder .big-icon { font-size: 48px; opacity: 0.3; }
+
+  .report-placeholder p {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Report iframe / content */
+  .report-frame-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .report-frame-wrapper iframe {
+    width: 100%;
+    border: none;
+    min-height: 700px;
+    display: block;
+  }
+
+  /* Report actions bar */
+  .report-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-bright); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+    font-weight: 600;
+  }
+
+  .btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+  /* ── INDEX CARDS ── */
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .index-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .index-card:hover { border-color: var(--border-bright); }
+
+  .index-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .index-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .index-change {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+
+  .index-range {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .range-bar {
+    height: 4px;
+    background: var(--navy-light);
+    border-radius: 2px;
+    margin: 6px 0 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .range-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    border-radius: 2px;
+  }
+
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  /* ── SPOTLIGHT CARDS ── */
+  .spotlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .spotlight-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .spotlight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .spotlight-ticker {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  .spotlight-name {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .rating-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .rating-buy { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .rating-hold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+  .rating-sell { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+  .spotlight-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .spotlight-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .metric-item { }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .metric-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  /* ── SECTION TABS ── */
+  .section-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .section-tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: 'Instrument Sans', sans-serif;
+  }
+
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .tab-content { display: none; padding: 20px 24px; }
+  .tab-content.active { display: block; }
+
+  /* ── WATCHLIST TABLE ── */
+  .data-table { width: 100%; border-collapse: collapse; }
+
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  .data-table th:first-child { text-align: left; }
+
+  .data-table td {
+    padding: 12px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    text-align: right;
+    border-bottom: 1px solid rgba(201,168,76,0.05);
+  }
+
+  .data-table td:first-child { text-align: left; }
+
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .data-table .sym {
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 13px;
+  }
+
+  .data-table .nm {
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-family: 'Instrument Sans', sans-serif;
+  }
+
+  /* ── STOCKS TO WATCH ── */
+  .watch-grid { display: flex; flex-direction: column; gap: 12px; }
+
+  .watch-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s;
+  }
+
+  .watch-item:hover { border-color: var(--border-bright); }
+
+  .watch-left { flex-shrink: 0; text-align: center; width: 70px; }
+
+  .watch-ticker {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  .watch-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .watch-body { flex: 1; }
+
+  .watch-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .watch-horizon {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .watch-reason {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── CALENDAR ── */
+  .calendar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .cal-section-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .cal-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.05);
+  }
+
+  .cal-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    white-space: nowrap;
+    padding-top: 1px;
+    min-width: 48px;
+  }
+
+  .cal-name { font-size: 13px; color: var(--text-primary); }
+  .cal-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* ── SECTOR BARS ── */
+  .sector-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .sector-item { display: flex; align-items: center; gap: 12px; }
+
+  .sector-name {
+    font-size: 13px;
+    color: var(--text-secondary);
+    width: 180px;
+    flex-shrink: 0;
+  }
+
+  .sector-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--navy-light);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .sector-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  .sector-bar.pos { background: linear-gradient(90deg, var(--green-dim), var(--green)); }
+  .sector-bar.neg { background: linear-gradient(90deg, var(--red-dim), var(--red)); }
+
+  .sector-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    width: 55px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── COMMENTARY ── */
+  .commentary { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+  .commentary p { margin-bottom: 16px; }
+  .commentary p:last-child { margin-bottom: 0; }
+  .commentary strong { color: var(--text-primary); font-weight: 600; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+  }
+
+  .empty-state .icon { font-size: 36px; opacity: 0.3; margin-bottom: 12px; }
+  .empty-state p { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.05em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .index-grid { grid-template-columns: 1fr 1fr; }
+    .spotlight-grid { grid-template-columns: 1fr; }
+    .calendar-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .wrapper { padding: 0 1rem 3rem; }
+    .index-grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <span class="logo-mark">MarketLens</span>
+      <span class="logo-sub">Daily Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        AFTER CLOSE
+      </div>
+      <div class="date-display" id="currentDate"></div>
+    </div>
+  </header>
+
+  <!-- TICKER BAR -->
+  <div class="ticker-bar" id="tickerBar">
+    <div class="ticker-item">
+      <span class="ticker-symbol">SPX</span>
+      <span class="ticker-price">7,473.47</span>
+      <span class="ticker-change up">+0.37%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">NDX</span>
+      <span class="ticker-price">29,481.64</span>
+      <span class="ticker-change up">+0.42%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">C</span>
+      <span class="ticker-price">125.22</span>
+      <span class="ticker-change up">+0.32%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">QRVO</span>
+      <span class="ticker-price">106.43</span>
+      <span class="ticker-change up">+8.76%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">VIX</span>
+      <span class="ticker-price">16.70</span>
+      <span class="ticker-change down">-0.36%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">10Y</span>
+      <span class="ticker-price">4.46%</span>
+      <span class="ticker-change down">-0.02%</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-item">
+      <span class="ticker-symbol">WTI</span>
+      <span class="ticker-price">$72.14</span>
+      <span class="ticker-change down">-1.20%</span>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Report list -->
+      <div class="report-nav">
+        <div class="report-nav-header">
+          <span class="report-nav-title">Reports</span>
+          <span class="report-count" id="reportCount">0 reports</span>
+        </div>
+        <div class="report-list" id="reportList">
+          <div class="empty-state" style="padding:20px">
+            <div class="icon">📂</div>
+            <p>No reports yet</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section nav -->
+      <div class="section-nav">
+        <div class="section-nav-label">Jump to</div>
+        <a class="section-link" onclick="switchTab('market')">
+          <span class="num">01</span> Market Summary
+        </a>
+        <a class="section-link" onclick="switchTab('spotlight')">
+          <span class="num">02</span> Stock Spotlights
+        </a>
+        <a class="section-link" onclick="switchTab('watchlist')">
+          <span class="num">03</span> Watchlist
+        </a>
+        <a class="section-link" onclick="switchTab('commentary')">
+          <span class="num">04</span> Why Markets Moved
+        </a>
+        <a class="section-link" onclick="switchTab('sectors')">
+          <span class="num">05</span> Sector Rotation
+        </a>
+        <a class="section-link" onclick="switchTab('calendar')">
+          <span class="num">06</span> Calendar
+        </a>
+        <a class="section-link" onclick="switchTab('watch')">
+          <span class="num">07</span> Stocks to Watch
+        </a>
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- Index overview -->
+      <div class="card" id="market">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="icon">📊</div>
+            Market Summary
+          </div>
+          <span class="card-badge">MAY 22, 2026</span>
+        </div>
+        <div class="card-body">
+          <div class="index-grid">
+
+            <div class="index-card">
+              <div class="index-name">S&P 500</div>
+              <div class="index-value">7,473</div>
+              <div class="index-change up">▲ +0.37% today</div>
+              <div class="index-range">
+                <div class="range-labels"><span>52W Low 5,767</span><span>52W High 7,517</span></div>
+                <div class="range-bar"><div class="range-fill" style="width:91%"></div></div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-top:4px">+28.99% YTD</div>
+              </div>
+            </div>
+
+            <div class="index-card">
+              <div class="index-name">NASDAQ 100</div>
+              <div class="index-value">29,481</div>
+              <div class="index-change up">▲ +0.42% today</div>
+              <div class="index-range">
+                <div class="range-labels"><span>52W Low —</span><span>52W High —</span></div>
+                <div class="range-bar"><div class="range-fill" style="width:78%"></div></div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-top:4px">Strong momentum</div>
+              </div>
+            </div>
+
+            <div class="index-card">
+              <div class="index-name">VIX — FEAR INDEX</div>
+              <div class="index-value">16.70</div>
+              <div class="index-change down">▼ -0.36% today</div>
+              <div class="index-range">
+                <div class="range-labels"><span>Calm &lt;20</span><span>Fear &gt;30</span></div>
+                <div class="range-bar"><div class="range-fill" style="width:33%;background:linear-gradient(90deg,#166534,#22c55e)"></div></div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:4px">LOW VOLATILITY — Market calm</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:16px;padding:14px;background:rgba(201,168,76,0.05);border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--text-secondary);line-height:1.6">
+            <strong style="color:var(--gold)">Market Pulse:</strong> The US stock market closed modestly higher on Friday, May 22 completing its <strong style="color:var(--text-primary)">eighth consecutive week of gains</strong>. Investor sentiment was lifted by progress in US-Iran negotiations and easing oil prices. The low VIX of 16.70 confirms markets remain calm despite macro pressures.
+          </div>
+        </div>
+      </div>
+
+      <!-- TABBED SECTIONS -->
+      <div class="card">
+        <div class="section-tabs">
+          <div class="tab active" onclick="switchTab('spotlight',this)">Spotlights</div>
+          <div class="tab" onclick="switchTab('watchlist',this)">Watchlist</div>
+          <div class="tab" onclick="switchTab('commentary',this)">Commentary</div>
+          <div class="tab" onclick="switchTab('sectors',this)">Sectors</div>
+          <div class="tab" onclick="switchTab('calendar',this)">Calendar</div>
+          <div class="tab" onclick="switchTab('watch',this)">Stocks to Watch</div>
+        </div>
+
+        <!-- SPOTLIGHT TAB -->
+        <div class="tab-content active" id="tab-spotlight">
+          <div class="spotlight-grid">
+
+            <div class="spotlight-card">
+              <div class="spotlight-header">
+                <div>
+                  <div class="spotlight-ticker">C</div>
+                  <div class="spotlight-name">Citigroup Inc.</div>
+                </div>
+                <div class="rating-badge rating-hold">HOLD</div>
+              </div>
+              <div class="spotlight-price">$125.22</div>
+              <div class="index-change up" style="font-family:'DM Mono',monospace;font-size:12px">▲ +$0.40 (+0.32%) today</div>
+              <div class="spotlight-metrics">
+                <div class="metric-item">
+                  <div class="metric-label">Day Low</div>
+                  <div class="metric-value">$123.48</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Day High</div>
+                  <div class="metric-value">$126.35</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">52W Low</div>
+                  <div class="metric-value">$71.65</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">52W High</div>
+                  <div class="metric-value">$135.29</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">P/E Ratio</div>
+                  <div class="metric-value">15.38x</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Div. Yield</div>
+                  <div class="metric-value">1.9%</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Price Target</div>
+                  <div class="metric-value up">$146.84</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Next Earnings</div>
+                  <div class="metric-value">Jul 14</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="spotlight-card">
+              <div class="spotlight-header">
+                <div>
+                  <div class="spotlight-ticker">QRVO</div>
+                  <div class="spotlight-name">Qorvo Inc.</div>
+                </div>
+                <div class="rating-badge rating-buy">BUY</div>
+              </div>
+              <div class="spotlight-price">$106.43</div>
+              <div class="index-change up" style="font-family:'DM Mono',monospace;font-size:12px">▲ +$8.57 (+8.76%) today</div>
+              <div class="spotlight-metrics">
+                <div class="metric-item">
+                  <div class="metric-label">Day Low</div>
+                  <div class="metric-value">$98.20</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Day High</div>
+                  <div class="metric-value">$107.10</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">52W Low</div>
+                  <div class="metric-value">$73.00</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">52W High</div>
+                  <div class="metric-value">$106.30</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">P/E Ratio</div>
+                  <div class="metric-value">—</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">1 Month</div>
+                  <div class="metric-value up">+16.23%</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">1 Year</div>
+                  <div class="metric-value up">+32.41%</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">Next Earnings</div>
+                  <div class="metric-value">—</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- WATCHLIST TAB -->
+        <div class="tab-content" id="tab-watchlist">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Day</th>
+                <th>1 Wk</th>
+                <th>1 Mo</th>
+                <th>1 Yr</th>
+                <th>52W Lo</th>
+                <th>52W Hi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="sym">SPX</div><div class="nm">S&P 500</div></td>
+                <td>7,473.47</td>
+                <td class="up">+0.37%</td>
+                <td class="up">+1.45%</td>
+                <td class="up">+5.79%</td>
+                <td class="up">+28.99%</td>
+                <td>5,767.41</td>
+                <td>7,517.12</td>
+              </tr>
+              <tr>
+                <td><div class="sym">NDX</div><div class="nm">Nasdaq 100</div></td>
+                <td>29,481.64</td>
+                <td class="up">+0.42%</td>
+                <td class="up">+1.73%</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td><div class="sym">C</div><div class="nm">Citigroup</div></td>
+                <td>$125.22</td>
+                <td class="up">+0.34%</td>
+                <td class="down">-0.30%</td>
+                <td class="down">-6.65%</td>
+                <td class="up">+67.00%</td>
+                <td>$71.65</td>
+                <td>$135.29</td>
+              </tr>
+              <tr>
+                <td><div class="sym">QRVO</div><div class="nm">Qorvo</div></td>
+                <td>$106.43</td>
+                <td class="up">+8.76%</td>
+                <td class="up">+22.20%</td>
+                <td class="up">+16.23%</td>
+                <td class="up">+32.41%</td>
+                <td>$73.00</td>
+                <td>$106.30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- COMMENTARY TAB -->
+        <div class="tab-content" id="tab-commentary">
+          <div class="commentary">
+            <p><strong>Geopolitical Relief Lifts Stocks to Eighth Consecutive Weekly Gain.</strong> The S&P 500 closed up 0.37% on Friday, completing its eighth straight week of gains as investors responded positively to signs of progress in US-Iran peace negotiations. US Secretary of State Marco Rubio said there were "good signs" that an agreement is within reach. Treasury yields moderated from recent peaks, providing relief to equity markets that had been pressured by higher borrowing costs.</p>
+            <p><strong>Consumer Sentiment Weakness Contradicts the Rally.</strong> Today's University of Michigan consumer sentiment report showed people are worried about the cost of gas and rising inflation. Despite this troubling data, stocks rallied — revealing a disconnect between Main Street concerns and Wall Street optimism. A notable 57% of consumers mentioned that high prices were eroding their personal finances, up from 50% last month.</p>
+            <p><strong>Technology and Growth Stocks Lead as Volatility Subsides.</strong> Tech stocks extended gains, with the Nasdaq 100 up 0.42%, as investors returned to growth-oriented names. Dell Technologies and HP jumped on upbeat expectations ahead of earnings. Quantum-computing names such as Rigetti Computing extended multi-day gains, underscoring strong speculative interest in next-generation computing themes.</p>
+          </div>
+        </div>
+
+        <!-- SECTORS TAB -->
+        <div class="tab-content" id="tab-sectors">
+          <div style="margin-bottom:20px">
+            <div class="cal-section-title">🟢 Top Winning Sectors</div>
+            <div class="sector-list">
+              <div class="sector-item">
+                <div class="sector-name">Financial Services</div>
+                <div class="sector-bar-wrap"><div class="sector-bar pos" style="width:80%"></div></div>
+                <div class="sector-pct up">+1.20%</div>
+              </div>
+              <div class="sector-item">
+                <div class="sector-name">Industrials</div>
+                <div class="sector-bar-wrap"><div class="sector-bar pos" style="width:75%"></div></div>
+                <div class="sector-pct up">+1.13%</div>
+              </div>
+              <div class="sector-item">
+                <div class="sector-name">Technology</div>
+                <div class="sector-bar-wrap"><div class="sector-bar pos" style="width:69%"></div></div>
+                <div class="sector-pct up">+1.03%</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cal-section-title">🔴 Losing Sectors</div>
+            <div class="sector-list">
+              <div class="sector-item">
+                <div class="sector-name">Consumer Defensive</div>
+                <div class="sector-bar-wrap"><div class="sector-bar neg" style="width:11%"></div></div>
+                <div class="sector-pct down">-0.17%</div>
+              </div>
+              <div class="sector-item">
+                <div class="sector-name">Communication Services</div>
+                <div class="sector-bar-wrap"><div class="sector-bar neg" style="width:25%"></div></div>
+                <div class="sector-pct down">-0.38%</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+            <div class="cal-section-title">📌 Macro Highlights</div>
+            <div class="cal-item" style="border-color:rgba(201,168,76,0.08)">
+              <div class="cal-date">TODAY</div>
+              <div><div class="cal-name">Michigan Consumer Sentiment</div><div class="cal-desc">Lowest confidence in months — consumers worry about gas prices and inflation eroding purchasing power.</div></div>
+            </div>
+            <div class="cal-item" style="border-color:rgba(201,168,76,0.08)">
+              <div class="cal-date">TODAY</div>
+              <div><div class="cal-name">US-Iran Negotiations</div><div class="cal-desc">Secretary Rubio signals deal possible — easing oil supply fears and lifting market sentiment.</div></div>
+            </div>
+            <div class="cal-item" style="border-color:rgba(201,168,76,0.08)">
+              <div class="cal-date">THIS WK</div>
+              <div><div class="cal-name">10Y Treasury Yield at 4.46%</div><div class="cal-desc">Near 2026 high — rising yields are a long-term headwind for equities if they keep climbing.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CALENDAR TAB -->
+        <div class="tab-content" id="tab-calendar">
+          <div class="calendar-grid">
+            <div>
+              <div class="cal-section-title">📅 Upcoming Earnings</div>
+              <div class="cal-item">
+                <div class="cal-date">May 26</div>
+                <div><div class="cal-name">Baidu (BIDU)</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 27</div>
+                <div><div class="cal-name">NVIDIA (NVDA)</div><div class="cal-desc">Most important earnings of the month — key AI demand read</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 28</div>
+                <div><div class="cal-name">Salesforce (CRM)</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 29</div>
+                <div><div class="cal-name">Dell Technologies (DELL)</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 29</div>
+                <div><div class="cal-name">HP Inc. (HPQ)</div></div>
+              </div>
+            </div>
+            <div>
+              <div class="cal-section-title">🏛️ Economic Events</div>
+              <div class="cal-item">
+                <div class="cal-date">May 27</div>
+                <div><div class="cal-name">Consumer Confidence</div><div class="cal-desc">Key gauge of spending intentions — affects retail and consumer stocks</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 29</div>
+                <div><div class="cal-name">GDP (2nd estimate)</div><div class="cal-desc">Second look at Q1 growth — revision could move bond yields</div></div>
+              </div>
+              <div class="cal-item">
+                <div class="cal-date">May 30</div>
+                <div><div class="cal-name">PCE Inflation Index</div><div class="cal-desc">The Fed's preferred inflation measure — critical for rate decision outlook</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STOCKS TO WATCH TAB -->
+        <div class="tab-content" id="tab-watch">
+          <div class="watch-grid">
+
+            <div class="watch-item">
+              <div class="watch-left">
+                <div class="watch-ticker">NVDA</div>
+                <div class="watch-price">$903.50</div>
+                <div style="margin-top:8px"><span class="rating-badge rating-buy" style="font-size:10px;padding:3px 8px">BUY</span></div>
+                <div class="watch-horizon" style="margin-top:6px">5-YEAR HOLD</div>
+              </div>
+              <div class="watch-body">
+                <div class="watch-name">Nvidia Corporation</div>
+                <div class="watch-reason">Nvidia is the dominant supplier of AI training chips with a multi-year lead over competitors — making it a compelling 5-year long term hold as AI infrastructure spending continues to accelerate globally. The upcoming earnings report on May 27 is expected to confirm continued data centre revenue growth well above market expectations.</div>
+              </div>
+            </div>
+
+            <div class="watch-item">
+              <div class="watch-left">
+                <div class="watch-ticker">JPM</div>
+                <div class="watch-price">$218.40</div>
+                <div style="margin-top:8px"><span class="rating-badge rating-hold" style="font-size:10px;padding:3px 8px">HOLD</span></div>
+                <div class="watch-horizon" style="margin-top:6px">1-YEAR HOLD</div>
+              </div>
+              <div class="watch-body">
+                <div class="watch-name">JPMorgan Chase</div>
+                <div class="watch-reason">JPMorgan remains the strongest major US bank with solid earnings and dividend growth, making it worth holding for the next 12 months as interest rates stay elevated — which benefits net interest income. However, slowing loan growth and rising credit loss reserves suggest it may not be a multi-year compounder at current valuations.</div>
+              </div>
+            </div>
+
+            <div class="watch-item">
+              <div class="watch-left">
+                <div class="watch-ticker">TSLA</div>
+                <div class="watch-price">$172.30</div>
+                <div style="margin-top:8px"><span class="rating-badge rating-sell" style="font-size:10px;padding:3px 8px">SELL</span></div>
+                <div class="watch-horizon" style="margin-top:6px">EXIT NOW</div>
+              </div>
+              <div class="watch-body">
+                <div class="watch-name">Tesla Inc.</div>
+                <div class="watch-reason">Tesla continues to face margin compression from aggressive price cuts, delivery numbers that missed expectations, and increasing competition from Chinese EV makers — investors should exit positions now before next quarter's results confirm further deterioration. Elon Musk's political distractions continue to affect the brand negatively in key European markets.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LOAD REPORT BUTTON -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="icon">📄</div>
+            Full Report Viewer
+          </div>
+          <div class="report-actions">
+            <button class="btn btn-gold" onclick="loadReport()">📂 Load Report File</button>
+            <button class="btn" onclick="window.print()">🖨️ Print</button>
+          </div>
+        </div>
+        <div class="card-body report-viewer" id="reportViewer">
+          <div class="report-placeholder">
+            <div class="big-icon">📊</div>
+            <p>Click "Load Report File" to view your full HTML report here</p>
+            <p style="margin-top:8px;font-size:11px">Supports HTML files generated by market_report.py</p>
+            <input type="file" id="fileInput" accept=".html" style="display:none" onchange="handleFile(event)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set current date
+  document.getElementById('currentDate').textContent =
+    new Date().toLocaleDateString('en-US', { weekday:'short', year:'numeric', month:'short', day:'numeric' });
+
+  // Tab switching
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const content = document.getElementById('tab-' + name);
+    if (content) content.classList.add('active');
+    if (el) el.classList.add('active');
+  }
+
+  // Section nav links
+  document.querySelectorAll('.section-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const tabMap = {
+        'market': null, 'spotlight': 'spotlight', 'watchlist': 'watchlist',
+        'commentary': 'commentary', 'sectors': 'sectors',
+        'calendar': 'calendar', 'watch': 'watch'
+      };
+    });
+  });
+
+  // Load report file
+  function loadReport() {
+    document.getElementById('fileInput').click();
+  }
+
+  function handleFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const viewer = document.getElementById('reportViewer');
+      viewer.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'background:white;border-radius:8px;overflow:auto;padding:20px;max-height:800px;';
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'width:100%;border:none;min-height:700px;';
+      wrapper.appendChild(iframe);
+      viewer.appendChild(wrapper);
+      iframe.contentDocument.open();
+      iframe.contentDocument.write(e.target.result);
+      iframe.contentDocument.close();
+      iframe.onload = () => {
+        const h = iframe.contentDocument.body.scrollHeight;
+        iframe.style.height = (h + 40) + 'px';
+      };
+
+      // Add to report list
+      addToReportList(file.name);
+    };
+    reader.readAsText(file);
+  }
+
+  function addToReportList(filename) {
+    const list = document.getElementById('reportList');
+    const dateMatch = filename.match(/(\d{4}-\d{2}-\d{2})/);
+    const dateStr = dateMatch ? dateMatch[1] : 'Today';
+    const dateObj = dateMatch ? new Date(dateMatch[1]) : new Date();
+    const dayStr = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+
+    list.innerHTML = '';
+    const item = document.createElement('div');
+    item.className = 'report-item active';
+    item.innerHTML = `
+      <div class="report-item-dot"></div>
+      <div>
+        <div class="report-item-date">${dateStr}</div>
+        <div class="report-item-day">${dayStr} — After Close</div>
+      </div>
+    `;
+    list.appendChild(item);
+    document.getElementById('reportCount').textContent = '1 report';
+  }
+
+  // Animate sector bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.sector-bar').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0%';
+        requestAnimationFrame(() => { bar.style.width = w; });
+      });
+    }, 300);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Reports (generated locally — don't commit to GitHub)
+backend/reports/
+backend/logs/
+
+# OS
+.DS_Store
+Thumbs.db
