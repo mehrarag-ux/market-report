@@ -246,6 +246,8 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
     <div class="ti"><span class="ts">MU</span><span class="tv" id="vMU">—</span><span class="tc" id="cMU">—</span></div>
     <div class="ti"><span class="ts">C</span><span class="tv" id="vC">—</span><span class="tc" id="cC">—</span></div>
     <div class="ti"><span class="ts">QRVO</span><span class="tv" id="vQRVO">—</span><span class="tc" id="cQRVO">—</span></div>
+    <div class="ti"><span class="ts">AAPL</span><span class="tv" id="vAAPL">—</span><span class="tc" id="cAAPL">—</span></div>
+    <div class="ti"><span class="ts">AMZN</span><span class="tv" id="vAMZN">—</span><span class="tc" id="cAMZN">—</span></div>
     <div class="ti"><span class="ts">VIX</span><span class="tv" id="vVIX">—</span><span class="tc" id="cVIX">—</span></div>
     <div class="ti"><span class="ts">SGT</span><span class="tv" id="vSGT">—</span></div>
     <!-- Set B mirror -->
@@ -261,6 +263,8 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
     <div class="ti"><span class="ts">MU</span><span class="tv" id="v2MU">—</span><span class="tc" id="c2MU">—</span></div>
     <div class="ti"><span class="ts">C</span><span class="tv" id="v2C">—</span><span class="tc" id="c2C">—</span></div>
     <div class="ti"><span class="ts">QRVO</span><span class="tv" id="v2QRVO">—</span><span class="tc" id="c2QRVO">—</span></div>
+    <div class="ti"><span class="ts">AAPL</span><span class="tv" id="v2AAPL">—</span><span class="tc" id="c2AAPL">—</span></div>
+    <div class="ti"><span class="ts">AMZN</span><span class="tv" id="v2AMZN">—</span><span class="tc" id="c2AMZN">—</span></div>
     <div class="ti"><span class="ts">VIX</span><span class="tv" id="v2VIX">—</span><span class="tc" id="c2VIX">—</span></div>
     <div class="ti"><span class="ts">SGT</span><span class="tv" id="v2SGT">—</span></div>
   </div>
@@ -279,8 +283,7 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
       <span class="ngl">Jump to Section</span>
       <div class="ni" onclick="scrollTo2('s1');setNav(this)"><span class="n">01</span>Market Summary</div>
       <div class="ni" onclick="scrollTo2('s2');setNav(this)"><span class="n">02</span>Spotlights</div>
-      <div class="ni" onclick="scrollTo2('s3a');setNav(this)"><span class="n">3A</span>Core Watchlist</div>
-      <div class="ni" onclick="scrollTo2('s3b');setNav(this)"><span class="n">3B</span>AI &amp; Mag 7</div>
+      <div class="ni" onclick="scrollTo2('s3b');setNav(this)"><span class="n">03</span>AI &amp; Mag 7</div>
       <div class="ni" onclick="scrollTo2('s4');setNav(this)"><span class="n">04</span>Why Moved</div>
       <div class="ni" onclick="scrollTo2('s5');setNav(this)"><span class="n">05</span>Sectors</div>
       <div class="ni" onclick="scrollTo2('s6');setNav(this)"><span class="n">06</span>Calendar</div>
@@ -302,7 +305,7 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
 <script>
 // ── CONFIG ───────────────────────────────────────────────────────────────────
 const FINNHUB_KEY = 'd80dkv9r01qq9ln3g0ugd80dkv9r01qq9ln3g0v0';
-const TICK_SYMS   = ['NVDA','MSFT','META','GOOGL','TSLA','AMD','AVGO','MU','C','QRVO'];
+const TICK_SYMS = ['NVDA','MSFT','META','GOOGL','TSLA','AMD','AVGO','MU','C','QRVO','AAPL','AMZN'];
 const TICK_SPECIAL = { VIX:'CBOE:VIX', SPX:'SPY', NDX:'QQQ' };
 
 // ── CLOCK & STATUS ───────────────────────────────────────────────────────────
@@ -572,8 +575,7 @@ function renderDashboard(raw, meta) {
   document.getElementById('mainArea').innerHTML = `
     <div id="s1"  class="section card"><div class="ch"><div class="ct"><div class="ci">📊</div>Market Summary</div><div style="display:flex;gap:6px"><span class="badge bg2">${label}</span><span class="badge bgg">LIVE</span></div></div><div class="cb">${renderMktData(d.mktData, d.pulse)}</div></div>
     <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔍</div>Stock Spotlights</div><span class="badge bg2">C · QRVO</span></div><div class="cb">${renderSpotlights(d.spotlights)}</div></div>
-    <div id="s3a" class="section card"><div class="ch"><div class="ct"><div class="ci">📋</div>Core Watchlist</div><span class="badge bg2">SPX · NDX · C · QRVO</span></div><div class="cb">${renderWatchTable(d.coreRows,'Core Watchlist')}</div></div>
-    <div id="s3b" class="section card"><div class="ch"><div class="ct"><div class="ci">🤖</div>AI &amp; Mag 7 Watchlist</div><span class="badge bgb">9 STOCKS</span></div><div class="cb">${renderWatchTable(d.aiRows,'AI & Mag 7')}</div></div>
+    <div id="s3b" class="section card"><div class="ch"><div class="ct"><div class="ci">🤖</div>AI &amp; Mag 7 Watchlist</div><span class="badge bgb">11 STOCKS</span></div><div class="cb">${renderWatchTable(d.aiRows,'AI & Mag 7')}</div></div>
     <div id="s4"  class="section card"><div class="ch"><div class="ct"><div class="ci">💬</div>Why Markets Moved Today</div></div><div class="cb"><div class="prose">${d.whyParas.map(p=>`<p>${p}</p>`).join('')||'<p>See full email report for commentary.</p>'}</div></div></div>
     <div id="s5"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔄</div>Sector Rotation &amp; Macro</div></div><div class="cb">${renderSectors(d.winners,d.losers,d.macro)}</div></div>
     <div id="s6"  class="section card"><div class="ch"><div class="ct"><div class="ci">📅</div>Earnings &amp; Economic Calendar</div></div><div class="cb">${renderCalendar(d.earnings,d.econ)}</div></div>

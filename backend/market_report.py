@@ -4,24 +4,17 @@ Runs via GitHub Actions cron. Writes reports to frontend/reports/ for Vercel.
 Parts: 1=Summary+Spotlights, 2=CoreWatchlist+Commentary+Sectors, 3=3B+Calendar+STW
 """
 
-import datetime
-import json
-import logging
-import os
-import re
-import smtplib
-import sys
+import os, sys, json, re, smtplib, logging, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = os.path.dirname(__file__)
-LOG_DIR = os.path.join(BASE_DIR, "logs")
+BASE_DIR    = os.path.dirname(__file__)
+LOG_DIR     = os.path.join(BASE_DIR, "logs")
 REPORTS_DIR = os.path.join(BASE_DIR, "..", "frontend", "reports")
-os.makedirs(LOG_DIR, exist_ok=True)
+os.makedirs(LOG_DIR,     exist_ok=True)
 os.makedirs(REPORTS_DIR, exist_ok=True)
 
 logging.basicConfig(
@@ -36,60 +29,46 @@ log = logging.getLogger(__name__)
 
 CONFIG = {
     "to_emails": [
-        "mehrarag@gmail.com",
+        "mehrarag@gmail.com",   # uncomment when ready
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
     "from_name": "Daily Market Report",
     "watchlist_core": [
-        {"symbol": "SPX", "name": "S&P 500 Index", "type": "index"},
-        {"symbol": "NDX", "name": "Nasdaq 100", "type": "index"},
-        {"symbol": "C", "name": "Citigroup", "type": "stock"},
-        {"symbol": "QRVO", "name": "Qorvo", "type": "stock"},
+        {"symbol": "SPX",  "name": "S&P 500 Index", "type": "index"},
+        {"symbol": "NDX",  "name": "Nasdaq 100",    "type": "index"},
+        {"symbol": "C",    "name": "Citigroup",     "type": "stock"},
+        {"symbol": "QRVO", "name": "Qorvo",         "type": "stock"},
     ],
     "watchlist_ai": [
-        {"symbol": "NVDA", "name": "Nvidia", "type": "stock"},
-        {"symbol": "AMD", "name": "AMD", "type": "stock"},
-        {"symbol": "AVGO", "name": "Broadcom", "type": "stock"},
-        {"symbol": "GOOGL", "name": "Alphabet", "type": "stock"},
-        {"symbol": "IBM", "name": "IBM", "type": "stock"},
-        {"symbol": "META", "name": "Meta", "type": "stock"},
-        {"symbol": "MSFT", "name": "Microsoft", "type": "stock"},
-        {"symbol": "MU", "name": "Micron", "type": "stock"},
-        {"symbol": "TSLA", "name": "Tesla", "type": "stock"},
+        {"symbol": "NVDA",  "name": "Nvidia",    "type": "stock"},
+        {"symbol": "AMD",   "name": "AMD",        "type": "stock"},
+        {"symbol": "AVGO",  "name": "Broadcom",   "type": "stock"},
+        {"symbol": "GOOGL", "name": "Alphabet",   "type": "stock"},
+        {"symbol": "IBM",   "name": "IBM",        "type": "stock"},
+        {"symbol": "META",  "name": "Meta",       "type": "stock"},
+        {"symbol": "MSFT",  "name": "Microsoft",  "type": "stock"},
+        {"symbol": "MU",    "name": "Micron",     "type": "stock"},
+        {"symbol": "TSLA",  "name": "Tesla",      "type": "stock"},
+        {"symbol": "AAPL",  "name": "Apple",      "type": "stock"},
+        {"symbol": "AMZN",  "name": "Amazon",     "type": "stock"},
     ],
     "claude_model": "claude-haiku-4-5-20251001",
     "gemini_model": "gemini-2.0-flash",
-    "max_tokens": 8096,
+    "max_tokens":   8096,
 }
 
-
-def is_weekday():
-    return datetime.datetime.now().weekday() < 5
-
-
-def today_str():
-    return datetime.datetime.now().strftime("%A, %B %d, %Y")
-
-
-def month_year():
-    return datetime.datetime.now().strftime("%B %Y")
-
-
-def year_str():
-    return datetime.datetime.now().strftime("%Y")
-
-
-def fmt_wl(lst):
-    return ", ".join(f"{w['symbol']} ({w['name']})" for w in lst)
-
+def is_weekday():     return datetime.datetime.now().weekday() < 5
+def today_str():      return datetime.datetime.now().strftime("%A, %B %d, %Y")
+def month_year():     return datetime.datetime.now().strftime("%B %Y")
+def year_str():       return datetime.datetime.now().strftime("%Y")
+def fmt_wl(lst):      return ", ".join(f"{w['symbol']} ({w['name']})" for w in lst)
 
 HTML_STYLE = """
 <style>
 body,div,p,h1,h2,h3,h4,table,td,th{font-family:Arial,sans-serif;}
 </style>
 """
-
 
 def prompt_part1():
     return f"""You are a financial analyst. Today is {today_str()}. US markets have just closed.
@@ -129,7 +108,6 @@ Use: <table style="width:100%;border-collapse:collapse;font-size:13px;margin:12p
 <td style="padding:8px;border-bottom:1px solid #eee;font-size:13px">
 Positive: <span style="color:#1a7a3c;font-weight:bold"> Negative: <span style="color:#c0392b;font-weight:bold">"""
 
-
 def prompt_part2():
     core = fmt_wl(CONFIG["watchlist_core"])
     return f"""You are a financial analyst. Today is {today_str()}.
@@ -157,7 +135,6 @@ Top 3 winning sectors with % in a <ul> list. Top 2 losing sectors with % in a <u
 Then 3 macro bullet points in a <ul> — one plain-English sentence each on investor impact.
 
 Use same table/color styles as Part 1."""
-
 
 def prompt_part3():
     ai = fmt_wl(CONFIG["watchlist_ai"])
@@ -208,16 +185,13 @@ def clean_html(raw: str) -> str:
             cleaned.append(line)
             continue
         # Keep lines that are HTML or empty
-        if stripped.startswith("<") or stripped.startswith("&"):
+        if stripped.startswith('<') or stripped.startswith('&'):
             cleaned.append(line)
         # Keep lines that are continuation of HTML attributes/content
-        elif stripped.endswith(">") or stripped.endswith("/>"):
+        elif stripped.endswith('>') or stripped.endswith('/>'):
             cleaned.append(line)
         # Drop plain-text reasoning lines
-        elif re.match(
-            r"^(I |Let me|Now |Based |The |Here |This |Note|Please|Since|However|Given|According)",
-            stripped,
-        ):
+        elif re.match(r"^(I |Let me|Now |Based |The |Here |This |Note|Please|Since|However|Given|According)", stripped):
             log.debug(f"Stripped reasoning line: {stripped[:80]}")
         else:
             cleaned.append(line)
@@ -227,7 +201,6 @@ def clean_html(raw: str) -> str:
 # ── AI Clients ─────────────────────────────────────────────────────────────────
 def call_claude(prompt: str) -> str:
     import anthropic
-
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     resp = client.messages.create(
         model=CONFIG["claude_model"],
@@ -235,34 +208,23 @@ def call_claude(prompt: str) -> str:
         tools=[{"type": "web_search_20250305", "name": "web_search"}],
         messages=[{"role": "user", "content": prompt}],
     )
-    return "\n".join(
-        b.text for b in resp.content if hasattr(b, "text") and b.text.strip()
-    )
-
+    return "\n".join(b.text for b in resp.content if hasattr(b, "text") and b.text.strip())
 
 def call_gemini(prompt: str) -> str:
     import urllib.request
-
     key = os.environ["GEMINI_API_KEY"]
-    url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/"
-        f"{CONFIG['gemini_model']}:generateContent?key={key}"
-    )
-    payload = json.dumps(
-        {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"maxOutputTokens": CONFIG["max_tokens"]},
-            "tools": [{"google_search": {}}],
-        }
-    ).encode()
-    req = urllib.request.Request(
-        url, data=payload, headers={"Content-Type": "application/json"}
-    )
+    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+           f"{CONFIG['gemini_model']}:generateContent?key={key}")
+    payload = json.dumps({
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"maxOutputTokens": CONFIG["max_tokens"]},
+        "tools": [{"google_search": {}}],
+    }).encode()
+    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=120) as r:
         data = json.loads(r.read())
     parts = data["candidates"][0]["content"]["parts"]
     return "\n".join(p["text"] for p in parts if "text" in p)
-
 
 def generate_section(label: str, prompt: str) -> str:
     raw = ""
@@ -276,11 +238,8 @@ def generate_section(label: str, prompt: str) -> str:
         log.info(f"{label} — using Gemini...")
         raw = call_gemini(prompt)
     if not raw:
-        raise EnvironmentError(
-            "No AI API key found. Set ANTHROPIC_API_KEY or GEMINI_API_KEY."
-        )
+        raise EnvironmentError("No AI API key found. Set ANTHROPIC_API_KEY or GEMINI_API_KEY.")
     return clean_html(raw)
-
 
 def generate_report():
     h1 = generate_section("Part 1 (Summary+Spotlights)", prompt_part1())
@@ -294,47 +253,41 @@ def generate_report():
 
 # ── Structured JSON extraction ─────────────────────────────────────────────────
 def strip_tags(html: str) -> str:
-    return re.sub(r"<[^>]+>", " ", html).strip()
-
+    return re.sub(r'<[^>]+>', ' ', html).strip()
 
 def parse_tables(html: str):
     tables = []
-    for tbl in re.findall(r"<table[^>]*>(.*?)</table>", html, re.S | re.I):
+    for tbl in re.findall(r'<table[^>]*>(.*?)</table>', html, re.S | re.I):
         rows = []
-        for row in re.findall(r"<tr[^>]*>(.*?)</tr>", tbl, re.S | re.I):
-            cells = re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.S | re.I)
-            clean = [re.sub(r"<[^>]+>", "", c).strip() for c in cells]
+        for row in re.findall(r'<tr[^>]*>(.*?)</tr>', tbl, re.S | re.I):
+            cells = re.findall(r'<t[dh][^>]*>(.*?)</t[dh]>', row, re.S | re.I)
+            clean = [re.sub(r'<[^>]+>', '', c).strip() for c in cells]
             if any(clean):
                 rows.append(clean)
         if rows:
             tables.append(rows)
     return tables
 
-
 def rows_to_dicts(rows):
     if len(rows) < 2:
         return []
-    headers = [h.lower().replace(" ", "_").replace("/", "_").strip() for h in rows[0]]
+    headers = [h.lower().replace(' ', '_').replace('/', '_').strip() for h in rows[0]]
     result = []
     for row in rows[1:]:
-        obj = {
-            headers[i]: (row[i] if i < len(row) else "") for i in range(len(headers))
-        }
+        obj = {headers[i]: (row[i] if i < len(row) else '') for i in range(len(headers))}
         if any(v for v in obj.values()):
             result.append(obj)
     return result
-
 
 def find_table_by_headers(tables, *keywords):
     """Find table whose header row contains all given keywords."""
     for tbl in tables:
         if not tbl:
             continue
-        header_str = " ".join(tbl[0]).lower()
+        header_str = ' '.join(tbl[0]).lower()
         if all(kw.lower() in header_str for kw in keywords):
             return tbl
     return []
-
 
 def extract_structured(h1: str, h2: str, h3: str) -> dict:
     tbls1 = parse_tables(h1)
@@ -342,240 +295,188 @@ def extract_structured(h1: str, h2: str, h3: str) -> dict:
     tbls3 = parse_tables(h3)
 
     # ── Market summary: find table with 'index' and 'closing' headers ──
-    mkt_tbl = find_table_by_headers(tbls1, "index", "closing")
+    mkt_tbl = find_table_by_headers(tbls1, 'index', 'closing')
     if not mkt_tbl:
-        mkt_tbl = find_table_by_headers(tbls1, "index", "change")
+        mkt_tbl = find_table_by_headers(tbls1, 'index', 'change')
     if not mkt_tbl:
         mkt_tbl = next((t for t in tbls1 if t and len(t[0]) >= 6), [])
     mkt_data = rows_to_dicts(mkt_tbl)
 
     # ── Pulse sentence ──
-    pulse = ""
-    for m in re.finditer(r"<p[^>]*>(.*?)</p>", h1, re.S | re.I):
+    pulse = ''
+    for m in re.finditer(r'<p[^>]*>(.*?)</p>', h1, re.S | re.I):
         txt = strip_tags(m.group(1))
-        if len(txt) > 80 and any(
-            w in txt for w in ["S&P", "Nasdaq", "market", "session"]
-        ):
+        if len(txt) > 80 and any(w in txt for w in ['S&P', 'Nasdaq', 'market', 'session']):
             pulse = txt
             break
 
     # ── Spotlights: 2-col metric/value tables in h1 ──
     spot_tables = [t for t in tbls1 if t and len(t[0]) == 2 and len(t) >= 5]
-    tickers = ["C", "QRVO"]
+    tickers = ['C', 'QRVO']
 
     def build_spot(rows, ticker):
-        d = {
-            k: ""
-            for k in [
-                "ticker",
-                "name",
-                "price",
-                "day_change",
-                "day_low",
-                "day_high",
-                "w52_hi",
-                "w52_lo",
-                "pe",
-                "div",
-                "analyst",
-                "target",
-                "earnings",
-                "news",
-                "rating",
-                "verdict",
-            ]
-        }
-        d["ticker"] = ticker
-        d["name"] = {"C": "Citigroup", "QRVO": "Qorvo"}.get(ticker, ticker)
+        d = {k: '' for k in ['ticker', 'name', 'price', 'day_change', 'day_low', 'day_high',
+                              'w52_hi', 'w52_lo', 'pe', 'div', 'analyst', 'target',
+                              'earnings', 'news', 'rating', 'verdict']}
+        d['ticker'] = ticker
+        d['name']   = {'C': 'Citigroup', 'QRVO': 'Qorvo'}.get(ticker, ticker)
         for r in rows:
             if len(r) < 2:
                 continue
             k, v = r[0].lower(), r[1]
-            if ("clos" in k or k.strip() == "price") and "target" not in k:
-                d["price"] = v
-            elif "day change" in k or k == "change":
-                d["day_change"] = v
-            elif "day low" in k:
-                d["day_low"] = v
-            elif "day high" in k:
-                d["day_high"] = v
-            elif "52" in k and "high" in k:
-                d["w52_hi"] = v
-            elif "52" in k and "low" in k:
-                d["w52_lo"] = v
-            elif "p/e" in k or "pe ratio" in k:
-                d["pe"] = v
-            elif "div" in k:
-                d["div"] = v
-            elif "consensus" in k or ("analyst" in k and "target" not in k):
-                d["analyst"] = v
-            elif "target" in k:
-                d["target"] = v
-            elif "earn" in k and "next" in k:
-                d["earnings"] = v
-            elif "news" in k or "headline" in k:
-                d["news"] = v
+            if ('clos' in k or k.strip() == 'price') and 'target' not in k:
+                d['price'] = v
+            elif 'day change' in k or k == 'change':
+                d['day_change'] = v
+            elif 'day low' in k:
+                d['day_low'] = v
+            elif 'day high' in k:
+                d['day_high'] = v
+            elif '52' in k and 'high' in k:
+                d['w52_hi'] = v
+            elif '52' in k and 'low' in k:
+                d['w52_lo'] = v
+            elif 'p/e' in k or 'pe ratio' in k:
+                d['pe'] = v
+            elif 'div' in k:
+                d['div'] = v
+            elif 'consensus' in k or ('analyst' in k and 'target' not in k):
+                d['analyst'] = v
+            elif 'target' in k:
+                d['target'] = v
+            elif 'earn' in k and 'next' in k:
+                d['earnings'] = v
+            elif 'news' in k or 'headline' in k:
+                d['news'] = v
         return d
 
     spots = []
-    h3_sections = re.split(r"<h3[^>]*>", h1, flags=re.I)
+    h3_sections = re.split(r'<h3[^>]*>', h1, flags=re.I)
     for i, tbl in enumerate(spot_tables[:2]):
-        sp = build_spot(tbl, tickers[i] if i < len(tickers) else "")
+        sp = build_spot(tbl, tickers[i] if i < len(tickers) else '')
         if i + 1 < len(h3_sections):
             sec_txt = strip_tags(h3_sections[i + 1])
-            m = re.search(r"\b(BUY|HOLD|SELL)\b", sec_txt)
+            m = re.search(r'\b(BUY|HOLD|SELL)\b', sec_txt)
             if m:
-                sp["rating"] = m.group(1)
+                sp['rating'] = m.group(1)
                 idx = sec_txt.find(m.group(1))
-                sp["verdict"] = sec_txt[max(0, idx - 10) : idx + 500].strip()
+                sp['verdict'] = sec_txt[max(0, idx - 10): idx + 500].strip()
         spots.append(sp)
 
     # ── Core watchlist: find by 'name' + 'price' + 'change' headers ──
-    core_tbl = find_table_by_headers(tbls2, "name", "price", "change")
+    core_tbl = find_table_by_headers(tbls2, 'name', 'price', 'change')
     if not core_tbl:
         core_tbl = next((t for t in tbls2 if t and len(t[0]) >= 5), [])
     core_rows = rows_to_dicts(core_tbl)
 
     # ── AI watchlist: find by 'ticker' + 'company' headers ──
-    ai_tbl = find_table_by_headers(tbls3, "ticker", "company")
+    ai_tbl = find_table_by_headers(tbls3, 'ticker', 'company')
     if not ai_tbl:
-        ai_tbl = find_table_by_headers(tbls3, "ticker", "price", "change")
+        ai_tbl = find_table_by_headers(tbls3, 'ticker', 'price', 'change')
     if not ai_tbl:
         # fallback: widest table in h3
-        ai_tbl = next(
-            (
-                t
-                for t in sorted(
-                    tbls3, key=lambda x: len(x[0]) if x else 0, reverse=True
-                )
-                if t and len(t[0]) >= 5
-            ),
-            [],
-        )
+        ai_tbl = next((t for t in sorted(tbls3, key=lambda x: len(x[0]) if x else 0, reverse=True)
+                       if t and len(t[0]) >= 5), [])
     ai_rows = rows_to_dicts(ai_tbl)
 
     # ── Why moved ──
-    why_match = re.search(r"SECTION 4[^<]*</h2>(.*?)(?=<h2|$)", h2, re.S | re.I)
-    why_text = strip_tags(why_match.group(1)) if why_match else ""
-    why_paras = [
-        p.strip() for p in re.split(r"\n{2,}", why_text) if len(p.strip()) > 60
-    ][:4]
+    why_match = re.search(r'SECTION 4[^<]*</h2>(.*?)(?=<h2|$)', h2, re.S | re.I)
+    why_text  = strip_tags(why_match.group(1)) if why_match else ''
+    why_paras = [p.strip() for p in re.split(r'\n{2,}', why_text) if len(p.strip()) > 60][:4]
 
     # ── Sectors ──
-    sec5_match = re.search(r"SECTION 5[^<]*</h2>(.*?)(?=<h2|$)", h2, re.S | re.I)
-    sec5_text = re.sub(r"<[^>]+>", "\n", sec5_match.group(1)) if sec5_match else ""
+    sec5_match = re.search(r'SECTION 5[^<]*</h2>(.*?)(?=<h2|$)', h2, re.S | re.I)
+    sec5_text  = re.sub(r'<[^>]+>', '\n', sec5_match.group(1)) if sec5_match else ''
     winners, losers = [], []
     for line in sec5_text.splitlines():
         line = line.strip()
-        pm = re.search(r"([+\-]\d+\.?\d*%)", line)
+        pm = re.search(r'([+\-]\d+\.?\d*%)', line)
         if not pm or len(line) < 5:
             continue
-        name = re.sub(r"[+\-]\d+\.?\d*%.*", "", line).strip(" -•:*")
+        name = re.sub(r'[+\-]\d+\.?\d*%.*', '', line).strip(' -•:*')
         if not name:
             continue
-        entry = {"name": name, "pct": pm.group(1)}
-        if pm.group(1).startswith("+"):
+        entry = {'name': name, 'pct': pm.group(1)}
+        if pm.group(1).startswith('+'):
             winners.append(entry)
         else:
             losers.append(entry)
-    macro_lines = [
-        l.strip()
-        for l in sec5_text.splitlines()
-        if len(l.strip()) > 40
-        and not re.search(r"[+\-]\d+\.?\d*%", l)
-        and not re.search(r"^(section|winning|losing|top|worst)", l.strip(), re.I)
-    ][:3]
+    macro_lines = [l.strip() for l in sec5_text.splitlines()
+                   if len(l.strip()) > 40
+                   and not re.search(r'[+\-]\d+\.?\d*%', l)
+                   and not re.search(r'^(section|winning|losing|top|worst)', l.strip(), re.I)][:3]
 
     # ── Calendar: earnings table has 'company'+'ticker'+'date'; econ has 'event'+'date' ──
-    earn_tbl = find_table_by_headers(tbls3, "company", "ticker")
+    earn_tbl = find_table_by_headers(tbls3, 'company', 'ticker')
     if not earn_tbl:
-        earn_tbl = find_table_by_headers(tbls3, "company", "date")
-    econ_tbl = find_table_by_headers(tbls3, "event", "date")
+        earn_tbl = find_table_by_headers(tbls3, 'company', 'date')
+    econ_tbl = find_table_by_headers(tbls3, 'event', 'date')
     if not econ_tbl:
-        econ_tbl = find_table_by_headers(tbls3, "event", "matters")
+        econ_tbl = find_table_by_headers(tbls3, 'event', 'matters')
 
     # ── Stocks to watch ──
     stw = []
-    for block in re.findall(
-        r'<div[^>]*class=["\']stw-entry["\'][^>]*>(.*?)</div>', h3, re.S | re.I
-    ):
+    for block in re.findall(r'<div[^>]*class=["\']stw-entry["\'][^>]*>(.*?)</div>', h3, re.S | re.I):
         txt = strip_tags(block)
-        rm = re.search(r"\b(BUY|HOLD|SELL)\b", txt)
-        tm = re.search(r"\b([A-Z]{2,5})\b", txt)
-        pm = re.search(r"\$[\d,]+\.?\d*", txt)
-        hm = re.search(r"(5-YEAR|1-YEAR|EXIT NOW)", txt)
+        rm  = re.search(r'\b(BUY|HOLD|SELL)\b', txt)
+        tm  = re.search(r'\b([A-Z]{2,5})\b', txt)
+        pm  = re.search(r'\$[\d,]+\.?\d*', txt)
+        hm  = re.search(r'(5-YEAR|1-YEAR|EXIT NOW)', txt)
         # extract company name: between "— " and " |"
-        nm = re.search(r"—\s*(.+?)\s*\|", txt)
+        nm  = re.search(r'—\s*(.+?)\s*\|', txt)
         if rm and tm:
-            stw.append(
-                {
-                    "ticker": tm.group(1),
-                    "name": nm.group(1).strip() if nm else tm.group(1),
-                    "rating": rm.group(1),
-                    "price": pm.group(0) if pm else "",
-                    "horizon": (
-                        hm.group(1)
-                        if hm
-                        else (
-                            "5-YEAR"
-                            if rm.group(1) == "BUY"
-                            else "1-YEAR" if rm.group(1) == "HOLD" else "EXIT NOW"
-                        )
-                    ),
-                    "reason": txt[:500].strip(),
-                }
-            )
+            stw.append({
+                'ticker':  tm.group(1),
+                'name':    nm.group(1).strip() if nm else tm.group(1),
+                'rating':  rm.group(1),
+                'price':   pm.group(0) if pm else '',
+                'horizon': hm.group(1) if hm else (
+                    '5-YEAR' if rm.group(1) == 'BUY' else
+                    '1-YEAR' if rm.group(1) == 'HOLD' else 'EXIT NOW'),
+                'reason':  txt[:500].strip(),
+            })
     # Fallback: section 7 paragraph parsing
     if not stw:
-        sec7_match = re.search(
-            r"SECTION 7[^<]*</h2>(.*?)(?=<p style[^>]*font-size:11px|$)",
-            h3,
-            re.S | re.I,
-        )
+        sec7_match = re.search(r'SECTION 7[^<]*</h2>(.*?)(?=<p style[^>]*font-size:11px|$)', h3, re.S | re.I)
         if sec7_match:
-            for block in re.split(r"\n{2,}", strip_tags(sec7_match.group(1))):
+            for block in re.split(r'\n{2,}', strip_tags(sec7_match.group(1))):
                 block = block.strip()
-                rm = re.search(r"\b(BUY|HOLD|SELL)\b", block)
-                tm = re.search(r"\b([A-Z]{2,5})\b", block)
-                pm = re.search(r"\$[\d,]+\.?\d*", block)
-                nm = re.search(r"—\s*(.+?)\s*\|", block)
+                rm = re.search(r'\b(BUY|HOLD|SELL)\b', block)
+                tm = re.search(r'\b([A-Z]{2,5})\b', block)
+                pm = re.search(r'\$[\d,]+\.?\d*', block)
+                nm = re.search(r'—\s*(.+?)\s*\|', block)
                 if rm and tm and len(block) > 40:
-                    stw.append(
-                        {
-                            "ticker": tm.group(1),
-                            "name": nm.group(1).strip() if nm else tm.group(1),
-                            "rating": rm.group(1),
-                            "price": pm.group(0) if pm else "",
-                            "horizon": (
-                                "5-YEAR"
-                                if rm.group(1) == "BUY"
-                                else "1-YEAR" if rm.group(1) == "HOLD" else "EXIT NOW"
-                            ),
-                            "reason": block[:500],
-                        }
-                    )
+                    stw.append({
+                        'ticker':  tm.group(1),
+                        'name':    nm.group(1).strip() if nm else tm.group(1),
+                        'rating':  rm.group(1),
+                        'price':   pm.group(0) if pm else '',
+                        'horizon': ('5-YEAR' if rm.group(1) == 'BUY' else
+                                    '1-YEAR' if rm.group(1) == 'HOLD' else 'EXIT NOW'),
+                        'reason':  block[:500],
+                    })
 
     return {
-        "date": datetime.datetime.now().strftime("%Y-%m-%d"),
-        "generated": datetime.datetime.now().isoformat(),
-        "mkt_data": mkt_data,
-        "pulse": pulse,
-        "spotlights": spots,
-        "core_rows": core_rows,
-        "ai_rows": ai_rows,
-        "why_paras": why_paras,
-        "winners": winners[:3],
-        "losers": losers[:2],
-        "macro": macro_lines,
-        "earnings": rows_to_dicts(earn_tbl)[:5],
-        "econ": rows_to_dicts(econ_tbl)[:3],
-        "stw": stw[:5],
+        'date':      datetime.datetime.now().strftime("%Y-%m-%d"),
+        'generated': datetime.datetime.now().isoformat(),
+        'mkt_data':  mkt_data,
+        'pulse':     pulse,
+        'spotlights': spots,
+        'core_rows': core_rows,
+        'ai_rows':   ai_rows,
+        'why_paras': why_paras,
+        'winners':   winners[:3],
+        'losers':    losers[:2],
+        'macro':     macro_lines,
+        'earnings':  rows_to_dicts(earn_tbl)[:5],
+        'econ':      rows_to_dicts(econ_tbl)[:3],
+        'stw':       stw[:5],
     }
 
 
 # ── Save ───────────────────────────────────────────────────────────────────────
-def save_report(html: str, h1="", h2="", h3=""):
-    date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+def save_report(html: str, h1='', h2='', h3=''):
+    date_str  = datetime.datetime.now().strftime("%Y-%m-%d")
     html_file = f"report_{date_str}.html"
     html_path = os.path.join(REPORTS_DIR, html_file)
 
@@ -602,14 +503,8 @@ def save_report(html: str, h1="", h2="", h3=""):
     except (FileNotFoundError, json.JSONDecodeError):
         index = []
     if not any(r["file"] == html_file for r in index):
-        index.insert(
-            0,
-            {
-                "date": date_str,
-                "file": html_file,
-                "generated_at": datetime.datetime.now().isoformat(),
-            },
-        )
+        index.insert(0, {"date": date_str, "file": html_file,
+                          "generated_at": datetime.datetime.now().isoformat()})
     index = index[:30]
     with open(index_path, "w") as f:
         json.dump(index, f, indent=2)
@@ -619,10 +514,9 @@ def save_report(html: str, h1="", h2="", h3=""):
 # ── PDF ────────────────────────────────────────────────────────────────────────
 def generate_pdf(html: str, date_str: str):
     try:
-        from weasyprint import CSS, HTML
-
+        from weasyprint import HTML, CSS
         pdf_path = os.path.join(REPORTS_DIR, f"report_{date_str}.pdf")
-        CSS_PAGE = CSS(string="@page { size: A4 landscape; margin: 1.2cm; }")
+        CSS_PAGE  = CSS(string="@page { size: A4 landscape; margin: 1.2cm; }")
         HTML(string=html).write_pdf(pdf_path, stylesheets=[CSS_PAGE])
         log.info(f"PDF saved -> {pdf_path}")
         return pdf_path
@@ -638,30 +532,22 @@ def send_email(html_body: str, pdf_path: str = None):
     if not smtp_user or not smtp_pass:
         raise EnvironmentError("GMAIL_ADDRESS and GMAIL_APP_PASSWORD must be set.")
     today_label = datetime.datetime.now().strftime("%A, %B %d, %Y")
-    recipients = CONFIG["to_emails"]
+    recipients  = CONFIG["to_emails"]
     msg = MIMEMultipart("mixed")
     msg["Subject"] = f"Daily Market Report — {today_label}"
-    msg["From"] = f"{CONFIG['from_name']} <{smtp_user}>"
-    msg["To"] = ", ".join(recipients)
+    msg["From"]    = f"{CONFIG['from_name']} <{smtp_user}>"
+    msg["To"]      = ", ".join(recipients)
     alt = MIMEMultipart("alternative")
-    alt.attach(
-        MIMEText(
-            f"Daily market report for {today_label}. View in HTML client.", "plain"
-        )
-    )
+    alt.attach(MIMEText(f"Daily market report for {today_label}. View in HTML client.", "plain"))
     alt.attach(MIMEText(html_body, "html"))
     msg.attach(alt)
     if pdf_path:
         try:
             from email.mime.application import MIMEApplication
-
             with open(pdf_path, "rb") as f:
                 att = MIMEApplication(f.read(), _subtype="pdf")
-            att.add_header(
-                "Content-Disposition",
-                "attachment",
-                filename=f"MarketReport_{datetime.datetime.now().strftime('%Y-%m-%d')}.pdf",
-            )
+            att.add_header("Content-Disposition", "attachment",
+                           filename=f"MarketReport_{datetime.datetime.now().strftime('%Y-%m-%d')}.pdf")
             msg.attach(att)
             log.info("PDF attached to email")
         except Exception as e:
@@ -683,12 +569,12 @@ def main():
         h1, h2, h3 = generate_report()
         # Extract 3B table from h3, inject it after 3A in h2, then append remainder of h3
         # Split h3: everything before SECTION 6 = 3B block; everything from SECTION 6 onwards = calendar+STW
-        split_marker = re.search(r"<h2[^>]*>.*?SECTION 6.*?</h2>", h3, re.S | re.I)
+        split_marker = re.search(r'<h2[^>]*>.*?SECTION 6.*?</h2>', h3, re.S | re.I)
         if split_marker:
-            h3_top = h3[: split_marker.start()]  # 3B table
-            h3_rest = h3[split_marker.start() :]  # Section 6 + 7
+            h3_top = h3[:split_marker.start()]   # 3B table
+            h3_rest = h3[split_marker.start():]  # Section 6 + 7
         else:
-            h3_top = ""
+            h3_top = ''
             h3_rest = h3
         html = h1 + "\n<br>\n" + h2 + "\n<br>\n" + h3_top + "\n<br>\n" + h3_rest
         date_str = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -699,7 +585,6 @@ def main():
     except Exception as e:
         log.exception(f"Failed: {e}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()
