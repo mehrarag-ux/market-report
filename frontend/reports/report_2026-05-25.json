@@ -1,0 +1,364 @@
+{
+  "date": "2026-05-25",
+  "generated": "2026-05-25T15:28:56.232583",
+  "mkt_data": [
+    {
+      "index": "S&P 500",
+      "closing_price": "7,473.47",
+      "day_change": "+0.37%",
+      "1_week": "+0.88%",
+      "1_month": "+5.14%",
+      "1_year": "+28.99%",
+      "52w_high": "7,517.12",
+      "52w_low": "5,843.66"
+    },
+    {
+      "index": "Nasdaq 100",
+      "closing_price": "29,481.64",
+      "day_change": "+0.42%",
+      "1_week": "+1.40%",
+      "1_month": "+6.95%",
+      "1_year": "+41.53%",
+      "52w_high": "29,678.89",
+      "52w_low": "21,032.56"
+    },
+    {
+      "index": "VIX",
+      "closing_price": "16.70",
+      "day_change": "-0.36%",
+      "1_week": "\u2014",
+      "1_month": "\u2014",
+      "1_year": "\u2014",
+      "52w_high": "35.30",
+      "52w_low": "13.38"
+    }
+  ],
+  "pulse": "Note:  US markets were closed on Monday, May 25, 2026 for a public holiday (Memorial Day). The data below reflects the most recent trading day, Friday, May 22, 2026.",
+  "spotlights": [
+    {
+      "ticker": "C",
+      "name": "Citigroup",
+      "price": "$125.09",
+      "day_change": "-0.10%",
+      "day_low": "$124.88",
+      "day_high": "$126.49",
+      "w52_hi": "$135.29",
+      "w52_lo": "$71.65",
+      "pe": "15.50",
+      "div": "1.92%",
+      "analyst": "Mixed (Buy/Hold)",
+      "target": "$125\u2013$170",
+      "earnings": "July 14, 2026",
+      "news": "",
+      "rating": "HOLD",
+      "verdict": "ets \n \n\n  HOLD  \u2014  Citigroup (C) has shown impressive growth with a 75% return over the last year, yet current valuations suggest mixed investor sentiment. While some analysts see strong opportunities in digital assets and buybacks, others caution about execution and regulatory risks .  C is trading within a range we consider fairly valued . Key risk: Regulatory headwinds and macro sensitivity to economic slowdown could pressure earnings despite strong recent performance."
+    },
+    {
+      "ticker": "QRVO",
+      "name": "Qorvo",
+      "price": "$106.43",
+      "day_change": "+8.89%",
+      "day_low": "$98.26",
+      "day_high": "$107.00",
+      "w52_hi": "$107.00",
+      "w52_lo": "$73.00",
+      "pe": "21.15x",
+      "div": "0%",
+      "analyst": "Hold",
+      "target": "$92\u2013$100",
+      "earnings": "July 27, 2026",
+      "news": "",
+      "rating": "HOLD",
+      "verdict": "ket \n \n\n  HOLD  \u2014  Qorvo Inc's valuation metrics have significantly improved, with the P/E ratio dropping from 96.54x in Q1 2026 to 21.15x in Q4 2026, indicating a more attractive valuation. However, revenue growth remains negative at -1.09% in Q4 2026, continuing a trend of declining sales . While the 8.89% daily surge reflects positive sentiment around the Skyworks merger, fundamental concerns around revenue decline persist. Key risk:  Qorvo has significant customer concentration with Apple, and it woul"
+    }
+  ],
+  "core_rows": [
+    {
+      "name": "SPX",
+      "price": "7,473.47",
+      "day_change": "+0.37%",
+      "1_week": "+0.38%",
+      "1_month": "+5.22%",
+      "1_year": "+27.94%",
+      "52w_low": "5,433.24",
+      "52w_high": "7,517.12"
+    },
+    {
+      "name": "NDX",
+      "price": "29,481.64",
+      "day_change": "+0.42%",
+      "1_week": "+0.52%",
+      "1_month": "+7.12%",
+      "1_year": "+32.45%",
+      "52w_low": "22,150.00",
+      "52w_high": "29,800.00"
+    },
+    {
+      "name": "C",
+      "price": "124.76",
+      "day_change": "-0.26%",
+      "1_week": "+1.12%",
+      "1_month": "-5.44%",
+      "1_year": "+74.12%",
+      "52w_low": "71.65",
+      "52w_high": "135.29"
+    },
+    {
+      "name": "QRVO",
+      "price": "106.43",
+      "day_change": "+8.89%",
+      "1_week": "+22.81%",
+      "1_month": "+30.28%",
+      "1_year": "+45.93%",
+      "52w_low": "73.00",
+      "52w_high": "107.00"
+    }
+  ],
+  "ai_rows": [
+    {
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "price": "$214.28",
+      "day_change": "-0.37%",
+      "1_week": "-2.25%",
+      "1_month": "-8.36%",
+      "1_year": "+61.5%",
+      "52w_low": "$129.16",
+      "52w_high": "$236.54"
+    },
+    {
+      "ticker": "AMD",
+      "company": "AMD",
+      "price": "$462.81",
+      "day_change": "-0.65%",
+      "1_week": "-3.10%",
+      "1_month": "+27.95%",
+      "1_year": "+330.0%",
+      "52w_low": "$107.67",
+      "52w_high": "$481.41"
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "price": "$413.04",
+      "day_change": "-0.43%",
+      "1_week": "+0.72%",
+      "1_month": "-1.79%",
+      "1_year": "+82.5%",
+      "52w_low": "$226.18",
+      "52w_high": "$442.36"
+    },
+    {
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "price": "$382.26",
+      "day_change": "-1.36%",
+      "1_week": "-1.48%",
+      "1_month": "-3.33%",
+      "1_year": "+135.5%",
+      "52w_low": "$162.00",
+      "52w_high": "$408.61"
+    },
+    {
+      "ticker": "IBM",
+      "company": "IBM",
+      "price": "$253.84",
+      "day_change": "+0.34%",
+      "1_week": "+0.54%",
+      "1_month": "-7.19%",
+      "1_year": "+20.95%",
+      "52w_low": "$212.34",
+      "52w_high": "$324.90"
+    },
+    {
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "price": "$607.32",
+      "day_change": "+0.30%",
+      "1_week": "-1.88%",
+      "1_month": "-9.82%",
+      "1_year": "-5.03%",
+      "52w_low": "$520.26",
+      "52w_high": "$796.25"
+    },
+    {
+      "ticker": "MSFT",
+      "company": "Microsoft",
+      "price": "$418.57",
+      "day_change": "-0.12%",
+      "1_week": "+1.04%",
+      "1_month": "-1.79%",
+      "1_year": "-8.00%",
+      "52w_low": "$356.28",
+      "52w_high": "$555.45"
+    },
+    {
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "price": "$745.55",
+      "day_change": "-4.19%",
+      "1_week": "-5.23%",
+      "1_month": "+66.30%",
+      "1_year": "+721.5%",
+      "52w_low": "$90.93",
+      "52w_high": "$818.67"
+    },
+    {
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "price": "$423.67",
+      "day_change": "+1.53%",
+      "1_week": "+2.70%",
+      "1_month": "+4.65%",
+      "1_year": "+55.15%",
+      "52w_low": "$273.21",
+      "52w_high": "$498.83"
+    }
+  ],
+  "why_paras": [
+    "US markets are closed today for Memorial Day , so there is no trading activity on Monday, May 25. The last market session (Friday, May 22) saw modest gains across major indices, with  the S&P 500 gaining 0.4% and extending its winning streak to eight consecutive weeks, the longest since December 2023 .",
+    "The primary driver of recent market strength is  investor sentiment improved amid signs that the US and Iran were moving closer to an agreement that could reopen the Strait of Hormuz, helping ease concerns over inflation and interest rate hikes . This geopolitical development has supported equity valuations by reducing energy price pressure. Additionally,  US computer makers surged after strong results from China's Lenovo Group, with Dell Technologies hitting a record high and HP Inc. climbing over 15% .",
+    "Looking ahead, market observers note that  with first-quarter earnings wrapping up and the calendar quickly emptying of any major catalysts, it may be time for a technically-driven market to allow fundamentals to catch up to prices, and traders believe you need a little bit of a pause and a period of consolidation, because what you don't want is to get ahead of yourself to the point where you're losing reality .  The Stock Trader's Almanac shows that June is the worst month for the major averages in midterm election years, with the S&P 500 having lost 2.1% on average during the month ."
+  ],
+  "winners": [
+    {
+      "name": "Technology",
+      "pct": "+10.6%"
+    },
+    {
+      "name": "Energy",
+      "pct": "+34.5%"
+    },
+    {
+      "name": "Industrials",
+      "pct": "+16%"
+    }
+  ],
+  "losers": [
+    {
+      "name": "Utilities",
+      "pct": "-4.9%"
+    }
+  ],
+  "macro": [
+    "Tech is the only sector to outperform the S&P 500's 2.9% return so far in May, up 10.6% for the month",
+    "Energy is now the best-performing sector of 2026 with a 34.5% return",
+    "Industrial stocks have gained more than 16% so far in 2026, with Caterpillar acting as the largest contributor"
+  ],
+  "earnings": [
+    {
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "price": "$214.28",
+      "day_change": "-0.37%",
+      "1_week": "-2.25%",
+      "1_month": "-8.36%",
+      "1_year": "+61.5%",
+      "52w_low": "$129.16",
+      "52w_high": "$236.54"
+    },
+    {
+      "ticker": "AMD",
+      "company": "AMD",
+      "price": "$462.81",
+      "day_change": "-0.65%",
+      "1_week": "-3.10%",
+      "1_month": "+27.95%",
+      "1_year": "+330.0%",
+      "52w_low": "$107.67",
+      "52w_high": "$481.41"
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "price": "$413.04",
+      "day_change": "-0.43%",
+      "1_week": "+0.72%",
+      "1_month": "-1.79%",
+      "1_year": "+82.5%",
+      "52w_low": "$226.18",
+      "52w_high": "$442.36"
+    },
+    {
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "price": "$382.26",
+      "day_change": "-1.36%",
+      "1_week": "-1.48%",
+      "1_month": "-3.33%",
+      "1_year": "+135.5%",
+      "52w_low": "$162.00",
+      "52w_high": "$408.61"
+    },
+    {
+      "ticker": "IBM",
+      "company": "IBM",
+      "price": "$253.84",
+      "day_change": "+0.34%",
+      "1_week": "+0.54%",
+      "1_month": "-7.19%",
+      "1_year": "+20.95%",
+      "52w_low": "$212.34",
+      "52w_high": "$324.90"
+    }
+  ],
+  "econ": [
+    {
+      "event": "PCE Price Index (Core)",
+      "date": "Thu, May 28",
+      "why_it_matters": "Signals inflation trends critical for Fed policy and equity valuations."
+    },
+    {
+      "event": "GDP (Q1 2026, 2nd Release)",
+      "date": "Thu, May 28",
+      "why_it_matters": "Reflects economic growth strength and corporate earnings sustainability."
+    },
+    {
+      "event": "Consumer Confidence",
+      "date": "Tue, May 26",
+      "why_it_matters": "Measures spending propensity affecting tech advertising and e-commerce revenue."
+    }
+  ],
+  "stw": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "rating": "BUY",
+      "price": "$214.28",
+      "horizon": "5-YEAR",
+      "reason": "NVDA \u2014 NVIDIA Corporation  | Price: $214.28 |  BUY  | Horizon: 5-YEAR \n Rationale: Nvidia remains the undisputed leader in AI infrastructure with record Q1 revenue of $81.6B (+85% YoY) and a $3-4 trillion AI market opportunity by 2030. Strong AI supercycle tailwinds and an $80B buyback demonstrate management confidence in long-term value creation despite current valuation skepticism."
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "rating": "BUY",
+      "price": "$745.55",
+      "horizon": "5-YEAR",
+      "reason": "MU \u2014 Micron Technology  | Price: $745.55 |  BUY  | Horizon: 5-YEAR \n Rationale: Micron's 721% YoY surge reflects exceptional AI memory demand with HBM4 ramping and new U.S. manufacturing (Manassas, Virginia); Q2 earnings beat 33%, and record free cash flow position it for $1000+ targets. Memory shortage extends beyond 2026, protecting pricing power."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "rating": "HOLD",
+      "price": "$382.26",
+      "horizon": "1-YEAR",
+      "reason": "GOOGL \u2014 Alphabet Inc.  | Price: $382.26 |  HOLD  | Horizon: 1-YEAR \n Rationale: Q1 revenue grew 22% with Google Cloud up 63%, and operating margins expanded 220bps; however, antitrust appeals and software monetization uncertainties cloud near-term returns. Fair valuation at current levels merits patient accumulation over aggressive buying."
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "rating": "HOLD",
+      "price": "$418.57",
+      "horizon": "1-YEAR",
+      "reason": "MSFT \u2014 Microsoft Corporation  | Price: $418.57 |  HOLD  | Horizon: 1-YEAR \n Rationale: Microsoft's worst-performing Mag7 stock (-13% YTD) reflects investor concern over AI capex strain and delayed ROI from $5B Anthropic deal; Q3 beat with 15% revenue growth to $82.9B shows fundamentals remain solid but valuation repricing risk remains elevated."
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "rating": "SELL",
+      "price": "$607.32",
+      "horizon": "EXIT NOW",
+      "reason": "META \u2014 Meta Platforms  | Price: $607.32 |  SELL  | Horizon: EXIT NOW \n Rationale: Meta's Q1 earnings beat with EPS $10.44 vs. $6.65 is overshadowed by capex guidance raised to $125-145B and $4.03B quarterly Reality Labs losses; valuation at 15x forward earnings appears cheap but unsustainable capex burn without clear ROI justifies exit on strength before momentum fades."
+    }
+  ]
+}
