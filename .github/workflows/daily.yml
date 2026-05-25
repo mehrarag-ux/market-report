@@ -1,0 +1,40 @@
+name: Daily Market Report
+
+on:
+  schedule:
+    - cron: '0 22 * * 1-5'   # 22:00 UTC = 06:00 SGT, Mon–Fri
+  workflow_dispatch:           # manual trigger from GitHub UI
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # needed to commit reports back to repo
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic google-generativeai python-dotenv
+
+      - name: Run market report
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}
+          GMAIL_ADDRESS:      ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python backend/market_report.py
+
+      - name: Commit reports to repo
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/reports/
+          git diff --staged --quiet || git commit -m "report: $(date -u +'%Y-%m-%d')"
+          git push
