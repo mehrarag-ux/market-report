@@ -29,7 +29,7 @@ log = logging.getLogger(__name__)
 
 CONFIG = {
     "to_emails": [
-        # "mehrarag@gmail.com",   # uncomment when ready
+        "mehrarag@gmail.com",   # uncomme /nt when ready
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
