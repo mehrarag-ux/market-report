@@ -1,159 +1,159 @@
 {
   "date": "2026-05-26",
-  "generated": "2026-05-26T03:09:19.062808",
+  "generated": "2026-05-26T22:02:35.858565",
   "mkt_data": [
     {
       "index": "S&P 500",
-      "closing_price": "7,473.47",
-      "day_change": "+0.37%",
-      "1_week": "N/A",
-      "1_month": "+5.21%",
-      "1_year": "+27.46%",
-      "52w_high": "7,517.12",
-      "52w_low": "5,767.41"
+      "closing_price": "7,519.12",
+      "day_change": "+45.65 (+0.61%)",
+      "1_week": "+0.93%",
+      "1_month": "+3.45%",
+      "1_year": "+28.73%",
+      "52w_high": "7,539.09",
+      "52w_low": "5,843.66"
     },
     {
-      "index": "Nasdaq 100",
-      "closing_price": "29,481.64",
-      "day_change": "+0.42%",
-      "1_week": "N/A",
-      "1_month": "N/A",
-      "1_year": "+41.27%",
-      "52w_high": "29,678.89",
-      "52w_low": "20,777.97"
+      "index": "Nasdaq 100 (NDX)",
+      "closing_price": "30,044.49",
+      "day_change": "+562.85 (+1.91%)",
+      "1_week": "+2.87%",
+      "1_month": "+9.14%",
+      "1_year": "+42.61%",
+      "52w_high": "30,044.49",
+      "52w_low": "21,032.56"
     },
     {
-      "index": "Russell 2000",
-      "closing_price": "2,869.23",
-      "day_change": "+0.91%",
-      "1_week": "N/A",
-      "1_month": "N/A",
+      "index": "Russell 2000 (RUT)",
+      "closing_price": "2,920.54",
+      "day_change": "+51.31 (+1.79%)",
+      "1_week": "+1.12%",
+      "1_month": "+1.37%",
       "1_year": "+41.20%",
       "52w_high": "2,888.62",
       "52w_low": "2,011.20"
     },
     {
       "index": "VIX",
-      "closing_price": "16.70",
-      "day_change": "-0.42%",
-      "1_week": "N/A",
-      "1_month": "N/A",
-      "1_year": "N/A",
+      "closing_price": "17.01",
+      "day_change": "+0.42 (+2.53%)",
+      "1_week": "\u2014",
+      "1_month": "\u2014",
+      "1_year": "\u2014",
       "52w_high": "35.30",
       "52w_low": "13.38"
     }
   ],
-  "pulse": "Note:  US markets were closed Monday, May 25 for Memorial Day. The data below reflects the close from Friday, May 22, 2026, the most recent trading session. Markets reopened Tuesday, May 26.",
+  "pulse": "The S&P 500 gained 0.61% to close at 7,519.12, while the Nasdaq Composite jumped 1.19% to 26,656.18.    The S&P 500 gained 0.7% on Tuesday and the Nasdaq climbed more than 1% to fresh record highs while the Dow Jones reversed earlier gains and was down about 80 points as investors returned from the long weekend with continued focus on developments in the Middle East.",
   "spotlights": [
     {
       "ticker": "C",
       "name": "Citigroup",
-      "price": "$125.09",
-      "day_change": "-0.13%",
-      "day_low": "$124.88",
-      "day_high": "$126.49",
+      "price": "$126.20",
+      "day_change": "+$1.11 (+0.89%)",
+      "day_low": "$126.08",
+      "day_high": "$127.42",
       "w52_hi": "$135.29",
-      "w52_lo": "$71.65",
-      "pe": "15.50",
-      "div": "1.92%",
-      "analyst": "Buy (Revised)",
-      "target": "$142.50",
-      "earnings": "Q2 2026 (TBD)",
-      "news": "Citi Wealth launches Citi Sky AI tool in partnership with Google Cloud and Google DeepMind\nQ1 2026 EPS surpassed estimates by 17% at $3.31, with revenue up 17% YoY to $22.1B\nAnalysts raised price target to $142.50 citing improved valuation and earnings growth outlook",
+      "w52_lo": "$73.49",
+      "pe": "15.71",
+      "div": "1.89%",
+      "analyst": "Buy",
+      "target": "$146.84",
+      "earnings": "Jul 14, 2026",
+      "news": "Strong Q1 2026 earnings with EPS beat of 16.35%Expanding wealth management operations in AsiaPotential Banamex IPO next year at higher valuation",
       "rating": "BUY",
-      "verdict": "BUY  Citigroup offers attractive valuation at 15.50x forward earnings with a $142.50 analyst target implying 13.8% upside from current levels. Strong Q1 2026 earnings (17% EPS beat, 17% revenue growth) demonstrate operational momentum and margin expansion, supported by AI-driven wealth management initiatives. Key risks include exposure to broader financial sector volatility and potential margin compression if interest rates decline faster than expected."
+      "verdict": "BUY    Citigroup stock has a consensus rating of \"Buy\" with an average price target of $146.84, which is 17.39% higher than the current stock price.  The valuation looks attractive at 15.71x P/E versus market averages, and the 1.89% dividend yield provides income.  Steps have been taken to streamline operations leading to improved financials, with a 32% Y/Y increase in core pre-provision earnings and $6.3B in share repurchases expected to further boost earnings.  Key risk is elevated interest ra"
     },
     {
       "ticker": "QRVO",
       "name": "Qorvo",
-      "price": "~$95.85 (May 22 close)",
-      "day_change": "N/A (Holiday-adjusted)",
-      "day_low": "$73.00 (52W)",
-      "day_high": "$107.00 (52W)",
+      "price": "$106.43",
+      "day_change": "+$8.69 (+8.89%)",
+      "day_low": "$98.26",
+      "day_high": "$106.46",
       "w52_hi": "$107.00",
       "w52_lo": "$73.00",
-      "pe": "~13.7x (on trailing earnings)",
-      "div": "None (growth-oriented)",
-      "analyst": "Hold (11-13 analysts)",
-      "target": "$92.27 to $95.37",
-      "earnings": "July 27, 2026 (Q1 FY2027)",
-      "news": "Q4 FY2026 EPS $1.69 beat expectations (+37% surprise); shareholder vote approved Skyworks merger\nHigh Performance Analog segment up 11.2% YoY; gross margins expanded 260bps driven by portfolio shift\nFY2027 guidance: mid-single digit revenue decline as Android exposure reduced, HPA growth accelerates",
+      "pe": "29.39",
+      "div": "\u2014",
+      "analyst": "Hold",
+      "target": "$90.09",
+      "earnings": "Jul 27, 2026",
+      "news": "Q4 FY2026 EPS beat expectations at $1.69 vs $1.21 consensusPending Skyworks merger; special shareholder meeting heldExpected mid-single-digit FY27 revenue decline guidance",
       "rating": "HOLD",
-      "verdict": "HOLD  Qorvo trades near analyst targets ($92-95 range) with attractive 13.7x trailing P/E supported by strong Q4 earnings surprise and HPA segment momentum. However, upcoming FY2027 revenue headwinds from Android de-prioritization and the pending Skyworks merger create near-term uncertainty; the stock has limited upside from current levels unless merger terms improve or guidance beats. Monitor execution on high-margin business pivots and competitive pressures in smartphone RF chips."
+      "verdict": "HOLD    Qorvo stock has a consensus rating of \"Hold\" with an average price target of $90.09, which forecasts an 8.31% increase in the stock price over the next year.  The valuation is extended at 29.39x P/E despite no dividend, and the stock is up 8.89% on positive earnings.  Qorvo has significant customer concentration with Apple, and it would be a damaging blow if Apple were ever to switch to another vendor or suffer a severe slowdown in iPhone sales.  Merger execution risks and declining Andr"
     }
   ],
   "core_rows": [
     {
       "name": "SPX",
-      "price": "7,473.47",
-      "day_change": "+0.37%",
-      "1_week": "+0.63%",
-      "1_month": "+1.20%",
-      "1_year": "+28.99%",
-      "52w_low": "5,767.41",
+      "price": "7,519.12",
+      "day_change": "+0.61%",
+      "1_week": "+0.62%",
+      "1_month": "+4.33%",
+      "1_year": "+26.21%",
+      "52w_low": "5,843.66",
       "52w_high": "7,517.12"
     },
     {
       "name": "NDX",
-      "price": "29,481.64",
-      "day_change": "+0.42%",
-      "1_week": "-0.76%",
-      "1_month": "+1.75%",
-      "1_year": "+41.53%",
+      "price": "29,925.78",
+      "day_change": "+1.51%",
+      "1_week": "+1.90%",
+      "1_month": "+7.90%",
+      "1_year": "+31.41%",
       "52w_low": "21,032.56",
-      "52w_high": "29,678.89"
+      "52w_high": "30,044.49"
     },
     {
       "name": "C",
-      "price": "125.09",
-      "day_change": "-0.10%",
-      "1_week": "+1.35%",
-      "1_month": "-3.58%",
-      "1_year": "+70.38%",
-      "52w_low": "71.65",
-      "52w_high": "135.29"
+      "price": "$126.20",
+      "day_change": "+0.88%",
+      "1_week": "-1.42%",
+      "1_month": "-3.90%",
+      "1_year": "+74.29%",
+      "52w_low": "$73.49",
+      "52w_high": "$135.29"
     },
     {
       "name": "QRVO",
-      "price": "106.43",
+      "price": "$106.43",
       "day_change": "+8.89%",
-      "1_week": "+8.12%",
-      "1_month": "+16.23%",
-      "1_year": "+32.41%",
-      "52w_low": "73.00",
-      "52w_high": "106.46"
+      "1_week": "+24.47%",
+      "1_month": "+39.84%",
+      "1_year": "+44.24%",
+      "52w_low": "$73.00",
+      "52w_high": "$106.46"
     }
   ],
   "ai_rows": [
     {
       "ticker": "NVDA",
-      "company": "NVIDIA",
+      "company": "Nvidia",
       "price": "$215.33",
-      "day_change": "-1.90%",
-      "1_week": "-2.80%",
-      "1_month": "+13.65%",
-      "1_year": "+66.50%",
+      "day_change": "+1.17%",
+      "1_week": "-3.30%",
+      "1_month": "+16.96%",
+      "1_year": "+88.26%",
       "52w_low": "$129.16",
       "52w_high": "$236.54"
     },
     {
       "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "price": "$467.51",
-      "day_change": "+3.99%",
-      "1_week": "+7.50%",
-      "1_month": "+62.79%",
-      "1_year": "+212.98%",
-      "52w_low": "$218.87",
-      "52w_high": "$494.22"
+      "company": "AMD",
+      "price": "$493.79",
+      "day_change": "+5.62%",
+      "1_week": "+7.64%",
+      "1_month": "+19.74%",
+      "1_year": "+322.00%",
+      "52w_low": "$116.77",
+      "52w_high": "$503.27"
     },
     {
       "ticker": "AVGO",
       "company": "Broadcom",
-      "price": "$414.14",
-      "day_change": "-0.10%",
-      "1_week": "-1.25%",
-      "1_month": "+8.80%",
+      "price": "$417.49",
+      "day_change": "+3.46%",
+      "1_week": "-1.38%",
+      "1_month": "+13.54%",
       "1_year": "+80.86%",
       "52w_low": "$226.18",
       "52w_high": "$442.36"
@@ -161,11 +161,11 @@
     {
       "ticker": "GOOGL",
       "company": "Alphabet",
-      "price": "$382.26",
-      "day_change": "-1.21%",
-      "1_week": "-4.50%",
-      "1_month": "+1.15%",
-      "1_year": "+135.75%",
+      "price": "$388.76",
+      "day_change": "+1.48%",
+      "1_week": "+1.50%",
+      "1_month": "+13.77%",
+      "1_year": "+139.54%",
       "52w_low": "$162.00",
       "52w_high": "$408.61"
     },
@@ -176,51 +176,51 @@
       "day_change": "+0.76%",
       "1_week": "+16.33%",
       "1_month": "-0.26%",
-      "1_year": "+20.32%",
+      "1_year": "+20.40%",
       "52w_low": "$212.34",
       "52w_high": "$324.90"
     },
     {
       "ticker": "META",
-      "company": "Meta Platforms",
-      "price": "$610.26",
-      "day_change": "+0.47%",
-      "1_week": "-0.61%",
-      "1_month": "-9.50%",
-      "1_year": "-3.14%",
+      "company": "Meta",
+      "price": "$610.64",
+      "day_change": "-0.17%",
+      "1_week": "+0.50%",
+      "1_month": "+15.93%",
+      "1_year": "+17.37%",
       "52w_low": "$520.26",
       "52w_high": "$796.25"
     },
     {
       "ticker": "MSFT",
       "company": "Microsoft",
-      "price": "$418.57",
+      "price": "$415.31",
       "day_change": "-0.12%",
-      "1_week": "+1.04%",
-      "1_month": "-1.79%",
-      "1_year": "-8.00%",
+      "1_week": "+2.24%",
+      "1_month": "+0.35%",
+      "1_year": "+16.54%",
       "52w_low": "$356.28",
       "52w_high": "$555.45"
     },
     {
       "ticker": "MU",
-      "company": "Micron Technology",
-      "price": "$745.55",
-      "day_change": "-3.92%",
-      "1_week": "+4.80%",
-      "1_month": "+16.15%",
-      "1_year": "+810.33%",
+      "company": "Micron",
+      "price": "$902.88",
+      "day_change": "+20.52%",
+      "1_week": "+123.46%",
+      "1_month": "+291.44%",
+      "1_year": "+892.15%",
       "52w_low": "$90.93",
-      "52w_high": "$818.67"
+      "52w_high": "$916.76"
     },
     {
       "ticker": "TSLA",
       "company": "Tesla",
-      "price": "$426.01",
-      "day_change": "+1.95%",
-      "1_week": "-1.84%",
-      "1_month": "+9.92%",
-      "1_year": "+55.96%",
+      "price": "$432.33",
+      "day_change": "+1.50%",
+      "1_week": "+4.68%",
+      "1_month": "+13.97%",
+      "1_year": "+18.67%",
       "52w_low": "$273.21",
       "52w_high": "$498.83"
     },
@@ -229,9 +229,9 @@
       "company": "Apple",
       "price": "$308.82",
       "day_change": "+1.26%",
-      "1_week": "+3.67%",
-      "1_month": "+15.31%",
-      "1_year": "+59.66%",
+      "1_week": "+3.57%",
+      "1_month": "+13.22%",
+      "1_year": "+59.46%",
       "52w_low": "$193.46",
       "52w_high": "$311.40"
     },
@@ -240,60 +240,55 @@
       "company": "Amazon",
       "price": "$266.32",
       "day_change": "-0.80%",
-      "1_week": "+1.46%",
-      "1_month": "+5.50%",
-      "1_year": "+35.87%",
+      "1_week": "+0.55%",
+      "1_month": "+8.87%",
+      "1_year": "+35.90%",
       "52w_low": "$196.00",
       "52w_high": "$278.56"
     }
   ],
   "why_paras": [
-    "Broad-Based Gains Amid Geopolitical Optimism:  \n. Despite modest moves in the major indices, \nPresident Donald Trump led a ceremony swearing in Kevin Warsh as chair of the Federal Reserve\n, a significant development that ended weeks of uncertainty around monetary policy direction. The rally was driven primarily by improved sentiment around Middle East peace negotiations.",
-    "Iran Deal Hopes Drive Energy and Risk Appetite:  \nMarket strategists characterized the mood as \"the everything rally,\" with traders focused more on the potential for peace in the Middle East than weekend risks\n. \nStocks jumped as oil prices and U.S. Treasury yields slid amid growing optimism that the conflict in the Middle East could soon be resolved\n. \nSoftBank Group shares extended their scorching rally to a second day, rising over 11% Friday, and building on momentum after Nvidia's blockbuster earnings boosted AI-linked stocks, with the company's shares having closed 20% higher Thursday\n. This relief in geopolitical tensions supported semiconductor and broader tech positions.",
-    "Sector Divergence and Strong Individual Performers:  \nTech is now the second-best performing sector of 2026 behind energy (which boasts a 34.5% return), while consumer staples, industrials, real estate, and materials are clustered together with year-to-date returns of between 9% and 11%\n. Among individual names, QRVO surged 8.89% on strong earnings execution and analyst upgrades, reflecting the market's rotation toward profitable semiconductor plays benefiting from AI infrastructure buildout."
+    "What Happened:  \nShares of Micron Technology jumped 19% and topped $1 trillion in market capitalization amid bullishness among analysts on the Street.",
+    "Why It Happened:  \nWall Street kicked off the holiday-shortened week with stocks joining bonds higher as hopes for a peace deal between the US and Iran overshadowed military strikes in the Persian Gulf. Expectations of an agreement drove the S&P 500 toward a record, with chipmakers leading the charge. Treasury yields fell as concerns over a flare-up in inflation eased, making traders pare back their wagers on near-term Federal Reserve rate hikes.\nU.S. consumer confidence moved lower in May, a survey from The Conference Board showed Tuesday, citing escalating inflationary impacts due to the Middle East conflict. The consumer confidence index dropped 0.7 to 93.1 from an upwardly revised 93.8 in April.",
+    "What It Means for Investors:  The divergence between the tech-led rally and broader market weakness\u2014particularly in the Dow\u2014signals concentration risk in artificial intelligence and semiconductor stocks. \nTwo-thirds of consumers cited cutting back on spending overall due to rising prices, as of May.\n This consumer pullback contrasts sharply with the market's optimism on geopolitical resolution, creating volatility risk if Iran peace talks stall or if earnings disappoint amid soft consumer demand."
   ],
   "winners": [],
-  "losers": [
-    {
-      "name": "+9",
-      "pct": "-11%"
-    }
-  ],
+  "losers": [],
   "macro": [
-    "Underperforming amid tech sector rotation",
-    "Kevin Warsh's swearing in as Federal Reserve chair puts him in charge of navigating a tumultuous economy while managing a president with specific expectations on interest rates",
-    "\u2014this creates both opportunity and uncertainty around whether the Fed maintains independence in future rate decisions."
+    "Healthcare (down as defensive positioning eased)",
+    "Iran ceasefire hopes are easing oil prices and Treasury yields, but geopolitical uncertainty remains high and further military escalation could reverse gains quickly.",
+    "Consumer confidence edged downward in May as the inflationary impacts of the war in the Middle East intensified,"
   ],
   "earnings": [
     {
       "ticker": "NVDA",
-      "company": "NVIDIA",
+      "company": "Nvidia",
       "price": "$215.33",
-      "day_change": "-1.90%",
-      "1_week": "-2.80%",
-      "1_month": "+13.65%",
-      "1_year": "+66.50%",
+      "day_change": "+1.17%",
+      "1_week": "-3.30%",
+      "1_month": "+16.96%",
+      "1_year": "+88.26%",
       "52w_low": "$129.16",
       "52w_high": "$236.54"
     },
     {
       "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "price": "$467.51",
-      "day_change": "+3.99%",
-      "1_week": "+7.50%",
-      "1_month": "+62.79%",
-      "1_year": "+212.98%",
-      "52w_low": "$218.87",
-      "52w_high": "$494.22"
+      "company": "AMD",
+      "price": "$493.79",
+      "day_change": "+5.62%",
+      "1_week": "+7.64%",
+      "1_month": "+19.74%",
+      "1_year": "+322.00%",
+      "52w_low": "$116.77",
+      "52w_high": "$503.27"
     },
     {
       "ticker": "AVGO",
       "company": "Broadcom",
-      "price": "$414.14",
-      "day_change": "-0.10%",
-      "1_week": "-1.25%",
-      "1_month": "+8.80%",
+      "price": "$417.49",
+      "day_change": "+3.46%",
+      "1_week": "-1.38%",
+      "1_month": "+13.54%",
       "1_year": "+80.86%",
       "52w_low": "$226.18",
       "52w_high": "$442.36"
@@ -301,11 +296,11 @@
     {
       "ticker": "GOOGL",
       "company": "Alphabet",
-      "price": "$382.26",
-      "day_change": "-1.21%",
-      "1_week": "-4.50%",
-      "1_month": "+1.15%",
-      "1_year": "+135.75%",
+      "price": "$388.76",
+      "day_change": "+1.48%",
+      "1_week": "+1.50%",
+      "1_month": "+13.77%",
+      "1_year": "+139.54%",
       "52w_low": "$162.00",
       "52w_high": "$408.61"
     },
@@ -316,68 +311,68 @@
       "day_change": "+0.76%",
       "1_week": "+16.33%",
       "1_month": "-0.26%",
-      "1_year": "+20.32%",
+      "1_year": "+20.40%",
       "52w_low": "$212.34",
       "52w_high": "$324.90"
     }
   ],
   "econ": [
     {
-      "event": "ISM Manufacturing Index",
-      "date": "May 28, 2026",
-      "why_it_matters": "Gauges manufacturing sector health and signals broader economic momentum amid persistent inflation concerns."
+      "event": "Core PCE Price Index (April)",
+      "date": "May 28, 2:30 PM ET",
+      "why_it_matters": "Critical inflation gauge excluding food/energy that influences Fed policy decisions on interest rates."
     },
     {
-      "event": "Fed Communications",
-      "date": "May 27-28, 2026",
-      "why_it_matters": "Federal Reserve guidance influences interest rate expectations critical to equity valuations and growth forecasts."
+      "event": "Q1 2026 GDP (Preliminary)",
+      "date": "May 28, 2:30 PM ET",
+      "why_it_matters": "Measures economic growth rate; strong growth supports equity valuations especially for tech."
     },
     {
-      "event": "Jobless Claims (Weekly)",
-      "date": "May 29, 2026",
-      "why_it_matters": "Labor market strength impacts consumer spending power and Fed policy decisions affecting growth and inflation dynamics."
+      "event": "Weekly Jobless Claims",
+      "date": "May 30, 8:30 AM ET",
+      "why_it_matters": "Labor market health indicator affecting Fed policy outlook and consumer spending dynamics."
     }
   ],
   "stw": [
     {
-      "ticker": "NVDA",
-      "name": "NVIDIA Corporation",
-      "rating": "BUY",
-      "price": "$215.33",
-      "horizon": "5-YEAR",
-      "reason": "NVDA \u2014 NVIDIA Corporation  | Price: $215.33 |  BUY  | Horizon: 5-YEAR \n Rationale: NVIDIA's dominant position in AI infrastructure with next-generation products targeting $91B guidance supports long-term compounding despite near-term margin pressures. Diversifying AI customer base and massive addressable market create exceptional 5-year return potential for patient capital."
-    },
-    {
       "ticker": "MU",
       "name": "Micron Technology",
       "rating": "BUY",
-      "price": "$745.55",
+      "price": "$902.88",
       "horizon": "5-YEAR",
-      "reason": "MU \u2014 Micron Technology  | Price: $745.55 |  BUY  | Horizon: 5-YEAR \n Rationale: Micron's explosive growth in AI memory demand, with advanced 1-alpha DRAM production ramping in Virginia and record free cash flow generation, positions it as a multi-year compounding opportunity. Supply constraints and $120B+ addressable market through 2026 underpin sustained upside."
+      "reason": "MU \u2014 Micron Technology  | Price: $902.88 |  BUY  | Horizon: 5-YEAR \n Rationale: UBS tripled price target to $1,625 citing AI-native infrastructure positioning with 60-70% DDR5 supply locked via long-term contracts through 2029, providing rare earnings visibility in memory sector. Strong momentum with 20%+ daily surges and $1T market cap milestone signal market validation of AI memory demand thesis."
     },
     {
-      "ticker": "MSFT",
-      "name": "Microsoft Corporation",
+      "ticker": "NVDA",
+      "name": "Nvidia",
       "rating": "HOLD",
-      "price": "$418.57",
+      "price": "$215.33",
       "horizon": "1-YEAR",
-      "reason": "MSFT \u2014 Microsoft Corporation  | Price: $418.57 |  HOLD  | Horizon: 1-YEAR \n Rationale: Azure's AI infrastructure strength and enterprise cloud momentum provide steady growth, but premium valuation at 24.9x P/E and revenue inflation concerns warrant a measured 1-year outlook. Monitor quarterly guidance and AI monetization metrics before increasing exposure in a rich market."
+      "reason": "NVDA \u2014 Nvidia  | Price: $215.33 |  HOLD  | Horizon: 1-YEAR \n Rationale: Q1 FY27 revenue beat at $81.6B (+85% YoY) with forward guidance to $91B confirms AI infrastructure demand remains robust, but stock down 3.3% this week signals valuation consolidation after parabolic 88% year-over-year run. Current pricing reflects consensus; wait for clearer next-leg catalysts before accumulating."
     },
     {
-      "ticker": "META",
-      "name": "Meta Platforms",
-      "rating": "SELL",
-      "price": "$610.26",
-      "horizon": "EXIT NOW",
-      "reason": "META \u2014 Meta Platforms  | Price: $610.26 |  SELL  | Horizon: EXIT NOW \n Rationale: Meta's 9.5% monthly decline and downtrend since August 2025 alongside weaker momentum versus S&P 500 signals deteriorating relative strength; recent 10% workforce reduction adds execution risk. Exit positions and redeploy to better-positioned AI beneficiaries with clearer monetization paths."
-    },
-    {
-      "ticker": "AMD",
-      "name": "Advanced Micro Devices",
+      "ticker": "AVGO",
+      "name": "Broadcom",
       "rating": "BUY",
-      "price": "$467.51",
+      "price": "$417.49",
       "horizon": "5-YEAR",
-      "reason": "AMD \u2014 Advanced Micro Devices  | Price: $467.51 |  BUY  | Horizon: 5-YEAR \n Rationale: AMD's 213% year-to-date rally driven by MI450 ramp and $120B server CPU opportunity growing at 35%+ annually offers multi-year architectural tailwinds. Signed hyperscaler commitments and inflecting CPU franchise provide visibility despite current valuation premium to capitalize on data center share gains."
+      "reason": "AVGO \u2014 Broadcom  | Price: $417.49 |  BUY  | Horizon: 5-YEAR \n Rationale: Custom AI chip revenue doubled YoY in Q1 with 140% surge, plus data center networking jumped 60%, positioning Broadcom as multi-win AI beneficiary across silicon and networking infrastructure. Strategic partnerships with Google, Meta, and OpenAI provide multi-year revenue visibility locked into custom contracts."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet",
+      "rating": "HOLD",
+      "price": "$388.76",
+      "horizon": "1-YEAR",
+      "reason": "GOOGL \u2014 Alphabet  | Price: $388.76 |  HOLD  | Horizon: 1-YEAR \n Rationale: Q1 sales grew 22% to $110B with Cloud revenue surging 63%, supporting AI infrastructure thesis, but EU regulatory headwinds (triple-digit million-euro fine pending) create near-term overhang despite 14% 1-year upside. Hold until antitrust clarity materializes before recommitting capital."
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "rating": "SELL",
+      "price": "$432.33",
+      "horizon": "EXIT NOW",
+      "reason": "TSLA \u2014 Tesla  | Price: $432.33 |  SELL  | Horizon: Exit Now \n Rationale: P/E ratio of 389x reflects extreme valuation disconnect from 0.41 EPS fundamentals amid slowing revenue growth (-2.9% YoY in 2025) and EV margin compression from intensified competition. FSD delays and robotaxi commercialization remain unproven; risk/reward skewed unfavorably at $1.6T market cap."
     }
   ]
 }
