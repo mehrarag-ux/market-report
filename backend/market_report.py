@@ -29,7 +29,7 @@ log = logging.getLogger(__name__)
 
 CONFIG = {
     "to_emails": [
-        "mehrarag@gmail.com",   # uncomment when ready
+        # "mehrarag@gmail.com",   # uncomment when ready
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
@@ -84,9 +84,12 @@ Start your response with exactly this banner:
 Then write these two sections with these EXACT h2 tags:
 <h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 1 — Market Summary</h2>
 
-Search for closing prices for S&P 500 and Nasdaq 100 (NDX).
-Search separately for: S&P 500 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low.
-Do the same for Nasdaq 100. Also VIX level and day change.
+Search for closing prices for S&P 500, Nasdaq 100 (NDX), and Russell 2000 (ticker RUT).
+Search separately for each index:
+  - S&P 500: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
+  - Nasdaq 100: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
+  - Russell 2000: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
+  - VIX: current level and day change
 Table columns: Index | Closing Price | Day Change | 1 Week | 1 Month | 1 Year | 52W High | 52W Low
 Use header names EXACTLY as above. Green for positive, red for negative.
 After table: 2 sentences in a <p> summarising today and why.

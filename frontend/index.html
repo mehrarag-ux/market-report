@@ -236,6 +236,7 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
     <!-- Set A -->
     <div class="ti"><span class="ts">SPX</span><span class="tv" id="vSPX">—</span><span class="tc" id="cSPX">—</span></div>
     <div class="ti"><span class="ts">NDX</span><span class="tv" id="vNDX">—</span><span class="tc" id="cNDX">—</span></div>
+    <div class="ti"><span class="ts">RUT</span><span class="tv" id="vRUT">—</span><span class="tc" id="cRUT">—</span></div>
     <div class="ti"><span class="ts">NVDA</span><span class="tv" id="vNVDA">—</span><span class="tc" id="cNVDA">—</span></div>
     <div class="ti"><span class="ts">MSFT</span><span class="tv" id="vMSFT">—</span><span class="tc" id="cMSFT">—</span></div>
     <div class="ti"><span class="ts">META</span><span class="tv" id="vMETA">—</span><span class="tc" id="cMETA">—</span></div>
@@ -253,6 +254,7 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
     <!-- Set B mirror -->
     <div class="ti"><span class="ts">SPX</span><span class="tv" id="v2SPX">—</span><span class="tc" id="c2SPX">—</span></div>
     <div class="ti"><span class="ts">NDX</span><span class="tv" id="v2NDX">—</span><span class="tc" id="c2NDX">—</span></div>
+    <div class="ti"><span class="ts">RUT</span><span class="tv" id="v2RUT">—</span><span class="tc" id="c2RUT">—</span></div>
     <div class="ti"><span class="ts">NVDA</span><span class="tv" id="v2NVDA">—</span><span class="tc" id="c2NVDA">—</span></div>
     <div class="ti"><span class="ts">MSFT</span><span class="tv" id="v2MSFT">—</span><span class="tc" id="c2MSFT">—</span></div>
     <div class="ti"><span class="ts">META</span><span class="tv" id="v2META">—</span><span class="tc" id="c2META">—</span></div>
@@ -306,7 +308,7 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
 // ── CONFIG ───────────────────────────────────────────────────────────────────
 const FINNHUB_KEY = 'd80dkv9r01qq9ln3g0ugd80dkv9r01qq9ln3g0v0';
 const TICK_SYMS = ['NVDA','MSFT','META','GOOGL','TSLA','AMD','AVGO','MU','C','QRVO','AAPL','AMZN'];
-const TICK_SPECIAL = { VIX:'CBOE:VIX', SPX:'SPY', NDX:'QQQ' };
+const TICK_SPECIAL = { VIX:'CBOE:VIX', SPX:'SPY', NDX:'QQQ', RUT:'IWM' };
 
 // ── CLOCK & STATUS ───────────────────────────────────────────────────────────
 function tick() {
