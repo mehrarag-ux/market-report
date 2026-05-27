@@ -493,6 +493,7 @@ def extract_structured(h1: str, h2: str, h3: str) -> dict:
         'generated': datetime.datetime.now().isoformat(),
         'mkt_data':  mkt_data,
         'pulse':     pulse,
+        'spotlights_html': spotlights_html,
         'spotlights': spots,
         'core_rows': core_rows,
         'ai_rows':   ai_rows,

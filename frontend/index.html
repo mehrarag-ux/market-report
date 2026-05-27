@@ -578,7 +578,7 @@ function renderDashboard(raw, meta) {
     earnings:   raw.earnings    ?? [],
     econ:       raw.econ        ?? [],
     stw:              raw.stw              ?? [],
-    early_warning:    raw.early_warning    ?? null,
+    spotlights_html: raw.spotlights_html ?? null,
     opportunity_radar: raw.opportunity_radar ?? null,
   };
   const label = meta?.date
@@ -587,7 +587,7 @@ function renderDashboard(raw, meta) {
   document.getElementById('mainArea').innerHTML = `
     <div id="s1"  class="section card"><div class="ch"><div class="ct"><div class="ci">📊</div>Market Summary</div><div style="display:flex;gap:6px"><span class="badge bg2">${label}</span><span class="badge bgg">LIVE</span></div></div><div class="cb">${renderMktData(d.mktData, d.pulse)}</div></div>
     <div id="s1b" class="section card"><div class="ch"><div class="ct"><div class="ci">⚠️</div>Early Warning Dashboard</div><span class="badge bga">SECTION 1B</span></div><div class="cb">${renderRawHtml(d.early_warning)}</div></div>
-    <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔍</div>Stock Spotlights</div><span class="badge bg2">C · QRVO</span></div><div class="cb">${renderSpotlights(d.spotlights)}</div></div>
+    <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔍</div>Stock Spotlights</div><span class="badge bg2">C · QRVO</span></div><div class="cb">${d.spotlights_html ? renderRawHtml(d.spotlights_html) : renderSpotlights(d.spotlights)}</div></div>
     <div id="s3b" class="section card"><div class="ch"><div class="ct"><div class="ci">🤖</div>AI &amp; Mag 7 Watchlist</div><span class="badge bgb">11 STOCKS</span></div><div class="cb">${renderWatchTable(d.aiRows,'AI & Mag 7')}</div></div>
     <div id="s4"  class="section card"><div class="ch"><div class="ct"><div class="ci">💬</div>Why Markets Moved Today</div></div><div class="cb"><div class="prose">${d.whyParas.map(p=>`<p>${p}</p>`).join('')||'<p>See full email report for commentary.</p>'}</div></div></div>
     <div id="s5"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔄</div>Sector Rotation &amp; Macro</div></div><div class="cb">${renderSectors(d.winners,d.losers,d.macro)}</div></div>
