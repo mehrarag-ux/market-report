@@ -29,7 +29,7 @@ log = logging.getLogger(__name__)
 
 CONFIG = {
     "to_emails": [
-        "mehrarag@gmail.com",   # uncomme /nt when ready
+        "mehrarag@gmail.com",   
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
@@ -74,37 +74,58 @@ def prompt_part1():
     return f"""You are a financial analyst. Today is {today_str()}. US markets have just closed.
 
 OUTPUT RULES — STRICTLY FOLLOW:
-- Output ONLY HTML. Zero plain text outside tags. No "Let me search", no "I found", no thinking steps.
+- Output ONLY HTML. Zero plain text outside tags. No "Let me search", no "I found", no thinking.
 - Start directly with the banner div below. Nothing before it.
-- If markets were closed today (holiday/weekend), note it inside an HTML paragraph and use the most recent trading day's data.
+- CRITICAL: Always refer to Nasdaq as "Nasdaq 100 (NDX)" — NEVER "Nasdaq Composite". They are different indexes.
+- If markets were closed today, note it in an HTML paragraph and use the most recent trading day's data.
 
-Start your response with exactly this banner:
+Start with exactly this banner:
 <div style="background:#0a3d62;color:#fff;padding:16px 20px;border-radius:6px;margin-bottom:24px"><h1 style="margin:0;font-size:20px">Daily Market Report</h1><p style="margin:4px 0 0;font-size:13px;opacity:0.85">{today_str()} — After Market Close | Singapore</p></div>
 
-Then write these two sections with these EXACT h2 tags:
+Then write these sections with EXACT h2 tags shown:
+
 <h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 1 — Market Summary</h2>
 
-Search for closing prices for S&P 500, Nasdaq 100 (NDX), and Russell 2000 (ticker RUT).
-Search separately for each index:
-  - S&P 500: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
-  - Nasdaq 100: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
-  - Russell 2000: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low
-  - VIX: current level and day change
-Table columns: Index | Closing Price | Day Change | 1 Week | 1 Month | 1 Year | 52W High | 52W Low
-Use header names EXACTLY as above. Green for positive, red for negative.
-After table: 2 sentences in a <p> summarising today and why.
+Search for closing prices for S&P 500, Nasdaq 100 (NDX), and Russell 2000 (RUT).
+Search separately for each: 1-week %, 1-month % {month_year()}, 1-year %, 52W high/low. Also VIX level and day change.
+Table columns EXACTLY: Index | Closing Price | Day Change | 1 Week | 1 Month | 1 Year | 52W High | 52W Low
+Green for positive, red for negative.
+After table: 2 sentences in a <p> summarising today. MUST reference "Nasdaq 100 (NDX)" not "Nasdaq Composite".
+
+<h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 1B — Early Warning Dashboard</h2>
+
+Using data from your searches above, score each signal as GREEN, AMBER, or RED:
+1. VIX level: below 20 = GREEN, 20-28 = AMBER, above 28 = RED
+2. Market breadth: broad rally (most stocks rising) = GREEN, narrow (only few big names) = AMBER
+3. S&P 500 vs trend: normal range = GREEN, more than 10% above recent average = AMBER
+4. Consumer confidence trend: stable/rising = GREEN, falling 2+ months = AMBER, sharply falling = RED
+5. Bond yield (10Y): below 4.5% = GREEN, 4.5-5% = AMBER, above 5% = RED
+
+HTML table: Signal | Status (GREEN/AMBER/RED with color) | What It Means for You
+Below table: one line showing overall score — HEALTHY, CAUTION, or WARNING.
+If 3 or more signals are AMBER or RED, add: <div style="background:#c0392b;color:#fff;padding:8px 12px;border-radius:4px;margin-top:8px;font-weight:bold">⚠ CORRECTION RISK — Consider reducing exposure or adding hedges</div>
+Keep entire section under 8 lines. Be direct and specific.
 
 <h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 2 — Stock Spotlights</h2>
 
-For EACH stock below, search for all these data points then present as a 2-column table (Metric | Value):
-Closing Price, Day Change, Day Low, Day High, 52-Week High, 52-Week Low, P/E Ratio, Dividend Yield, Analyst Consensus, Price Target, Next Earnings Date, Latest News Headlines (2-3 bullet points in a <ul>)
-After each table write a <p> with BUY / HOLD / SELL in bold then 3 sentences on valuation, momentum, key risk.
+For EACH stock, search for: Closing Price, Day Change, Day Low, Day High, 52-Week High, 52-Week Low, P/E Ratio, Dividend Yield, Analyst Consensus, Price Target, Next Earnings Date, Latest News Headlines (2-3 in a <ul>).
+Present as 2-column table (Metric | Value).
+
+After the table write:
+1. <p><strong>BUY / HOLD / SELL</strong> — 3 sentences on valuation, momentum, key risk.</p>
+2. A RISK SUMMARY box:
+<div style="background:#fff9e6;border-left:4px solid #f39c12;padding:10px 14px;margin-top:10px;font-size:13px">
+<strong>Risk Summary</strong><br>
+• Valuation risk: is current price above or below analyst target, by what %?<br>
+• Key business risk: biggest specific risk with a number (e.g. "Apple = 30% of revenue")<br>
+• Downside scenario: if main risk materialises, estimated % downside from current price
+</div>
 
 <h3 style="color:#0a3d62">Stock 1: Citigroup (C)</h3>
-[search and write table + recommendation]
+[search and write table + recommendation + risk summary]
 
 <h3 style="color:#0a3d62">Stock 2: Qorvo (QRVO)</h3>
-[search and write table + recommendation]
+[search and write table + recommendation + risk summary]
 
 Use: <table style="width:100%;border-collapse:collapse;font-size:13px;margin:12px 0">
 <th style="background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px">
@@ -160,6 +181,14 @@ Green positive, red negative.
 
 Next 5 earnings (table: Company | Ticker | Date).
 Top 3 economic releases this week (table: Event | Date | Why It Matters — one sentence).
+
+<h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 6B — Market Opportunity Radar</h2>
+
+Based on today's data, identify top 3 themes or sectors offering value for medium-term (1-3 year) and long-term (3-5 year) investors.
+For each theme: theme name, why it offers value NOW with one specific data point, one example stock that benefits.
+Then one paragraph called "Portfolio Direction" — is this a good time to buy, hold, or reduce risk, and why?
+Base on: VIX level, market valuation, earnings trends, macro data from the report.
+Keep entire section under 10 lines. Be direct and specific, not generic.
 
 <h2 style="color:#0a3d62;font-size:16px;border-bottom:2px solid #0a3d62;padding-bottom:4px;margin-top:28px">SECTION 7 — Stocks to Watch</h2>
 
@@ -473,6 +502,8 @@ def extract_structured(h1: str, h2: str, h3: str) -> dict:
         'macro':     macro_lines,
         'earnings':  rows_to_dicts(earn_tbl)[:5],
         'econ':      rows_to_dicts(econ_tbl)[:3],
+        'early_warning':     early_warning,
+        'opportunity_radar': opportunity_radar,
         'stw':       stw[:5],
     }
 

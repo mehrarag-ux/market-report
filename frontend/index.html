@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MarketLens — Daily Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=JetBrains+Mono:wght@300;400;500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink:#0c0f1a; --ink3:#1c2333;
@@ -284,11 +284,13 @@ html, body { height:100%; overflow:hidden; font-family:'Sora',sans-serif; backgr
     <div class="ng">
       <span class="ngl">Jump to Section</span>
       <div class="ni" onclick="scrollTo2('s1');setNav(this)"><span class="n">01</span>Market Summary</div>
+      <div class="ni" onclick="scrollTo2('s1b');setNav(this)"><span class="n">1B</span>Early Warning</div>
       <div class="ni" onclick="scrollTo2('s2');setNav(this)"><span class="n">02</span>Spotlights</div>
       <div class="ni" onclick="scrollTo2('s3b');setNav(this)"><span class="n">03</span>AI &amp; Mag 7</div>
       <div class="ni" onclick="scrollTo2('s4');setNav(this)"><span class="n">04</span>Why Moved</div>
       <div class="ni" onclick="scrollTo2('s5');setNav(this)"><span class="n">05</span>Sectors</div>
       <div class="ni" onclick="scrollTo2('s6');setNav(this)"><span class="n">06</span>Calendar</div>
+      <div class="ni" onclick="scrollTo2('s6b');setNav(this)"><span class="n">6B</span>Opportunity Radar</div>
       <div class="ni" onclick="scrollTo2('s7');setNav(this)"><span class="n">07</span>Stocks to Watch</div>
     </div>
     <div class="ndiv"></div>
@@ -370,6 +372,12 @@ function scrollTo2(id) {
 }
 
 // ── RENDER HELPERS ────────────────────────────────────────────────────────────
+// Render raw HTML sections (1B, 6B) — wrap in a light container
+function renderRawHtml(html) {
+  if (!html) return '<p style="color:var(--silver2);font-size:12px">Section not available in this report.</p>';
+  return `<div style="font-size:13px;color:var(--silver);line-height:1.7">${html}</div>`;
+}
+
 function pct(v) {
   if (!v || v === '—' || v.toLowerCase() === 'unavailable') return '<span class="nt">—</span>';
   const n = parseFloat(v.replace(/[^0-9.\-+]/g,''));
@@ -569,18 +577,22 @@ function renderDashboard(raw, meta) {
     macro:      raw.macro       ?? raw.macroParas ?? [],
     earnings:   raw.earnings    ?? [],
     econ:       raw.econ        ?? [],
-    stw:        raw.stw         ?? [],
+    stw:              raw.stw              ?? [],
+    early_warning:    raw.early_warning    ?? null,
+    opportunity_radar: raw.opportunity_radar ?? null,
   };
   const label = meta?.date
     ? new Date(meta.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase()
     : 'LATEST';
   document.getElementById('mainArea').innerHTML = `
     <div id="s1"  class="section card"><div class="ch"><div class="ct"><div class="ci">📊</div>Market Summary</div><div style="display:flex;gap:6px"><span class="badge bg2">${label}</span><span class="badge bgg">LIVE</span></div></div><div class="cb">${renderMktData(d.mktData, d.pulse)}</div></div>
+    <div id="s1b" class="section card"><div class="ch"><div class="ct"><div class="ci">⚠️</div>Early Warning Dashboard</div><span class="badge bga">SECTION 1B</span></div><div class="cb">${renderRawHtml(d.early_warning)}</div></div>
     <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔍</div>Stock Spotlights</div><span class="badge bg2">C · QRVO</span></div><div class="cb">${renderSpotlights(d.spotlights)}</div></div>
     <div id="s3b" class="section card"><div class="ch"><div class="ct"><div class="ci">🤖</div>AI &amp; Mag 7 Watchlist</div><span class="badge bgb">11 STOCKS</span></div><div class="cb">${renderWatchTable(d.aiRows,'AI & Mag 7')}</div></div>
     <div id="s4"  class="section card"><div class="ch"><div class="ct"><div class="ci">💬</div>Why Markets Moved Today</div></div><div class="cb"><div class="prose">${d.whyParas.map(p=>`<p>${p}</p>`).join('')||'<p>See full email report for commentary.</p>'}</div></div></div>
     <div id="s5"  class="section card"><div class="ch"><div class="ct"><div class="ci">🔄</div>Sector Rotation &amp; Macro</div></div><div class="cb">${renderSectors(d.winners,d.losers,d.macro)}</div></div>
     <div id="s6"  class="section card"><div class="ch"><div class="ct"><div class="ci">📅</div>Earnings &amp; Economic Calendar</div></div><div class="cb">${renderCalendar(d.earnings,d.econ)}</div></div>
+    <div id="s6b" class="section card"><div class="ch"><div class="ct"><div class="ci">🎯</div>Market Opportunity Radar</div><span class="badge bgb">SECTION 6B</span></div><div class="cb">${renderRawHtml(d.opportunity_radar)}</div></div>
     <div id="s7"  class="section card"><div class="ch"><div class="ct"><div class="ci">👀</div>Stocks to Watch</div><span class="badge bg2">5 PICKS · MAG7</span></div><div class="cb">${renderSTW(d.stw)}</div></div>`;
 }
 
