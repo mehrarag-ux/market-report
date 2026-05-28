@@ -29,7 +29,7 @@ log = logging.getLogger(__name__)
 
 CONFIG = {
     "to_emails": [
-        "mehrarag@gmail.com",   
+        # "mehrarag@gmail.com",   # uncomment when ready
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
@@ -215,7 +215,10 @@ Use same table/color styles as previous parts."""
 
 # ── Post-process: strip leaked reasoning text ─────────────────────────────────
 def clean_html(raw: str) -> str:
-    """Remove any plain-text reasoning lines that leaked outside HTML tags."""
+    """Strip leaked reasoning lines and markdown code fences."""
+    # Remove markdown code fences
+    raw = re.sub(r'```html?\s*', '', raw, flags=re.I)
+    raw = re.sub(r'```\s*', '', raw)
     lines = raw.splitlines()
     cleaned = []
     for line in lines:
@@ -223,15 +226,12 @@ def clean_html(raw: str) -> str:
         if not stripped:
             cleaned.append(line)
             continue
-        # Keep lines that are HTML or empty
         if stripped.startswith('<') or stripped.startswith('&'):
             cleaned.append(line)
-        # Keep lines that are continuation of HTML attributes/content
         elif stripped.endswith('>') or stripped.endswith('/>'):
             cleaned.append(line)
-        # Drop plain-text reasoning lines
-        elif re.match(r"^(I |Let me|Now |Based |The |Here |This |Note|Please|Since|However|Given|According)", stripped):
-            log.debug(f"Stripped reasoning line: {stripped[:80]}")
+        elif re.match(r"^(I |Let me|Now |Based |The |Here |This |Note|Please|Since|However|Given|According|I'll|I've|I'm|I can|I need|I will|US markets|The market|The data|The last)", stripped):
+            log.debug(f"Stripped reasoning: {stripped[:80]}")
         else:
             cleaned.append(line)
     return "\n".join(cleaned)
@@ -283,7 +283,9 @@ def generate_section(label: str, prompt: str) -> str:
 def generate_report():
     h1 = generate_section("Part 1 (Summary+Spotlights)", prompt_part1())
     log.info(f"Part 1: {len(h1):,} chars")
-    h2 = generate_section("Part 2 (Core+Commentary+Sectors)", prompt_part2())
+    h2 = generate_section("Part 2 (Commentary+Sectors)", prompt_part2())
+    # Strip Section 3A if AI still generates it despite prompt instructions
+    h2 = re.sub(r'<h2[^>]*>.*?(?:3A|Core Watchlist).*?</h2>.*?(?=<h2[^>]*>|$)', '', h2, flags=re.S | re.I)
     log.info(f"Part 2: {len(h2):,} chars")
     h3 = generate_section("Part 3 (3B+Calendar+STW)", prompt_part3())
     log.info(f"Part 3: {len(h3):,} chars")
