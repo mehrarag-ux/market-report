@@ -35,10 +35,11 @@ CONFIG = {
     ],
     "from_name": "Daily Market Report",
     "watchlist_core": [
-        {"symbol": "SPX",  "name": "S&P 500 Index", "type": "index"},
-        {"symbol": "NDX",  "name": "Nasdaq 100",    "type": "index"},
-        {"symbol": "C",    "name": "Citigroup",     "type": "stock"},
-        {"symbol": "QRVO", "name": "Qorvo",         "type": "stock"},
+        {"symbol": "SPX",  "name": "S&P 500 Index",                  "type": "index"},
+        {"symbol": "ACWI", "name": "MSCI All Country World Index",    "type": "etf"},
+        {"symbol": "NDX",  "name": "Nasdaq 100",                     "type": "index"},
+        {"symbol": "C",    "name": "Citigroup",                      "type": "stock"},
+        {"symbol": "QRVO", "name": "Qorvo",                          "type": "stock"},
     ],
     "watchlist_ai": [
         {"symbol": "NVDA",  "name": "Nvidia",    "type": "stock"},
@@ -113,13 +114,19 @@ Present as 2-column table (Metric | Value).
 
 After the table write:
 1. <p><strong>BUY / HOLD / SELL</strong> — 3 sentences on valuation, momentum, key risk.</p>
-2. A RISK SUMMARY box:
-<div style="background:#fff9e6;border-left:4px solid #f39c12;padding:10px 14px;margin-top:10px;font-size:13px">
-<strong>Risk Summary</strong><br>
-• Valuation risk: is current price above or below analyst target, by what %?<br>
-• Key business risk: biggest specific risk with a number (e.g. "Apple = 30% of revenue")<br>
-• Downside scenario: if main risk materialises, estimated % downside from current price
+2. A QUANTITATIVE RISK METRICS box — use this EXACT HTML structure:
+<div style="background:#f8f9fa;border-left:4px solid #0a3d62;padding:12px 14px;margin-top:12px;font-size:13px">
+<strong>Quantitative Risk Metrics</strong>
+<table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:8px">
+<tr><th style="background:#0a3d62;color:#fff;padding:6px 8px;text-align:left">Risk Metric</th><th style="background:#0a3d62;color:#fff;padding:6px 8px;text-align:left">Value</th><th style="background:#0a3d62;color:#fff;padding:6px 8px;text-align:left">Plain English Meaning</th></tr>
+[Row 1: Beta 1 Year vs S&P 500 — search for it directly, or calculate as (stock 52W % move / S&P 500 52W % move). Interpret: below 1.0 = less volatile, above 1.0 = more volatile, above 1.5 = high risk. Example: "Beta 1.42 — For every 10% the S&P 500 falls, this stock falls ~14.2%"]
+[Row 2: Daily VaR 95% — find average daily % move over past month, multiply by 1.65. Show as % and $USD loss on $10,000 position. Example: "2.8% / $280 per $10K — On a typical bad day you could lose up to $280 on a $10,000 position"]
+[Row 3: Daily VaR 99% — multiply average daily % move by 2.33. Show as % and $USD loss on $10,000 position. Example: "3.9% / $390 per $10K — In extreme conditions your $10,000 position could lose up to $390 in one day"]
+[Row 4: Key Business Risk — single biggest specific risk with one number. Example: "~30% revenue from Apple — Loss of Apple contract would severely impact earnings"]
+</table>
 </div>
+
+CRITICAL: Use the SAME closing price for this stock in both the spotlight table AND everywhere else in the report. Search once, use that price consistently.
 
 <h3 style="color:#0a3d62">Stock 1: Citigroup (C)</h3>
 [search and write table + recommendation + risk summary]
