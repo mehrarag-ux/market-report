@@ -13,7 +13,7 @@ REPORTS_DIR = os.path.join(BASE_DIR, "..", "frontend", "reports")
 
 CONFIG = {
     "to_emails": [
-        # "mehrarag@gmail.com",
+        "mehrarag@gmail.com",
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
