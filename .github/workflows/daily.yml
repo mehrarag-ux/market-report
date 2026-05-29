@@ -19,18 +19,23 @@ jobs:
           python-version: '3.11'
 
       - name: Install system dependencies for WeasyPrint
-        run: sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libffi-dev shared-mime-info
 
       - name: Install dependencies
-        run: pip install anthropic google-generativeai python-dotenv weasyprint
+        run: pip install -r backend/requirements.txt
 
       - name: Run market report
+        working-directory: backend
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
           GMAIL_ADDRESS:      ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python backend/market_report.py
+          FRED_API_KEY:       ${{ secrets.FRED_API_KEY }} 
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+          TWELVEDATA_API_KEY: ${{ secrets.TWELVEDATA_API_KEY }}
+        run: python main.py
 
       - name: Commit reports to repo
         run: |
