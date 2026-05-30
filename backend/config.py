@@ -7,8 +7,8 @@ VIX and 10Y yield are fetched from FRED — kept as ^VIX / ^TNX internally.
 
 import os
 
-BASE_DIR    = os.path.dirname(__file__)
-LOG_DIR     = os.path.join(BASE_DIR, "logs")
+BASE_DIR = os.path.dirname(__file__)
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 REPORTS_DIR = os.path.join(BASE_DIR, "..", "frontend", "reports")
 
 CONFIG = {
@@ -17,9 +17,9 @@ CONFIG = {
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
     ],
-    "from_name":    "Daily Market Report",
+    "from_name": "Daily Market Report",
     "claude_model": "claude-haiku-4-5-20251001",
-    "max_tokens":   8192,
+    "max_tokens": 8192,
     "var_position": 10000,  # $ basis for VaR dollar figures
 }
 
@@ -28,54 +28,64 @@ CONFIG = {
 # Prices will reflect ETF NAV (~SPY ≈590, QQQ ≈490, IWM ≈200), not index levels.
 # VIX + TNX are sourced from FRED (see data.py FRED_MAP).
 INDICES = {
-    "SPY":  "S&P 500 (SPY)",
-    "QQQ":  "Nasdaq 100 (QQQ)",
-    "IWM":  "Russell 2000 (IWM)",
+    "SPY": "S&P 500 (SPY)",
+    "QQQ": "Nasdaq 100 (QQQ)",
+    "IWM": "Russell 2000 (IWM)",
     "^VIX": "VIX",
 }
 TNX = "^TNX"  # 10-year Treasury yield — fetched from FRED
 
 # Spotlight deep-dive stocks (full table + verdict + risk box)
 SPOTLIGHTS = [
-    {"symbol": "C",    "name": "Citigroup"},
+    {"symbol": "C", "name": "Citigroup"},
     {"symbol": "QRVO", "name": "Qorvo"},
-    {"symbol": "MU",   "name": "Micron Technology"},
+    {"symbol": "MU", "name": "Micron Technology"},
 ]
 
 # AI / Mag7 watchlist
 WATCHLIST_AI = [
-    {"symbol": "NVDA",  "name": "Nvidia"},
-    {"symbol": "AMD",   "name": "AMD"},
-    {"symbol": "AVGO",  "name": "Broadcom"},
+    {"symbol": "NVDA", "name": "Nvidia"},
+    {"symbol": "AMD", "name": "AMD"},
+    {"symbol": "AVGO", "name": "Broadcom"},
     {"symbol": "GOOGL", "name": "Alphabet"},
-    {"symbol": "IBM",   "name": "IBM"},
-    {"symbol": "META",  "name": "Meta"},
-    {"symbol": "MSFT",  "name": "Microsoft"},
-    {"symbol": "TSLA",  "name": "Tesla"},
-    {"symbol": "AAPL",  "name": "Apple"},
-    {"symbol": "AMZN",  "name": "Amazon"},
+    {"symbol": "IBM", "name": "IBM"},
+    {"symbol": "META", "name": "Meta"},
+    {"symbol": "MSFT", "name": "Microsoft"},
+    {"symbol": "TSLA", "name": "Tesla"},
+    {"symbol": "AAPL", "name": "Apple"},
+    {"symbol": "AMZN", "name": "Amazon"},
 ]
 
 # Stocks-to-watch candidate pool (LLM picks 5)
 STW_POOL = [
-    "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA",
-    "META", "TSLA", "AMD",   "AVGO", "IBM",
-    "QRVO", "C",    "MU",
+    "AAPL",
+    "MSFT",
+    "GOOGL",
+    "AMZN",
+    "NVDA",
+    "META",
+    "TSLA",
+    "AMD",
+    "AVGO",
+    "IBM",
+    "QRVO",
+    "C",
+    "MU",
 ]
 
 # SPDR sector ETFs
 SECTOR_ETFS = {
-    "XLK":  "Technology",
-    "XLF":  "Financials",
-    "XLE":  "Energy",
-    "XLV":  "Health Care",
-    "XLY":  "Consumer Disc",
-    "XLP":  "Consumer Staples",
-    "XLI":  "Industrials",
-    "XLB":  "Materials",
-    "XLU":  "Utilities",
+    "XLK": "Technology",
+    "XLF": "Financials",
+    "XLE": "Energy",
+    "XLV": "Health Care",
+    "XLY": "Consumer Disc",
+    "XLP": "Consumer Staples",
+    "XLI": "Industrials",
+    "XLB": "Materials",
+    "XLU": "Utilities",
     "XLRE": "Real Estate",
-    "XLC":  "Communications",
+    "XLC": "Communications",
 }
 
 # Consumer confidence — set manually each week.
@@ -86,9 +96,9 @@ CONSUMER_CONFIDENCE = None
 def all_tickers():
     """Every symbol we need price history for, deduped.
     ^VIX and ^TNX are excluded here — fetched from FRED in data.py."""
-    syms  = [s for s in INDICES if not s.startswith("^")]  # SPY, QQQ, IWM only
-    syms += [TNX]                                           # ^TNX for FRED
-    syms += ["^VIX"]                                        # ^VIX for FRED
+    syms = [s for s in INDICES if not s.startswith("^")]  # SPY, QQQ, IWM only
+    syms += [TNX]  # ^TNX for FRED
+    syms += ["^VIX"]  # ^VIX for FRED
     syms += [s["symbol"] for s in SPOTLIGHTS]
     syms += [s["symbol"] for s in WATCHLIST_AI]
     syms += list(SECTOR_ETFS)
