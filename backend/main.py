@@ -389,7 +389,7 @@ def send_email(html, pdf=None):
 def main():
     log.info("=" * 60)
     log.info("Daily Market Report — starting")
-    if datetime.date.today().weekday() >= 5 and "--force" not in sys.argv:
+    if datetime.date.today().weekday() == 6 and "--force" not in sys.argv:
         log.info("Weekend — skipping (use --force)")
         return
 
