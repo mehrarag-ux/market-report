@@ -1,6 +1,6 @@
 # 📈 MarketLens — Daily Market Intelligence
 
-Daily automated stock market report — verified numbers from real APIs, AI-written narrative, emailed at 06:00 SGT and viewable on a live dashboard.
+Daily automated stock market report — verified numbers from real APIs, AI-written narrative, emailed at 07:00 SGT and viewable on a live dashboard.
 
 ---
 
