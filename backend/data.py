@@ -24,16 +24,6 @@ MKT        = "SPY"   # beta market proxy — must exist in closes
 CACHE_FILE = os.path.join(BASE_DIR, "..", "frontend", "reports", "closes_cache.pkl")
 TD_BASE    = "https://api.twelvedata.com"
 
-# Twelve Data uses plain tickers for equities/ETFs.
-# Indices need a specific symbol format — map Yahoo-style to TD-style.
-TD_MAP = {
-    "SPY":  "SPY",
-    "QQQ":  "QQQ",
-    "IWM":  "IWM",
-    # ^VIX and ^TNX fetched from FRED
-}
-
-# These come from FRED, not Twelve Data
 FRED_MAP = {
     "^VIX": "VIXCLS",
     "^TNX": "DGS10",
@@ -80,22 +70,20 @@ def get_market_context() -> dict:
 # ---- Twelve Data batch fetch ----------------------------------------------
 def _td_fetch_batch(symbols: list, start: datetime.date, end: datetime.date, td_key: str) -> dict:
     """
-    Fetch daily closes from Twelve Data in chunks of 8 to stay within free tier.
-    Free tier: 8 credits/minute. Chunks of 8 with 65s pause between = safe.
+    Fetch daily closes in chunks of 8 — free tier limit is 8 credits/minute.
     """
-    CHUNK   = 8
-    PAUSE   = 61   # seconds between chunks — TD free tier resets every 60s
-    frames  = {}
-    chunks  = [symbols[i:i+CHUNK] for i in range(0, len(symbols), CHUNK)]
+    CHUNK  = 8
+    PAUSE  = 61
+    frames = {}
+    chunks = [symbols[i:i+CHUNK] for i in range(0, len(symbols), CHUNK)]
 
     for idx, chunk in enumerate(chunks):
         if idx > 0:
             log.info(f"TD rate-limit pause {PAUSE}s before chunk {idx+1}/{len(chunks)}…")
             time.sleep(PAUSE)
 
-        sym_str = ",".join(chunk)
-        params  = {
-            "symbol":     sym_str,
+        params = {
+            "symbol":     ",".join(chunk),
             "interval":   "1day",
             "start_date": start.isoformat(),
             "end_date":   end.isoformat(),
@@ -111,7 +99,6 @@ def _td_fetch_batch(symbols: list, start: datetime.date, end: datetime.date, td_
             log.warning(f"TD chunk {idx+1} failed: {e}")
             continue
 
-        # Single symbol → response is the series directly; multiple → dict keyed by symbol
         if len(chunk) == 1:
             j = {chunk[0]: j}
 
@@ -133,7 +120,6 @@ def _td_fetch_batch(symbols: list, start: datetime.date, end: datetime.date, td_
                     .rename(sym)
                 )
                 frames[sym] = s
-                log.debug(f"TD OK: {sym} ({len(s)} rows)")
             except Exception as e:
                 log.warning(f"TD parse failed {sym}: {e}")
 
@@ -143,7 +129,6 @@ def _td_fetch_batch(symbols: list, start: datetime.date, end: datetime.date, td_
 # ---- FRED fetch -----------------------------------------------------------
 def _fred_fetch(yahoo_sym: str, fred_id: str,
                 start: datetime.date, end: datetime.date) -> pd.Series | None:
-    """Fetch VIX or 10Y yield from FRED."""
     api_key = os.getenv("FRED_API_KEY", "")
     url = (
         f"https://api.stlouisfed.org/fred/series/observations"
@@ -155,7 +140,7 @@ def _fred_fetch(yahoo_sym: str, fred_id: str,
     )
     for attempt in range(3):
         try:
-            r = _SESSION.get(url, timeout=30)  # 30s timeout
+            r = _SESSION.get(url, timeout=30)
             r.raise_for_status()
             obs = r.json().get("observations", [])
             if not obs:
@@ -180,56 +165,38 @@ def _fred_fetch(yahoo_sym: str, fred_id: str,
 
 # ---- Main fetch with retry + cache ----------------------------------------
 def fetch_closes(period_days: int = 365) -> pd.DataFrame:
-    """
-    Fetch all closes: Twelve Data batch for equities/ETFs, FRED for VIX + 10Y.
-    28 tickers = 28 credits out of 800/day free allowance — well within limits.
-    """
-    td_key   = os.getenv("TWELVEDATA_API_KEY", "")
+    td_key  = os.getenv("TWELVEDATA_API_KEY", "")
     if not td_key:
         log.warning("TWELVEDATA_API_KEY not set")
 
-    end      = datetime.date.today()
-    start    = end - datetime.timedelta(days=period_days + 10)
-    tickers  = all_tickers()
-
-    # Split: TD handles everything except FRED symbols
-    td_syms   = [t for t in tickers if t not in FRED_MAP]
-    last_exc  = None
+    end     = datetime.date.today()
+    start   = end - datetime.timedelta(days=period_days + 10)
+    tickers = all_tickers()
+    td_syms = [t for t in tickers if t not in FRED_MAP]
+    last_exc = None
 
     for attempt in range(3):
         if attempt > 0:
             wait = 30 * attempt
-            log.info(f"Retrying in {wait}s (attempt {attempt + 1}/3)…")
+            log.info(f"Retrying in {wait}s (attempt {attempt+1}/3)…")
             time.sleep(wait)
         try:
             frames = {}
-
-            # Twelve Data — single batch call for all equity/ETF tickers
-            td_frames = _td_fetch_batch(td_syms, start, end, td_key)
-            frames.update(td_frames)
-
-            # FRED — VIX + 10Y yield
+            frames.update(_td_fetch_batch(td_syms, start, end, td_key))
             for yahoo_sym, fred_id in FRED_MAP.items():
                 s = _fred_fetch(yahoo_sym, fred_id, start, end)
                 if s is not None:
                     frames[yahoo_sym] = s
-
             if not frames:
                 raise RuntimeError("No data returned from Twelve Data or FRED")
-
             closes = pd.DataFrame(frames).sort_index()
             closes.to_pickle(CACHE_FILE)
-            log.info(
-                f"Fetched {closes.shape[1]}/{len(tickers)} tickers "
-                f"× {closes.shape[0]} days"
-            )
+            log.info(f"Fetched {closes.shape[1]}/{len(tickers)} tickers × {closes.shape[0]} days")
             return closes
-
         except Exception as e:
             last_exc = e
-            log.warning(f"Fetch attempt {attempt + 1} failed: {e}")
+            log.warning(f"Fetch attempt {attempt+1} failed: {e}")
 
-    # All attempts failed — load cache
     if os.path.exists(CACHE_FILE):
         log.warning("All fetch attempts failed — loading cached closes")
         cached = pd.read_pickle(CACHE_FILE)
@@ -294,11 +261,17 @@ def fundamentals_for(sym: str) -> dict:
     import yfinance as yf
     out = {"pe": "N/A", "div": "N/A", "target": "N/A", "analyst": "N/A", "earnings": "N/A"}
     try:
-        info = yf.Ticker(sym).info
-        pe, dy = info.get("trailingPE"), info.get("dividendYield")
+        info   = yf.Ticker(sym).info
+        pe     = info.get("trailingPE")
+        dy     = info.get("dividendYield")
+        target = info.get("targetMeanPrice")
         out["pe"]      = round(pe, 1) if pe else "N/A"
-        out["div"]     = f"{round(dy*100,2)}%" if dy else "N/A"
-        out["target"]  = info.get("targetMeanPrice", "N/A")
+        # yfinance inconsistently returns div yield as decimal (0.019) or percent (1.9)
+        # normalize: if value > 0.5 it's already a percentage
+        if dy:
+            dy_pct     = dy if dy > 0.5 else dy * 100
+            out["div"] = f"{round(dy_pct, 2)}%"
+        out["target"]  = f"${round(target, 2)} (consensus, may lag)" if target else "N/A"
         out["analyst"] = info.get("recommendationKey", "N/A")
     except Exception as e:
         log.warning(f"fundamentals failed {sym}: {e}")
