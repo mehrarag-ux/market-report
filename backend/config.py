@@ -1,7 +1,7 @@
 """
 Static configuration only. No logic, no fetching.
-NOTE: INDICES now use ETF proxies (SPY/QQQ/IWM) because Alpha Vantage
-does not support raw index symbols (^GSPC, ^NDX, ^RUT).
+NOTE: INDICES use ETF proxies (SPY/QQQ/IWM) — Twelve Data free tier does not
+support raw index symbols (^GSPC, ^NDX, ^RUT).
 VIX and 10Y yield are fetched from FRED — kept as ^VIX / ^TNX internally.
 """
 
@@ -24,9 +24,8 @@ CONFIG = {
 }
 
 # --- Index proxies ---------------------------------------------------------
-# AV doesn't support ^GSPC/^NDX/^RUT — use liquid ETF proxies instead.
-# Prices will reflect ETF NAV (~SPY ≈590, QQQ ≈490, IWM ≈200), not index levels.
-# VIX + TNX are sourced from FRED (see data.py FRED_MAP).
+# Twelve Data free tier doesn't serve raw index symbols.
+# VIX + TNX sourced from FRED (see data.py FRED_MAP).
 INDICES = {
     "SPY":  "S&P 500 (SPY)",
     "QQQ":  "Nasdaq 100 (QQQ)",
@@ -49,18 +48,14 @@ WATCHLIST_AI = [
     {"symbol": "AVGO",  "name": "Broadcom"},
     {"symbol": "GOOGL", "name": "Alphabet"},
     {"symbol": "IBM",   "name": "IBM"},
-    {"symbol": "META",  "name": "Meta"},
     {"symbol": "MSFT",  "name": "Microsoft"},
-    {"symbol": "TSLA",  "name": "Tesla"},
-    {"symbol": "AAPL",  "name": "Apple"},
-    {"symbol": "AMZN",  "name": "Amazon"},
 ]
 
 # Stocks-to-watch candidate pool (LLM picks 5)
 STW_POOL = [
-    "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA",
-    "META", "TSLA", "AMD",   "AVGO", "IBM",
-    "QRVO", "C",    "MU",
+    "MSFT", "GOOGL", "NVDA",
+    "AMD",  "AVGO",  "IBM",
+    "QRVO", "C",     "MU",
 ]
 
 # SPDR sector ETFs
@@ -84,9 +79,9 @@ CONSUMER_CONFIDENCE = None
 
 
 def all_tickers():
-    """Every symbol we need price history for, deduped.
-    ^VIX and ^TNX are excluded here — fetched from FRED in data.py."""
-    syms  = [s for s in INDICES if not s.startswith("^")]  # SPY, QQQ, IWM only
+    """Every symbol needing price history, deduped.
+    ^VIX and ^TNX excluded here — fetched from FRED in data.py."""
+    syms  = [s for s in INDICES if not s.startswith("^")]  # SPY, QQQ, IWM
     syms += [TNX]                                           # ^TNX for FRED
     syms += ["^VIX"]                                        # ^VIX for FRED
     syms += [s["symbol"] for s in SPOTLIGHTS]
