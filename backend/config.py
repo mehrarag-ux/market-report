@@ -18,8 +18,8 @@ CONFIG = {
         "khyatibgupta234@gmail.com",
     ],
     "from_name":    "Daily Market Report",
-    "claude_model": "claude-haiku-4-5-20251001",
-    "max_tokens":   8192,
+    "claude_model": "claude-sonnet-4-6",
+    "max_tokens":   16000,
     "var_position": 10000,  # $ basis for VaR dollar figures
 }
 
