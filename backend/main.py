@@ -106,26 +106,31 @@ def render_early_warning(ew):
 
 def render_spotlight(s, narr, fund):
     """fund = pre-fetched fundamentals dict for this ticker."""
-    n       = narr.get("spotlights", {}).get(s["ticker"], {})
-    metrics = [
-        ("Closing Price",  s.get("price")),
-        ("Day Change",     s.get("day_change")),
-        ("52W High",       s.get("hi52")),
-        ("52W Low",        s.get("lo52")),
-        ("P/E Ratio",      fund.get("pe",       "N/A")),
-        ("Dividend Yield", fund.get("div",       "N/A")),
-        ("Analyst View",   fund.get("analyst",   "N/A")),
-        ("Price Target",   fund.get("target",    "N/A")),
-        ("Next Earnings",  fund.get("earnings",  "N/A")),
-        ("Beta (1Y)",      s.get("beta")),
+    n        = narr.get("spotlights", {}).get(s["ticker"], {})
+    dc       = s.get("day_change")
+    # day_change is a float % — format it properly with colour
+    dc_html  = span(dc) if dc is not None else '<span style="color:#888">N/A</span>'
+    # analyst_target comes from LLM web search (fresh); fallback to yfinance value
+    at       = n.get("analyst_target") or fund.get("target", "N/A")
+    metrics  = [
+        ("Closing Price",   s.get("price")),
+        ("Day Change",      dc_html),          # ← formatted % with colour
+        ("52W High",        s.get("hi52")),
+        ("52W Low",         s.get("lo52")),
+        ("P/E Ratio",       fund.get("pe",       "N/A")),
+        ("Dividend Yield",  fund.get("div",       "N/A")),
+        ("Analyst View",    fund.get("analyst",   "N/A")),
+        ("Analyst Target",  at),               # ← uses LLM-searched target
+        ("Next Earnings",   fund.get("earnings",  "N/A")),
+        ("Beta (1Y)",       s.get("beta")),
     ]
     body = "".join(
         f"<tr><td {TD}><strong>{k}</strong></td><td {TD}>{v}</td></tr>"
         for k, v in metrics
     )
-    rating    = n.get("rating", "HOLD")
-    verdict   = n.get("verdict", "")
-    beta_val  = s.get("beta") or 1
+    rating   = n.get("rating", "HOLD")
+    verdict  = n.get("verdict", "")
+    beta_val = s.get("beta") or 1
     risk_rows = (
         f"<tr><td {TD}>Beta 1Y</td><td {TD}>{s.get('beta')}</td>"
         f"<td {TD}>For every 10% the S&P moves, ~{abs(beta_val)*10:.1f}% expected move</td></tr>"
@@ -165,6 +170,41 @@ def render_ai_table(rows):
     return f"<table {TBL}><tr>{head}</tr>{body}</table>"
 
 
+def render_earnings(narr_earnings, fund_cache):
+    """
+    Renders the earnings table.
+    narr_earnings = LLM-sourced list of {company, ticker, date} for broader NDX stocks.
+    fund_cache    = yfinance earnings for the 3 spotlights (guaranteed accurate).
+    Spotlights are always shown first, then LLM-sourced NDX entries.
+    """
+    rows = ""
+    # Spotlight earnings first — from verified yfinance data
+    for s in SPOTLIGHTS:
+        date = fund_cache.get(s["symbol"], {}).get("earnings", "N/A")
+        rows += (
+            f"<tr><td {TD}>{s['name']}</td><td {TD}>{s['symbol']}</td>"
+            f"<td {TD}>{date}</td>"
+            f"<td {TD}><span style='background:#0a3d62;color:#fff;padding:1px 6px;"
+            f"border-radius:3px;font-size:10px'>WATCHLIST</span></td></tr>"
+        )
+    # Broader NDX earnings from LLM web search
+    for e in (narr_earnings or []):
+        ticker = e.get("ticker", "")
+        # Skip if already shown as spotlight
+        if ticker in [s["symbol"] for s in SPOTLIGHTS]:
+            continue
+        rows += (
+            f"<tr><td {TD}>{e.get('company','')}</td><td {TD}>{ticker}</td>"
+            f"<td {TD}>{e.get('date','N/A')}</td>"
+            f"<td {TD}></td></tr>"
+        )
+    head = "".join(
+        f"<th {TH}>{h}</th>"
+        for h in ["Company", "Ticker", "Next Earnings", ""]
+    )
+    return f"<table {TBL}><tr>{head}</tr>{rows}</table>"
+
+
 def render_email(mkt, data, narr, fund_cache):
     note = (
         "" if mkt["market_open"]
@@ -196,17 +236,12 @@ def render_email(mkt, data, narr, fund_cache):
         f'<strong>Losers</strong><ul>{los}</ul>'
         f'<strong>Macro</strong><ul>{mac}</ul>'
     )
-    # Earnings — use fund_cache, no extra yfinance calls
-    earn = "".join(
-        f"<tr><td {TD}>{s['name']}</td><td {TD}>{s['symbol']}</td>"
-        f"<td {TD}>{fund_cache.get(s['symbol'], {}).get('earnings', 'N/A')}</td></tr>"
-        for s in SPOTLIGHTS
-    )
+    # Earnings — spotlights (yfinance) + broader NDX (LLM web search)
     h += (
         f'<h2 {H2}>SECTION 6 — Earnings Calendar</h2>'
-        f'<table {TBL}><tr>'
-        f'<th {TH}>Company</th><th {TH}>Ticker</th><th {TH}>Next Earnings</th>'
-        f'</tr>{earn}</table>'
+        f'<p style="font-size:11px;color:#888;margin-bottom:8px">'
+        f'Watchlist stocks verified. Broader NDX dates sourced via web search — confirm before trading.</p>'
+        + render_earnings(narr.get("earnings_calendar", []), fund_cache)
     )
     radar = "".join(
         f"<li><strong>{r.get('theme')}</strong> — {r.get('why')} (e.g. {r.get('example')})</li>"
@@ -218,7 +253,7 @@ def render_email(mkt, data, narr, fund_cache):
     )
     stw = "".join(
         f'<div class="stw-entry"><p><strong>{s.get("ticker")}</strong> | '
-        f'Price: ${data["stw_data"].get(s.get("ticker"), {}).get("price", "")} | '
+        f'Price: ${data["stw_data"].get(s.get("ticker"), {}).get("price", s.get("price_note", ""))} | '
         f'<strong>{s.get("rating")}</strong> | Horizon: {s.get("horizon")}</p>'
         f'<p>{s.get("reason")}</p></div>'
         for s in narr.get("stw", [])
@@ -252,16 +287,31 @@ def build_frontend_json(mkt, data, narr, fund_cache):
     stw = [
         {
             **s,
-            "price": f"${data['stw_data'].get(s.get('ticker'), {}).get('price', '')}",
+            "price": f"${data['stw_data'].get(s.get('ticker'), {}).get('price', s.get('price_note', ''))}",
             "name":  s.get("ticker"),
         }
         for s in narr.get("stw", [])
     ]
     fmt_pct = lambda v: f"{v:+.2f}%" if v is not None else "—"
+
+    # Earnings: spotlight verified + LLM-sourced NDX
+    earnings_out = [
+        {
+            "company": s["name"],
+            "ticker":  s["symbol"],
+            "date":    fund_cache.get(s["symbol"], {}).get("earnings", "N/A"),
+        }
+        for s in SPOTLIGHTS
+    ]
+    spotlight_tickers = {s["symbol"] for s in SPOTLIGHTS}
+    for e in (narr.get("earnings_calendar") or []):
+        if e.get("ticker") not in spotlight_tickers:
+            earnings_out.append(e)
+
     return {
-        "date":      datetime.date.today().isoformat(),
-        "generated": datetime.datetime.now().isoformat(),
-        "mkt_data":  [
+        "date":           datetime.date.today().isoformat(),
+        "generated":      datetime.datetime.now().isoformat(),
+        "mkt_data": [
             {
                 "index":         r["index"],
                 "closing_price": r["closing_price"],
@@ -274,22 +324,22 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             }
             for r in data["indices"]
         ],
-        "pulse":          narr.get("pulse", ""),
-        "early_warning":  render_early_warning(data["early_warning"]),
+        "pulse":           narr.get("pulse", ""),
+        "early_warning":   render_early_warning(data["early_warning"]),
         "spotlights_html": spot_html,
-        "spotlights":     sp,
+        "spotlights":      sp,
         "ai_rows": [
             {
-                "ticker":    r["ticker"],
-                "company":   r["company"],
-                "price":     r["price"],
+                "ticker":     r["ticker"],
+                "company":    r["company"],
+                "price":      r["price"],
                 "day_change": fmt_pct(r["day_change"]),
-                "1_week":    fmt_pct(r["1_week"]),
-                "1_month":   fmt_pct(r["1_month"]),
-                "1_year":    fmt_pct(r["1_year"]),
-                "52w_low":   r["52w_low"],
-                "52w_high":  r["52w_high"],
-                "beta":      r["beta"] if r["beta"] is not None else "N/A",
+                "1_week":     fmt_pct(r["1_week"]),
+                "1_month":    fmt_pct(r["1_month"]),
+                "1_year":     fmt_pct(r["1_year"]),
+                "52w_low":    r["52w_low"],
+                "52w_high":   r["52w_high"],
+                "beta":       r["beta"] if r["beta"] is not None else "N/A",
             }
             for r in data["ai_rows"]
         ],
@@ -297,15 +347,8 @@ def build_frontend_json(mkt, data, narr, fund_cache):
         "winners":    data["winners"],
         "losers":     data["losers"],
         "macro":      narr.get("macro", []),
-        "earnings": [
-            {
-                "company": s["name"],
-                "ticker":  s["symbol"],
-                "date":    fund_cache.get(s["symbol"], {}).get("earnings", "N/A"),
-            }
-            for s in SPOTLIGHTS
-        ],
-        "econ": [],
+        "earnings":   earnings_out,
+        "econ":       [],
         "opportunity_radar": (
             "<ul>"
             + "".join(
@@ -390,30 +433,26 @@ def main():
     log.info("=" * 60)
     log.info("Daily Market Report — starting")
     if datetime.date.today().weekday() == 6 and "--force" not in sys.argv:
-        log.info("Weekend — skipping (use --force)")
+        log.info("Sunday — skipping (use --force)")
         return
 
     mkt = get_market_context()
     log.info(mkt["context"])
 
     try:
-        # 1. Fetch all verified numbers
         data = build_report_data()
         log.info(f"Data built: {len(data['ai_rows'])} AI rows, {len(data['spotlights'])} spotlights")
 
-        # 2. Fetch fundamentals ONCE, with delay between calls to avoid yfinance rate limit
         fund_cache = {}
         for s in SPOTLIGHTS:
             fund_cache[s["symbol"]] = fundamentals_for(s["symbol"])
             time.sleep(4)
         log.info(f"Fundamentals fetched for {list(fund_cache.keys())}")
 
-        # 3. LLM writes narrative on top of verified numbers
         narr = get_narrative(mkt, data)
         if not narr:
             log.warning("Empty narrative — rendering with numbers only")
 
-        # 4. Render + save + email
         html    = render_email(mkt, data, narr, fund_cache)
         fe_json = build_frontend_json(mkt, data, narr, fund_cache)
         ds      = datetime.date.today().isoformat()
