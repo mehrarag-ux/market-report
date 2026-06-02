@@ -49,13 +49,21 @@ WATCHLIST_AI = [
     {"symbol": "GOOGL", "name": "Alphabet"},
     {"symbol": "IBM",   "name": "IBM"},
     {"symbol": "MSFT",  "name": "Microsoft"},
+    # Quantum & Photonics
+    {"symbol": "IONQ",  "name": "IonQ"},
+    {"symbol": "QUBT",  "name": "Quantum Computing Inc."},
+    {"symbol": "RGTI",  "name": "Rigetti Computing"},
+    {"symbol": "GFS",   "name": "GlobalFoundries"},
 ]
 
 # Stocks-to-watch candidate pool (LLM picks 5)
 STW_POOL = [
-    "MSFT", "GOOGL", "NVDA",
-    "AMD",  "AVGO",  "IBM",
-    "QRVO", "C",     "MU",
+    # Core tech
+    "MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
+    # Spotlights
+    "QRVO", "C", "MU",
+    # Quantum & Photonics
+    "IONQ", "QUBT", "RGTI", "ARQQ", "GFS", "QTUM",
 ]
 
 # SPDR sector ETFs
