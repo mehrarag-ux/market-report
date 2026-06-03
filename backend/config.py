@@ -16,6 +16,7 @@ CONFIG = {
         "mehrarag@gmail.com",
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
+        "bharatdgupta@gmail.com"
     ],
     "from_name":    "Daily Market Report",
     "claude_model": "claude-sonnet-4-6",
@@ -29,19 +30,15 @@ CONFIG = {
 INDICES = {
     "SPY":  "S&P 500 (SPY)",
     "QQQ":  "Nasdaq 100 (QQQ)",
-    "IWM":  "Russell 2000 (IWM)",
     "^VIX": "VIX",
 }
-TNX = "^TNX"  # 10-year Treasury yield — fetched from FRED
+TNX = "^TNX"
 
-# Spotlight deep-dive stocks (full table + verdict + risk box)
 SPOTLIGHTS = [
-    {"symbol": "C",    "name": "Citigroup"},
-    {"symbol": "QRVO", "name": "Qorvo"},
-    {"symbol": "MU",   "name": "Micron Technology"},
+    {"symbol": "C",  "name": "Citigroup"},
+    {"symbol": "MU", "name": "Micron Technology"},
 ]
 
-# AI / Mag7 watchlist
 WATCHLIST_AI = [
     {"symbol": "NVDA",  "name": "Nvidia"},
     {"symbol": "AMD",   "name": "AMD"},
@@ -56,17 +53,12 @@ WATCHLIST_AI = [
     {"symbol": "GFS",   "name": "GlobalFoundries"},
 ]
 
-# Stocks-to-watch candidate pool (LLM picks 5)
 STW_POOL = [
-    # Core tech
     "MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
-    # Spotlights
-    "QRVO", "C", "MU",
-    # Quantum & Photonics
+    "C", "MU",
     "IONQ", "QUBT", "RGTI", "ARQQ", "GFS", "QTUM",
 ]
 
-# SPDR sector ETFs
 SECTOR_ETFS = {
     "XLK":  "Technology",
     "XLF":  "Financials",
@@ -81,17 +73,16 @@ SECTOR_ETFS = {
     "XLC":  "Communications",
 }
 
-# Consumer confidence — set manually each week.
-# One of: "rising", "stable", "falling", "sharply_falling" — or None for N/A
+# One of: "rising", "stable", "falling", "sharply_falling" — or None
 CONSUMER_CONFIDENCE = None
 
 
 def all_tickers():
     """Every symbol needing price history, deduped.
     ^VIX and ^TNX excluded here — fetched from FRED in data.py."""
-    syms  = [s for s in INDICES if not s.startswith("^")]  # SPY, QQQ, IWM
-    syms += [TNX]                                           # ^TNX for FRED
-    syms += ["^VIX"]                                        # ^VIX for FRED
+    syms  = [s for s in INDICES if not s.startswith("^")]
+    syms += [TNX]
+    syms += ["^VIX"]
     syms += [s["symbol"] for s in SPOTLIGHTS]
     syms += [s["symbol"] for s in WATCHLIST_AI]
     syms += list(SECTOR_ETFS)
