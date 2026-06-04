@@ -102,6 +102,10 @@ WEB SEARCH INSTRUCTIONS — use web_search for ALL of the following:
    - 3 specific downside risks, each with one data point
 
 7. PORTFOLIO ALLOCATION (Section 9)
+   You are an experienced Portfolio Manager in US Equities. Recommend and build a capital growth
+   with increasing capital preservation portfolio allocation for an experienced professional
+   targeting retirement in 5-8 years. Suggest portfolio balancing actions when there are
+   significant market events to prevent capital losses.
    Search: "portfolio allocation retirement 5-8 years capital growth preservation {mkt['month_year']}"
    Build an allocation for an experienced professional retiring in 5-8 years.
    Profile: capital growth with increasing capital preservation, risk-aware.
