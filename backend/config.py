@@ -20,7 +20,7 @@ CONFIG = {
     ],
     "from_name":    "Daily Market Report",
     "claude_model": "claude-sonnet-4-6",
-    "max_tokens":   16000,
+    "max_tokens":   20000,
     "var_position": 10000,  # $ basis for VaR dollar figures
 }
 
@@ -35,7 +35,6 @@ INDICES = {
 TNX = "^TNX"
 
 SPOTLIGHTS = [
-    {"symbol": "C",  "name": "Citigroup"},
     {"symbol": "MU", "name": "Micron Technology"},
 ]
 
