@@ -1,7 +1,7 @@
 """
 Static configuration only. No logic, no fetching.
-NOTE: INDICES use ETF proxies (SPY/QQQ/IWM) — Twelve Data free tier does not
-support raw index symbols (^GSPC, ^NDX, ^RUT).
+NOTE: INDICES use ETF proxies (SPY/QQQ) — Twelve Data free tier does not
+support raw index symbols (^GSPC, ^NDX).
 VIX and 10Y yield are fetched from FRED — kept as ^VIX / ^TNX internally.
 """
 
@@ -16,17 +16,14 @@ CONFIG = {
         "mehrarag@gmail.com",
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
-        "bharatdgupta@gmail.com"
+        "bharatdgupta@gmail.com",
     ],
     "from_name":    "Daily Market Report",
     "claude_model": "claude-sonnet-4-6",
     "max_tokens":   20000,
-    "var_position": 10000,  # $ basis for VaR dollar figures
+    "var_position": 10000,
 }
 
-# --- Index proxies ---------------------------------------------------------
-# Twelve Data free tier doesn't serve raw index symbols.
-# VIX + TNX sourced from FRED (see data.py FRED_MAP).
 INDICES = {
     "SPY":  "S&P 500 (SPY)",
     "QQQ":  "Nasdaq 100 (QQQ)",
@@ -45,6 +42,9 @@ WATCHLIST_AI = [
     {"symbol": "GOOGL", "name": "Alphabet"},
     {"symbol": "IBM",   "name": "IBM"},
     {"symbol": "MSFT",  "name": "Microsoft"},
+    {"symbol": "C",     "name": "Citigroup"},
+    {"symbol": "QRVO",  "name": "Qorvo"},
+    {"symbol": "ANET",  "name": "Arista Networks"},
     # Quantum & Photonics
     {"symbol": "IONQ",  "name": "IonQ"},
     {"symbol": "QUBT",  "name": "Quantum Computing Inc."},
@@ -54,7 +54,7 @@ WATCHLIST_AI = [
 
 STW_POOL = [
     "MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
-    "C", "MU",
+    "C", "MU", "QRVO", "ANET",
     "IONQ", "QUBT", "RGTI", "ARQQ", "GFS", "QTUM",
 ]
 
