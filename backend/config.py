@@ -42,13 +42,11 @@ WATCHLIST_AI = [
     {"symbol": "GOOGL", "name": "Alphabet"},
     {"symbol": "IBM",   "name": "IBM"},
     {"symbol": "MSFT",  "name": "Microsoft"},
+    {"symbol": "INTC",  "name": "Intel"},
     {"symbol": "C",     "name": "Citigroup"},
     {"symbol": "QRVO",  "name": "Qorvo"},
     {"symbol": "ANET",  "name": "Arista Networks"},
-    # Quantum & Photonics
-    {"symbol": "IONQ",  "name": "IonQ"},
-    {"symbol": "QUBT",  "name": "Quantum Computing Inc."},
-    {"symbol": "RGTI",  "name": "Rigetti Computing"},
+    {"symbol": "WQTM",  "name": "Quantum ETF (WQTM)"},
     {"symbol": "GFS",   "name": "GlobalFoundries"},
 ]
 
