@@ -60,8 +60,9 @@ def get_market_context() -> dict:
         "OPEN today; use today's close."
         if open_ else f"CLOSED today; last trading day was {fmt(ltd)}."
     )
-    return {
+    return{
         "today": fmt(today), "last_trading_day": fmt(ltd),
+        "last_trading_day_iso": ltd.isoformat(),
         "market_open": open_, "context": ctx,
         "month_year": ltd.strftime("%B %Y"), "year": ltd.strftime("%Y"),
     }

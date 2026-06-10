@@ -201,6 +201,7 @@ def render_portfolio_allocation(pa):
 
 
 def render_email(mkt, data, narr, fund_cache):
+    # use last_trading_day (US date) not today (SGT date)
     note = (
         "" if mkt["market_open"]
         else f'<p style="font-size:12px;color:#888">Markets closed today — showing {mkt["last_trading_day"]} close.</p>'
@@ -209,14 +210,14 @@ def render_email(mkt, data, narr, fund_cache):
         f'<div style="background:#0a3d62;color:#fff;padding:16px 20px;border-radius:6px;margin-bottom:24px">'
         f'<h1 style="margin:0;font-size:20px">Daily Market Report</h1>'
         f'<p style="margin:4px 0 0;font-size:13px;opacity:.85">'
-        f'{mkt["today"]} — After Market Close | Singapore</p></div>{note}'
+        f'{mkt["last_trading_day"]} — After Market Close | Singapore</p></div>{note}'
     )
     h += f'<h2 {H2}>SECTION 1 — Market Summary</h2>{render_indices(data["indices"])}'
     h += f'<p>{narr.get("pulse","")}</p>'
     h += f'<h2 {H2}>SECTION 1B — Early Warning</h2>{render_early_warning(data["early_warning"])}'
     h += f'<h2 {H2}>SECTION 2 — Stock Spotlights</h2>'
     h += "".join(render_spotlight(s, narr, fund_cache.get(s["ticker"], {})) for s in data["spotlights"])
-    h += f'<h2 {H2}>SECTION 3 — AI & Mag 7 Watchlist</h2>{render_ai_table(data["ai_rows"])}'
+    h += f'<h2 {H2}>SECTION 3 — Watchlist</h2>{render_ai_table(data["ai_rows"])}'
     h += f'<h2 {H2}>SECTION 4 — Why Markets Moved</h2>'
     h += "".join(f"<p>{p}</p>" for p in narr.get("why_paras", []))
     win = "".join(f"<li>{w['name']}: {span_str(w['pct'])}</li>" for w in data["winners"])
@@ -296,7 +297,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             earnings_out.append(e)
 
     return {
-        "date":      datetime.date.today().isoformat(),
+        "date":      mkt["last_trading_day_iso"],  # US trading date, not SGT today
         "generated": datetime.datetime.now().isoformat(),
         "mkt_data": [
             {
@@ -311,10 +312,10 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             }
             for r in data["indices"]
         ],
-        "pulse":         narr.get("pulse", ""),
-        "early_warning": render_early_warning(data["early_warning"]),
+        "pulse":           narr.get("pulse", ""),
+        "early_warning":   render_early_warning(data["early_warning"]),
         "spotlights_html": spot_html,
-        "spotlights":    sp,
+        "spotlights":      sp,
         "ai_rows": [
             {
                 "ticker":     r["ticker"],
@@ -350,8 +351,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
     }
 
 
-def save_report(html, fe_json):
-    ds = datetime.date.today().isoformat()
+def save_report(html, fe_json, ds):
     for fn, content in [(f"report_{ds}.html", html), ("latest.html", html)]:
         with open(os.path.join(REPORTS_DIR, fn), "w", encoding="utf-8") as f:
             f.write(content)
@@ -382,11 +382,11 @@ def generate_pdf(html, ds):
         return None
 
 
-def send_email(html, pdf=None):
+def send_email(html, mkt, pdf=None):
     u, pw = os.getenv("GMAIL_ADDRESS"), os.getenv("GMAIL_APP_PASSWORD")
     if not u or not pw:
         raise EnvironmentError("GMAIL creds missing")
-    label = datetime.date.today().strftime("%A, %B %d, %Y")
+    label = mkt["last_trading_day"]  # US trading date
     msg   = MIMEMultipart("mixed")
     msg["Subject"] = f"Daily Market Report — {label}"
     msg["From"]    = f"{CONFIG['from_name']} <{u}>"
@@ -399,7 +399,7 @@ def send_email(html, pdf=None):
         from email.mime.application import MIMEApplication
         with open(pdf, "rb") as f:
             att = MIMEApplication(f.read(), _subtype="pdf")
-        att.add_header("Content-Disposition", "attachment", filename=f"MarketReport_{datetime.date.today().isoformat()}.pdf")
+        att.add_header("Content-Disposition", "attachment", filename=f"MarketReport_{mkt['last_trading_day_iso']}.pdf")
         msg.attach(att)
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
         s.login(u, pw)
@@ -433,9 +433,9 @@ def main():
 
         html    = render_email(mkt, data, narr, fund_cache)
         fe_json = build_frontend_json(mkt, data, narr, fund_cache)
-        ds      = datetime.date.today().isoformat()
-        save_report(html, fe_json)
-        send_email(html, generate_pdf(html, ds))
+        ds      = mkt["last_trading_day_iso"]  # US trading date for filenames
+        save_report(html, fe_json, ds)
+        send_email(html, mkt, generate_pdf(html, ds))
         log.info("Completed")
 
     except Exception as e:
