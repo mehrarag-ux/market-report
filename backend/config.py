@@ -36,6 +36,7 @@ SPOTLIGHTS = [
 ]
 
 WATCHLIST_AI = [
+    {"symbol": "SPCX", "name": "SpaceX"},
     {"symbol": "NVDA",  "name": "Nvidia"},
     {"symbol": "AMD",   "name": "AMD"},
     {"symbol": "AVGO",  "name": "Broadcom"},
@@ -48,10 +49,11 @@ WATCHLIST_AI = [
     {"symbol": "ANET",  "name": "Arista Networks"},
     {"symbol": "WQTM",  "name": "Quantum ETF (WQTM)"},
     {"symbol": "GFS",   "name": "GlobalFoundries"},
+    
 ]
 
 STW_POOL = [
-    "MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
+    "SPCX","MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
     "C", "MU", "QRVO", "ANET",
     "IONQ", "QUBT", "RGTI", "ARQQ", "GFS", "QTUM",
 ]
