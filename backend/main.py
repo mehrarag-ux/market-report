@@ -1,5 +1,5 @@
 """
-Orchestrator: data → LLM narrative → render HTML + JSON → save/email.
+Orchestrator: data -> LLM narrative -> render HTML + JSON -> save/email.
 Numbers from data.py (Twelve Data + FRED). LLM writes narrative only.
 """
 
@@ -93,7 +93,7 @@ def render_early_warning(ew):
     head = "".join(f"<th {TH}>{h}</th>" for h in ["Signal","Status","What It Means"])
     warn = (
         '<div style="background:#c0392b;color:#fff;padding:8px 12px;border-radius:4px;'
-        'margin-top:8px;font-weight:bold">CORRECTION RISK — Consider reducing exposure or adding hedges</div>'
+        'margin-top:8px;font-weight:bold">CORRECTION RISK - Consider reducing exposure or adding hedges</div>'
         if ew["correction_risk"] else ""
     )
     return (
@@ -128,7 +128,7 @@ def render_spotlight(s, narr, fund):
     return (
         f"<h3 style='color:#0a3d62'>{s['name']} ({s['ticker']})</h3>"
         f"<table {TBL}><tr><th {TH}>Metric</th><th {TH}>Value</th></tr>{body}</table>"
-        f"<p><strong>{rating}</strong> — {verdict}</p>"
+        f"<p><strong>{rating}</strong> - {verdict}</p>"
     )
 
 
@@ -201,46 +201,42 @@ def render_portfolio_allocation(pa):
 
 
 def render_email(mkt, data, narr, fund_cache):
-    # use last_trading_day (US date) not today (SGT date)
-    note = (
-        "" if mkt["market_open"]
-        else f'<p style="font-size:12px;color:#888">Markets closed today — showing {mkt["last_trading_day"]} close.</p>'
-    )
+    # always after-close report; mkt["last_trading_day"] is the US session covered
     h = (
         f'<div style="background:#0a3d62;color:#fff;padding:16px 20px;border-radius:6px;margin-bottom:24px">'
         f'<h1 style="margin:0;font-size:20px">Daily Market Report</h1>'
         f'<p style="margin:4px 0 0;font-size:13px;opacity:.85">'
-        f'{mkt["last_trading_day"]} — After Market Close | Singapore</p></div>{note}'
+        f'{mkt["last_trading_day"]} - After Market Close | Singapore</p></div>'
     )
-    h += f'<h2 {H2}>SECTION 1 — Market Summary</h2>{render_indices(data["indices"])}'
+    h += f'<h2 {H2}>SECTION 1 - Market Summary</h2>{render_indices(data["indices"])}'
     h += f'<p>{narr.get("pulse","")}</p>'
-    h += f'<h2 {H2}>SECTION 1B — Early Warning</h2>{render_early_warning(data["early_warning"])}'
-    h += f'<h2 {H2}>SECTION 2 — Stock Spotlights</h2>'
+    h += f'<h2 {H2}>SECTION 1B - Early Warning</h2>{render_early_warning(data["early_warning"])}'
+    h += f'<h2 {H2}>SECTION 2 - Stock Spotlights</h2>'
     h += "".join(render_spotlight(s, narr, fund_cache.get(s["ticker"], {})) for s in data["spotlights"])
-    h += f'<h2 {H2}>SECTION 3 — Watchlist</h2>{render_ai_table(data["ai_rows"])}'
-    h += f'<h2 {H2}>SECTION 4 — Why Markets Moved</h2>'
+    h += f'<h2 {H2}>SECTION 3 - Watchlist</h2>{render_ai_table(data["ai_rows"])}'
+    h += f'<h2 {H2}>SECTION 4 - Why Markets Moved</h2>'
     h += "".join(f"<p>{p}</p>" for p in narr.get("why_paras", []))
     win = "".join(f"<li>{w['name']}: {span_str(w['pct'])}</li>" for w in data["winners"])
     los = "".join(f"<li>{l['name']}: {span_str(l['pct'])}</li>" for l in data["losers"])
     mac = "".join(f"<li>{m}</li>" for m in narr.get("macro", []))
     h += (
-        f'<h2 {H2}>SECTION 5 — Sector Rotation & Macro</h2>'
+        f'<h2 {H2}>SECTION 5 - Sector Rotation & Macro</h2>'
         f'<strong>Winners</strong><ul>{win}</ul>'
         f'<strong>Losers</strong><ul>{los}</ul>'
         f'<strong>Macro</strong><ul>{mac}</ul>'
     )
     h += (
-        f'<h2 {H2}>SECTION 6 — Earnings Calendar</h2>'
+        f'<h2 {H2}>SECTION 6 - Earnings Calendar</h2>'
         f'<p style="font-size:11px;color:#888;margin-bottom:8px">'
-        f'Watchlist stocks verified. Broader NDX dates sourced via web search — confirm before trading.</p>'
+        f'Watchlist stocks verified. Broader NDX dates sourced via web search - confirm before trading.</p>'
         + render_earnings(narr.get("earnings_calendar", []), fund_cache)
     )
     radar = "".join(
-        f"<li><strong>{r.get('theme')}</strong> — {r.get('why')} (e.g. {r.get('example')})</li>"
+        f"<li><strong>{r.get('theme')}</strong> - {r.get('why')} (e.g. {r.get('example')})</li>"
         for r in narr.get("opportunity_radar", [])
     )
     h += (
-        f'<h2 {H2}>SECTION 6B — Opportunity Radar</h2>'
+        f'<h2 {H2}>SECTION 6B - Opportunity Radar</h2>'
         f'<ul>{radar}</ul><p>{narr.get("portfolio_direction","")}</p>'
     )
     stw = "".join(
@@ -250,9 +246,9 @@ def render_email(mkt, data, narr, fund_cache):
         f'<p>{s.get("reason")}</p></div>'
         for s in narr.get("stw", [])
     )
-    h += f'<h2 {H2}>SECTION 7 — Stocks to Watch</h2>{stw}'
-    h += f'<h2 {H2}>SECTION 8 — Market Trends</h2>{render_market_trends(narr.get("market_trends"))}'
-    h += f'<h2 {H2}>SECTION 9 — Portfolio Allocation (5-8 Year Horizon)</h2>{render_portfolio_allocation(narr.get("portfolio_allocation"))}'
+    h += f'<h2 {H2}>SECTION 7 - Stocks to Watch</h2>{stw}'
+    h += f'<h2 {H2}>SECTION 8 - Market Trends</h2>{render_market_trends(narr.get("market_trends"))}'
+    h += f'<h2 {H2}>SECTION 9 - Portfolio Allocation (5-8 Year Horizon)</h2>{render_portfolio_allocation(narr.get("portfolio_allocation"))}'
     h += (
         '<p style="font-size:11px;color:#888;border-top:1px solid #eee;'
         'padding-top:12px;margin-top:32px">Auto-generated. Prices from public market data; '
@@ -285,7 +281,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
         }
         for s in narr.get("stw", [])
     ]
-    fmt_pct = lambda v: f"{v:+.2f}%" if v is not None else "—"
+    fmt_pct = lambda v: f"{v:+.2f}%" if v is not None else "-"
 
     earnings_out = [
         {"company": s["name"], "ticker": s["symbol"], "date": fund_cache.get(s["symbol"], {}).get("earnings", "N/A")}
@@ -297,7 +293,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             earnings_out.append(e)
 
     return {
-        "date":      mkt["last_trading_day_iso"],  # US trading date, not SGT today
+        "date":      mkt["last_trading_day_iso"],
         "generated": datetime.datetime.now().isoformat(),
         "mkt_data": [
             {
@@ -340,7 +336,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
         "opportunity_radar": (
             "<ul>"
             + "".join(
-                f"<li><strong>{r.get('theme')}</strong> — {r.get('why')} (e.g. {r.get('example')})</li>"
+                f"<li><strong>{r.get('theme')}</strong> - {r.get('why')} (e.g. {r.get('example')})</li>"
                 for r in narr.get("opportunity_radar", [])
             )
             + f"</ul><p>{narr.get('portfolio_direction','')}</p>"
@@ -386,9 +382,9 @@ def send_email(html, mkt, pdf=None):
     u, pw = os.getenv("GMAIL_ADDRESS"), os.getenv("GMAIL_APP_PASSWORD")
     if not u or not pw:
         raise EnvironmentError("GMAIL creds missing")
-    label = mkt["last_trading_day"]  # US trading date
+    label = mkt["last_trading_day"]
     msg   = MIMEMultipart("mixed")
-    msg["Subject"] = f"Daily Market Report — {label}"
+    msg["Subject"] = f"Daily Market Report - {label}"
     msg["From"]    = f"{CONFIG['from_name']} <{u}>"
     msg["To"]      = ", ".join(CONFIG["to_emails"])
     alt = MIMEMultipart("alternative")
@@ -409,9 +405,9 @@ def send_email(html, mkt, pdf=None):
 
 def main():
     log.info("=" * 60)
-    log.info("Daily Market Report — starting")
+    log.info("Daily Market Report - starting")
     if datetime.date.today().weekday() == 6 and "--force" not in sys.argv:
-        log.info("Sunday — skipping (use --force)")
+        log.info("Sunday - skipping (use --force)")
         return
 
     mkt = get_market_context()
@@ -429,11 +425,11 @@ def main():
 
         narr = get_narrative(mkt, data)
         if not narr:
-            log.warning("Empty narrative — rendering with numbers only")
+            log.warning("Empty narrative - rendering with numbers only")
 
         html    = render_email(mkt, data, narr, fund_cache)
         fe_json = build_frontend_json(mkt, data, narr, fund_cache)
-        ds      = mkt["last_trading_day_iso"]  # US trading date for filenames
+        ds      = mkt["last_trading_day_iso"]
         save_report(html, fe_json, ds)
         send_email(html, mkt, generate_pdf(html, ds))
         log.info("Completed")
