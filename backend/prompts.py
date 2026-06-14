@@ -58,7 +58,7 @@ def narrative_prompt(mkt: dict, data: dict) -> str:
         + [r["ticker"] for r in data["ai_rows"]]
     )
 
-    return f"""You are a US stock market portfolio manager writing a daily briefing for a retail investor based in Singapore.
+    return f"""You are a US stock market portfolio manager writing a daily briefing for overseas retail investors.
 
 {mkt['context']}
 
@@ -116,8 +116,8 @@ WEB SEARCH INSTRUCTIONS — use web_search for ALL of the following:
 
 VERDICT RULES (BUY/HOLD/SELL):
 - Reference P/E, price vs 52W high/low, 1-year momentum, beta, AND analyst consensus target
-- Stock above analyst consensus target → lean SELL or HOLD
-- Stock below analyst consensus target → lean BUY or HOLD
+- Stock above analyst consensus target -> lean SELL or HOLD
+- Stock below analyst consensus target -> lean BUY or HOLD
 - High beta (>2) warrants explicit risk mention
 
 NEVER use web_search to override any verified number (price, beta, VaR, returns).
