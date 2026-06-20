@@ -1,6 +1,6 @@
 {
   "date": "2026-06-18",
-  "generated": "2026-06-19T02:07:01.493785",
+  "generated": "2026-06-20T02:07:14.055896",
   "mkt_data": [
     {
       "index": "S&P 500 (SPY)",
@@ -8,7 +8,7 @@
       "day_change": "+0.78%",
       "1_week": "+1.22%",
       "1_month": "+1.77%",
-      "1_year": "+24.52%",
+      "1_year": "+23.82%",
       "52w_high": 759.57,
       "52w_low": 594.28
     },
@@ -18,7 +18,7 @@
       "day_change": "+2.51%",
       "1_week": "+3.28%",
       "1_month": "+5.57%",
-      "1_year": "+39.56%",
+      "1_year": "+38.64%",
       "52w_high": 746.16,
       "52w_low": 526.83
     },
@@ -28,14 +28,14 @@
       "day_change": "+12.37%",
       "1_week": "-17.01%",
       "1_month": "+2.10%",
-      "1_year": "+7.46%",
+      "1_year": "+8.79%",
       "52w_high": 31.05,
       "52w_low": 13.47
     }
   ],
-  "pulse": "Thursday's session saw a powerful tech-led rebound as the Nasdaq 100 (NDX) surged +2.51% (QQQ: $740.62), recovering much of the prior day's FOMC-driven selloff, powered by a historic Intel-Apple domestic chip deal announced by President Trump and a broad semiconductor rally. The S&P 500 (SPY) added +0.78% to $746.74, with the Technology sector leading all groups at +3.04%, while Energy (-1.65%) and Financials (-0.89%) lagged on the US-Iran MOU signing and Accenture-led IT services concerns.",
+  "pulse": "The Nasdaq 100 (NDX) surged on Thursday, June 18, 2026, with QQQ gaining +2.51% as a semiconductor-led rally powered by a Trump-announced Apple-Intel chip deal and a U.S.-Iran peace framework sent Technology +3.04%, overshadowing the prior session's Fed-induced sell-off. The S&P 500 (SPY) added +0.78%, while the VIX spiked +12.37% to 18.44 \u2014 a paradoxical fear-gauge rise on a rally day, reflecting residual macro unease from the FOMC's hawkish-leaning dot plot projections.",
   "early_warning": "<table style=\"width:100%;border-collapse:collapse;font-size:13px;margin:12px 0\"><tr><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Signal</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Status</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">What It Means</th></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">VIX (fear gauge)</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style='background:#1a7a3c;color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>GREEN</span></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">18.4 - calm</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Breadth (sectors up)</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style='background:#f59e0b;color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>AMBER</span></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">5/11 sectors green - mixed</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">S&P vs 50-day avg</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style='background:#1a7a3c;color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>GREEN</span></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">+2.3% vs trend</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Consumer confidence</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style='background:#888;color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>GREY</span></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">N/A - set manually in config</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">10Y Treasury yield</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style='background:#1a7a3c;color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>GREEN</span></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">4.49%</td></tr></table><p><strong>Overall: HEALTHY</strong></p>",
-  "spotlights_html": "<h3 style='color:#0a3d62'>Micron Technology (MU)</h3><table style=\"width:100%;border-collapse:collapse;font-size:13px;margin:12px 0\"><tr><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Metric</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Value</th></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Closing Price</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">1133.99</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Day Change</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style=\"color:#1a7a3c;font-weight:bold\">+8.70%</span></td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>52W High</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">1133.99</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>52W Low</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">104.88</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>P/E Ratio</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">53.4</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Dividend Yield</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">N/A</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Analyst View</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">strong_buy</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Analyst Target</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">$1,015.34 (Benzinga/30-analyst consensus, June 18, 2026); most recent: avg $1,333.33 from Rosenblatt, Stifel & Wedbush (June 18, 2026)</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Next Earnings</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Jun 24, 2026</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Beta (1Y)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">2.98</td></tr></table><p><strong>HOLD</strong> - MU closed at its 52-week high of $1,133.99, well above the Benzinga/30-analyst consensus target of ~$1,015 and the S&P Global 44-analyst average of $945.60, meaning the stock has materially outrun near-term Street models even as the bull case strengthens into its Q3 earnings on June 24. Momentum is exceptional \u2014 up +8.7% on Thursday alone, +922% over 12 months \u2014 powered by AI-driven HBM and DRAM demand and record Q2 results including $12.20 EPS (beating $8.60 consensus by 42%) and Q3 guidance of $33.5B revenue with ~81% gross margin. Key risk is the extreme high-beta (2.98) valuation at all-time highs heading into an earnings event where the bar is now very high, and any guidance miss or DRAM/NAND supply reversal could trigger a sharp reversal.</p>",
+  "spotlights_html": "<h3 style='color:#0a3d62'>Micron Technology (MU)</h3><table style=\"width:100%;border-collapse:collapse;font-size:13px;margin:12px 0\"><tr><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Metric</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Value</th></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Closing Price</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">1133.99</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Day Change</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><span style=\"color:#1a7a3c;font-weight:bold\">+8.70%</span></td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>52W High</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">1133.99</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>52W Low</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">104.88</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>P/E Ratio</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">53.4</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Dividend Yield</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">N/A</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Analyst View</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">strong_buy</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Analyst Target</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">$1,015.34 consensus / $1,333.33 most-recent 3-broker avg (Benzinga/Rosenblatt-Stifel-Wedbush, June 18, 2026)</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Next Earnings</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Jun 24, 2026</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Beta (1Y)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">2.98</td></tr></table><p><strong>HOLD</strong> - MU is trading at $1,133.99, sitting precisely at its 52-week high and meaningfully above the S&P Global consensus analyst target of $945.60 (44 analysts, Jun 2026), while the most recent three-broker average from Rosenblatt, Stifel, and Wedbush on June 18 stands at $1,333.33 \u2014 implying divergent views; at current price, near-term risk/reward is balanced. One-year momentum is an extraordinary +893.51%, driven by HBM sold-out status through 2026, record Q2 EPS of $12.20 (vs. $8.60 estimate), and Q3 guidance pointing to $33.5B in revenue at ~81% gross margin. Key risk is the stock pricing in near-perfection: Q3 earnings on June 24 carry options-implied 10% move potential, and any revenue or margin guidance miss could trigger a sharp sell-the-news correction similar to the ~8% post-Q2 dip.</p>",
   "spotlights": [
     {
       "ticker": "MU",
@@ -43,7 +43,7 @@
       "price": 1133.99,
       "day_change": 8.7,
       "rating": "HOLD",
-      "verdict": "MU closed at its 52-week high of $1,133.99, well above the Benzinga/30-analyst consensus target of ~$1,015 and the S&P Global 44-analyst average of $945.60, meaning the stock has materially outrun near-term Street models even as the bull case strengthens into its Q3 earnings on June 24. Momentum is exceptional \u2014 up +8.7% on Thursday alone, +922% over 12 months \u2014 powered by AI-driven HBM and DRAM demand and record Q2 results including $12.20 EPS (beating $8.60 consensus by 42%) and Q3 guidance of $33.5B revenue with ~81% gross margin. Key risk is the extreme high-beta (2.98) valuation at all-time highs heading into an earnings event where the bar is now very high, and any guidance miss or DRAM/NAND supply reversal could trigger a sharp reversal."
+      "verdict": "MU is trading at $1,133.99, sitting precisely at its 52-week high and meaningfully above the S&P Global consensus analyst target of $945.60 (44 analysts, Jun 2026), while the most recent three-broker average from Rosenblatt, Stifel, and Wedbush on June 18 stands at $1,333.33 \u2014 implying divergent views; at current price, near-term risk/reward is balanced. One-year momentum is an extraordinary +893.51%, driven by HBM sold-out status through 2026, record Q2 EPS of $12.20 (vs. $8.60 estimate), and Q3 guidance pointing to $33.5B in revenue at ~81% gross margin. Key risk is the stock pricing in near-perfection: Q3 earnings on June 24 carry options-implied 10% move potential, and any revenue or margin guidance miss could trigger a sharp sell-the-news correction similar to the ~8% post-Q2 dip."
     }
   ],
   "ai_rows": [
@@ -66,7 +66,7 @@
       "day_change": "+2.95%",
       "1_week": "+2.84%",
       "1_month": "-4.50%",
-      "1_year": "+47.72%",
+      "1_year": "+46.35%",
       "52w_low": 141.97,
       "52w_high": 235.74,
       "beta": 1.84
@@ -78,10 +78,10 @@
       "day_change": "+4.86%",
       "1_week": "+10.02%",
       "1_month": "+29.78%",
-      "1_year": "+341.44%",
+      "1_year": "+336.04%",
       "52w_low": 116.16,
       "52w_high": 547.26,
-      "beta": 2.87
+      "beta": 2.88
     },
     {
       "ticker": "AVGO",
@@ -90,8 +90,8 @@
       "day_change": "+4.70%",
       "1_week": "+6.69%",
       "1_month": "+0.07%",
-      "1_year": "+68.39%",
-      "52w_low": 244.28,
+      "1_year": "+68.15%",
+      "52w_low": 244.63,
       "52w_high": 481.57,
       "beta": 2.1
     },
@@ -102,7 +102,7 @@
       "day_change": "+1.17%",
       "1_week": "+2.87%",
       "1_month": "-5.06%",
-      "1_year": "+109.00%",
+      "1_year": "+106.06%",
       "52w_low": 165.19,
       "52w_high": 402.62,
       "beta": 1.3
@@ -114,7 +114,7 @@
       "day_change": "-5.05%",
       "1_week": "-9.37%",
       "1_month": "+12.04%",
-      "1_year": "-8.45%",
+      "1_year": "-9.82%",
       "52w_low": 214.64,
       "52w_high": 329.23,
       "beta": 1.04
@@ -126,7 +126,7 @@
       "day_change": "+0.13%",
       "1_week": "-2.80%",
       "1_month": "-9.11%",
-      "1_year": "-19.75%",
+      "1_year": "-19.43%",
       "52w_low": 356.77,
       "52w_high": 542.07,
       "beta": 0.88
@@ -138,10 +138,10 @@
       "day_change": "+10.64%",
       "1_week": "+14.56%",
       "1_month": "+20.93%",
-      "1_year": "+554.25%",
+      "1_year": "+506.84%",
       "52w_low": 19.31,
       "52w_high": 133.99,
-      "beta": 2.54
+      "beta": 2.52
     },
     {
       "ticker": "C",
@@ -150,10 +150,10 @@
       "day_change": "-0.50%",
       "1_week": "+3.61%",
       "1_month": "+19.25%",
-      "1_year": "+83.01%",
+      "1_year": "+83.34%",
       "52w_low": 76.36,
       "52w_high": 143.78,
-      "beta": 1.37
+      "beta": 1.38
     },
     {
       "ticker": "QRVO",
@@ -162,10 +162,10 @@
       "day_change": "+3.98%",
       "1_week": "+0.78%",
       "1_month": "+4.07%",
-      "1_year": "+21.37%",
+      "1_year": "+18.56%",
       "52w_low": 76.02,
       "52w_high": 108.23,
-      "beta": 1.25
+      "beta": 1.24
     },
     {
       "ticker": "ANET",
@@ -174,19 +174,19 @@
       "day_change": "+2.87%",
       "1_week": "+8.48%",
       "1_month": "+19.84%",
-      "1_year": "+75.28%",
+      "1_year": "+81.08%",
       "52w_low": 86.25,
       "52w_high": 177.73,
-      "beta": 2.07
+      "beta": 2.08
     },
     {
       "ticker": "WQTM",
       "company": "Quantum ETF (WQTM)",
-      "price": 37.81,
-      "day_change": "+3.11%",
-      "1_week": "+3.22%",
-      "1_month": "+15.31%",
-      "1_year": "+24.83%",
+      "price": 37.83,
+      "day_change": "+3.16%",
+      "1_week": "+3.28%",
+      "1_month": "+15.37%",
+      "1_year": "+24.89%",
       "52w_low": 23.32,
       "52w_high": 41.31,
       "beta": 2.38
@@ -198,16 +198,16 @@
       "day_change": "+6.44%",
       "1_week": "+6.30%",
       "1_month": "+28.72%",
-      "1_year": "+123.57%",
+      "1_year": "+117.46%",
       "52w_low": 31.62,
       "52w_high": 89.96,
       "beta": 2.04
     }
   ],
   "why_paras": [
-    "Thursday's US session delivered a broad-based recovery led by technology and chip stocks. The Nasdaq 100 (NDX/QQQ) jumped +2.51%, the S&P 500 gained +1.08%, and the Russell 2000 outperformed at +2.12%. The day's single biggest catalyst was President Trump's Truth Social post confirming Intel (INTC) will design and manufacture chips domestically alongside Apple (AAPL), sending INTC surging +10.64% to a new 52-week high of $133.99. The Philadelphia Semiconductor Index hit a record high. Separately, the US-Iran MOU signing in France eased geopolitical risk, though it weighed on Energy stocks (-1.65%) as oil edged lower. IBM (IBM) fell -5.05% after peer Accenture's weak outlook and IBM's own study revealing enterprise AI control gaps spooked IT services investors.",
-    "The rebound came one day after a sharp Fed-driven selloff. In its first meeting under new Chair Kevin Warsh, the FOMC held rates steady but delivered a hawkish dot plot \u2014 nine of eighteen policymakers projected at least one rate hike before year-end, and the Fed signalled slower growth and higher inflation in its updated projections. Markets initially sold off hard on June 17, but Thursday's session saw investors 'buy the dip,' particularly in semiconductors and AI-infrastructure names where earnings fundamentals remain powerful. Micron's upcoming Q3 report (June 24) is guiding for record $33.5B revenue and ~81% gross margin, providing a strong fundamental floor for the sector. The VIX spiked +12.37% on the day to 18.44 \u2014 still 'green'/calm \u2014 but the week-on-week VIX decline of -17.01% confirms that the Fed shock was absorbed rather than becoming a structural market event.",
-    "For overseas retail investors, Thursday's session reveals a market in transition: the AI chip/semiconductor complex remains the dominant upside driver, but macro uncertainty around a possible Fed rate hike in late 2026 means high-beta tech names carry genuine two-sided risk. The Trump-Intel-Apple deal is the year's most significant industrial-policy catalyst for US semiconductors, validating the domestic chip renaissance trade and lifting INTC, AMD, and AVGO in sympathy. Investors should remain alert to the upcoming Micron (MU) earnings on June 24 \u2014 the most important near-term single-stock catalyst for the entire AI memory trade \u2014 while monitoring the 10-year Treasury yield (currently 4.49%) as the primary macro risk signal. The NDX's quarterly rebalance on June 22, adding ALAB, CRWV, NBIS, RKLB, and TER, will create mechanical index-fund buying pressure at the open next Monday."
+    "Thursday, June 18 was a broad but semiconductor-dominated recovery session. The headline catalyst was President Trump's Truth Social post stating 'Apple has agreed to work with Intel to design and build its chips in America,' sending INTC surging +10.64% to $133.99 \u2014 its highest closing price ever and an all-time 52-week high. The move lifted the entire chip complex: AMD +4.86%, AVGO +4.70%, NVDA +2.95%, MU +8.70%, and GFS +6.44%. Separately, the U.S. and Iran signed a Memorandum of Understanding in France establishing a framework around Strait of Hormuz access, which weighed on energy stocks (-1.65%) but removed a geopolitical tail risk that had been pressuring growth assets.",
+    "The session unfolded against a specific macro backdrop: the FOMC, meeting under new Fed Chair Kevin Warsh, held the benchmark rate steady at 3.50\u20133.75% but issued updated projections showing inflation at 3.6% for 2026 and signalled the possibility of a rate hike later in the year. That hawkish tilt had caused Wednesday's sharp market decline. On Thursday, investors chose to look through the Fed's cautious tone, helped by strong May retail sales data: headline retail sales rose +0.9% vs. a +0.4% consensus estimate, suggesting the consumer remained resilient. Volume was heavy at 23.66 billion shares traded, well above the 20-session average of 21.07 billion, underscoring conviction in the bounce.",
+    "For overseas retail investors, Thursday's action has three key implications. First, the Apple-Intel chip deal narrative \u2014 unconfirmed by either company \u2014 is a sentiment trade, not a fundamental one; revenue from any such partnership is 12\u201318 months away at minimum, so INTC's spike deserves caution before chasing. Second, the Fed's hawkish pivot is real: with inflation forecast at 3.6% in 2026 and rate cuts no longer on the table, valuation compression risk for high-P/E tech names remains elevated \u2014 QQQ still sits within 0.75% of its 52-week high of $746.16. Third, the Iran MOU is a de-escalation positive for global risk sentiment, though the Strait of Hormuz deal details and compliance remain unresolved, keeping energy uncertainty in play."
   ],
   "winners": [
     {
@@ -234,9 +234,9 @@
     }
   ],
   "macro": [
-    "Fed turns hawkish under new Chair Warsh: The FOMC left benchmark rates unchanged at its June meeting but updated projections show 9 of 18 policymakers favour at least one rate hike before year-end, signalling the rate-cut narrative that markets had priced in is now off the table for 2026. The 10-year Treasury yield at 4.49% is the critical line to watch \u2014 a sustained break above 4.75% would re-price equity multiples across all growth sectors.",
-    "US-Iran MOU signed in France: The US and Iran signed a memorandum of understanding, easing one of the key geopolitical risk premia of 2026. This is net-positive for global supply chains and inflation (lower energy risk premium), but the deal is preliminary and energy markets remain cautious with crude oil at ~$75.56/barrel. A failure to ratify or an escalation re-entry would quickly reverse energy price declines.",
-    "Trump's domestic chip industrial policy accelerating: President Trump confirmed on Truth Social that Apple has agreed to work with Intel to design and manufacture chips in the US, sending INTC to all-time highs and lifting the Philadelphia Semiconductor Index to a record. The US government holds a 10% stake in Intel and has committed ~$10 billion in factory investment, blurring the line between government and private market. Upcoming data catalysts: Q1 GDP revision and May PCE inflation (end of June) will be critical for the Fed's rate path."
+    "Fed Chair Kevin Warsh held rates steady at 3.50\u20133.75% at his inaugural FOMC meeting but updated projections signal inflation at 3.6% in 2026 (well above the 2% target) and raise the prospect of a hike later this year \u2014 a hawkish pivot that puts a ceiling on rate-cut-driven equity re-ratings.",
+    "May retail sales surged +0.9% month-on-month (vs. +0.4% est.) and +6.9% year-on-year, providing strong evidence that the U.S. consumer is absorbing higher prices; this reduces urgency for Fed easing but also reduces recession risk, a net neutral-to-positive for equities.",
+    "The U.S.\u2013Iran peace MOU signed in France has partially relieved Strait of Hormuz supply concerns that had driven energy cost volatility across Asia-Pacific; however, the deal is preliminary and any breakdown could rapidly reignite oil/transport inflation that feeds into sticky core CPI and complicates the Fed's path."
   ],
   "earnings": [
     {
@@ -247,12 +247,17 @@
     {
       "company": "FedEx",
       "ticker": "FDX",
-      "date": "Jun 25, 2026"
+      "date": "Jun 24, 2026"
     },
     {
-      "company": "Carnival Corp",
-      "ticker": "CCL",
-      "date": "Jun 23, 2026"
+      "company": "Nike",
+      "ticker": "NKE",
+      "date": "Jun 26, 2026"
+    },
+    {
+      "company": "Paychex",
+      "ticker": "PAYX",
+      "date": "Jun 25, 2026"
     },
     {
       "company": "General Mills",
@@ -260,95 +265,90 @@
       "date": "Jun 25, 2026"
     },
     {
-      "company": "Astera Labs",
-      "ticker": "ALAB",
-      "date": "Jul 28, 2026"
+      "company": "Accenture",
+      "ticker": "ACN",
+      "date": "Jun 26, 2026"
     },
     {
-      "company": "CoreWeave",
-      "ticker": "CRWV",
-      "date": "Aug 11, 2026"
+      "company": "Carnival Corp",
+      "ticker": "CCL",
+      "date": "Jun 27, 2026"
     },
     {
-      "company": "Rocket Lab",
-      "ticker": "RKLB",
-      "date": "Aug 6, 2026"
+      "company": "Walgreens Boots Alliance",
+      "ticker": "WBA",
+      "date": "Jun 26, 2026"
     },
     {
-      "company": "Nvidia",
-      "ticker": "NVDA",
-      "date": "Aug 27, 2026"
+      "company": "Constellation Brands",
+      "ticker": "STZ",
+      "date": "Jul 1, 2026"
     },
     {
-      "company": "Broadcom",
-      "ticker": "AVGO",
-      "date": "Sep 3, 2026"
+      "company": "Levi Strauss",
+      "ticker": "LEVI",
+      "date": "Jul 1, 2026"
     },
     {
-      "company": "Alphabet",
-      "ticker": "GOOGL",
-      "date": "Jul 28, 2026"
+      "company": "Delta Air Lines",
+      "ticker": "DAL",
+      "date": "Jul 9, 2026"
     },
     {
-      "company": "Microsoft",
-      "ticker": "MSFT",
-      "date": "Jul 29, 2026"
-    },
-    {
-      "company": "Intel",
-      "ticker": "INTC",
-      "date": "Jul 24, 2026"
+      "company": "JPMorgan Chase",
+      "ticker": "JPM",
+      "date": "Jul 11, 2026"
     }
   ],
   "econ": [],
-  "opportunity_radar": "<ul><li><strong>Domestic Semiconductor Renaissance</strong> - Trump's Intel-Apple chip deal and the US government's ~$10B Intel foundry investment are catalysing a structural re-rating of US-domestic chip manufacturers. The Philadelphia Semiconductor Index hit an all-time record on June 18. INTC is up +554% year-on-year and still at its 52-week high, while GlobalFoundries (GFS) \u2014 a domestic wafer fab \u2014 is up +28.72% in a month and +123.57% over a year, approaching its 52-week high of $89.96. (e.g. GFS)</li><li><strong>AI Memory & HBM Supercycle</strong> - Micron's Q3 guidance of $33.5B revenue with ~81% gross margin confirms the AI-driven HBM/DRAM demand cycle is still accelerating. Consensus 2026 net income for MU is forecast to grow 251% versus just 38% for the broader US semiconductor industry. AMD has surged +29.78% in a month and +341.44% over a year on AI GPU and server processor wins, near its 52-week high of $547.26. (e.g. AMD)</li><li><strong>AI Infrastructure / Data-Centre Networking NDX Rebalance</strong> - The NDX June 22 quarterly rebalance adds ALAB, CRWV, NBIS, RKLB, and TER, triggering mechanical index-fund purchases from open on Monday. Arista Networks (ANET) \u2014 already in the NDX \u2014 is up +8.48% this week and +19.84% this month, as data-centre networking demand from hyperscalers accelerates; its peer Marvell (MRVL) saw KeyBanc raise its target from $260 to $385 citing data-centre networking as a 'major growth driver.' (e.g. ANET)</li></ul><p>With the VIX at a calm 18.44 (GREEN), the S&P 500 trading +2.3% above its 50-day moving average (GREEN), and the 10-year Treasury yield at 4.49% (GREEN), the overall market health signal is HEALTHY and near-term correction risk is low \u2014 conditions that favour staying invested in quality growth. However, the FOMC's hawkish pivot (9 of 18 dots for a 2026 rate hike), mixed breadth (only 5 of 11 sectors green), and MSFT's -19.75% 12-month return despite being the index bellwether are early warnings that the leadership is narrowing dangerously around AI-chip plays. The recommended posture is: BUY quality AI infrastructure and domestic semiconductor names on any dip (INTC, GFS, ANET, AMD); HOLD broad index exposure via QQQ/SPY as the macro still supports growth; REDUCE single-stock concentration in over-consensus-target names (MU at all-time highs, IBM in correction) and add selective fixed-income exposure (short-to-intermediate Treasuries at 4.49% offer attractive risk-adjusted yield) as a hedge against the Fed's higher-for-longer pivot.</p>",
+  "opportunity_radar": "<ul><li><strong>US Domestic Chip Manufacturing Renaissance</strong> - Trump's unconfirmed Apple-Intel announcement has catalysed a re-rating of domestic foundry and chip-design stocks. Intel's 18A-P process node entered risk production on June 16, and Bernstein raised its price target to $100 from $65 on June 17 \u2014 the stock hit its all-time high on June 18. The broader chip-manufacturing supply-chain repricing is NOW because the policy and geopolitical case for US-made silicon has reached an inflection point, with INTC +506.84% over the past year and GFS +117.46% confirming structural re-rating underway. (e.g. INTC)</li><li><strong>AI Memory Supercycle \u2014 HBM Sold-Out Through 2026</strong> - Micron guided Q3 to $33.5B revenue at ~81% gross margins \u2014 a single quarter exceeding any prior full fiscal year \u2014 with HBM production sold out under binding contracts. AI data centre buildout continues to drive DRAM/NAND tightness, with server DRAM/NAND TAM surpassing 50% of industry totals. MU Q3 earnings on June 24 are the next catalyst. AMD's +336% 1-year gain and Arista Networks' +81% 1-year gain confirm the AI infrastructure spending wave has broadened beyond just Nvidia. (e.g. MU)</li><li><strong>NDX Rebalance Inclusion Plays \u2014 Forced Institutional Buying</strong> - The NDX quarterly rebalance effective June 22, 2026 adds Astera Labs (ALAB), CoreWeave (CRWV), Nebius Group (NBIS), Rocket Lab (RKLB), and Teradyne (TER) to the index. Index-linked funds must mechanically purchase these names over the days following inclusion, creating predictable near-term demand pressure. Rocket Lab's $2.2B record backlog and upcoming Neutron first flight in Q4 2026 provide fundamental support on top of the index-flow catalyst \u2014 RKLB received multiple analyst upgrades in June 2026. (e.g. RKLB)</li></ul><p>The current environment supports a selective HOLD/BUY posture in high-quality AI-infrastructure and domestic semiconductor names, with disciplined position-sizing given elevated valuations. VIX at 18.44 is calm (GREEN) and the S&P sits +2.3% above its 50-day moving average (GREEN), suggesting no imminent technical breakdown; however, AMBER breadth (only 5/11 sectors green) warns that the rally remains narrow and concentrated in tech. The Fed's hawkish pivot \u2014 with inflation at 3.6% and a possible 2026 rate hike on the table \u2014 argues against aggressively adding duration-sensitive or high-P/E names at current levels. The 10Y Treasury at 4.49% (GREEN) provides a genuine alternative to equities for risk-averse capital. Recommended stance: maintain core AI/semiconductor exposure (NVDA, AVGO, AMD, ANET), take partial profits in names that have exceeded analyst consensus targets (MU at $1,133.99 vs. $945.60 consensus), avoid chasing unconfirmed policy-headline movers (INTC), and use any VIX spike above 25 as a re-entry signal into quality growth.</p>",
   "stw": [
-    {
-      "ticker": "INTC",
-      "rating": "BUY",
-      "horizon": "5-YEAR",
-      "reason": "President Trump confirmed an Apple-Intel domestic chip manufacturing deal on June 18, lifting INTC to a new 52-week high of $133.99 (+554% YoY) and marking a historic commercial validation of Intel's foundry turnaround; with the US government owning a 10% stake and committing ~$10B in factory investment, INTC has a powerful policy tailwind for years. Intel's 18A-P process has entered risk production \u2014 the clearest sign yet that the manufacturing roadmap is on track \u2014 and further wins from NVDA or GOOGL as foundry clients could trigger the next leg of re-rating.",
-      "price_note": "$133.99 (verified data)",
-      "price": "$133.99",
-      "name": "INTC"
-    },
     {
       "ticker": "AMD",
       "rating": "BUY",
-      "horizon": "1-YEAR",
-      "reason": "AMD has surged +341.44% over 12 months and +29.78% in the past month on AI GPU wins and server processor market share gains, sitting just below its 52-week high of $547.26 at $537.37; near-term momentum is exceptional and data-centre AI capex from hyperscalers continues to expand the addressable market. However, with beta of 2.87 and price now near all-time highs, the 1-year horizon is preferred \u2014 monitor for any softening in AI server order trends or NVDA competitive pressure before adding size.",
-      "price_note": "$537.37 (verified data)",
+      "horizon": "5-YEAR",
+      "reason": "AMD has delivered a staggering +336% 1-year return and sits close to its 52-week high of $547.26 at $537.37, driven by MI300X data centre GPU traction and a structural shift of enterprise AI workloads toward multi-vendor architectures \u2014 a multi-year secular tailwind that is still in early innings. With beta of 2.88 and 1-month momentum of +29.78%, near-term volatility is high, but the 5-year story of AMD closing the gap with Nvidia in AI accelerators, capturing server CPU share from Intel, and benefiting from the CHIPS Act domestic manufacturing wave makes this a core long-term holding; scale in on dips toward the $480\u2013500 support zone.",
+      "price_note": "$537.37",
       "price": "$537.37",
       "name": "AMD"
     },
     {
       "ticker": "ANET",
-      "rating": "BUY",
-      "horizon": "1-YEAR",
-      "reason": "Arista Networks is up +8.48% this week and +19.84% this month, driven by explosive demand for data-centre networking from AI hyperscalers; with a beta of 2.07 and 75.28% 12-month return, it is a high-quality way to play AI infrastructure without direct chip-cycle inventory risk. Arista is still ~4.5% below its 52-week high of $177.73, giving room to run before resistance, and its revenue model is underpinned by multi-year cloud backbone build-outs that will persist regardless of which chip vendor wins.",
-      "price_note": "$169.67 (verified data)",
-      "price": "$169.67",
-      "name": "ANET"
-    },
-    {
-      "ticker": "GOOGL",
       "rating": "HOLD",
       "horizon": "1-YEAR",
-      "reason": "Alphabet at $368.03 is up +109% over 12 months but has pulled back -5.06% over the past month as regulatory and AI-competition concerns weigh; at a beta of 1.30 it is one of the lower-volatility AI mega-caps and trades comfortably below its 52-week high of $402.62, offering reasonable value for patient investors. Hold rather than add aggressively here given the hawkish Fed backdrop compressing multiples, but do not sell \u2014 GOOGL's Waymo, DeepMind, and Cloud AI revenues provide multiple catalysts for re-rating in the second half of 2026.",
-      "price_note": "$368.03 (verified data)",
-      "price": "$368.03",
-      "name": "GOOGL"
+      "reason": "Arista Networks at $169.67 (1-year: +81.08%) has been a direct beneficiary of hyperscaler AI data centre networking upgrades, and the stock is 4.5% below its 52-week high of $177.73 \u2014 suggesting momentum with room for a modest re-test of highs; however, at a beta of 2.08 and with limited near-term catalyst before the next earnings cycle, the risk/reward over a 1-year horizon is balanced rather than compelling. Hold existing positions and use the $155\u2013160 zone as a re-entry if tech sentiment cools following the Fed's hawkish commentary.",
+      "price_note": "$169.67",
+      "price": "$169.67",
+      "name": "ANET"
     },
     {
       "ticker": "IBM",
       "rating": "SELL",
       "horizon": "EXIT NOW",
-      "reason": "IBM fell -5.05% on June 18 and is down -9.37% for the week, -8.45% over 12 months \u2014 the only major AI name with negative annual returns in our coverage \u2014 weighed down by Accenture's weak guidance, IBM's own study showing 91% of enterprise AI executives don't understand their AI dependencies, and a sharp technical correction of ~24% from the $329.23 52-week high. With IBM's Consulting division growing just 1% in Q1 2026 and the hawkish Fed placing additional pressure on enterprise IT budgets, the monetisation runway for watsonx and hybrid cloud is deteriorating; exit and redeploy into higher-conviction AI infrastructure plays.",
-      "price_note": "$249.10 (verified data)",
+      "reason": "IBM is the clear underperformer in the AI cohort: -9.82% over the past year, -9.37% over the past week, and -5.05% in Thursday's session alone \u2014 declining on a day the broader tech sector rose +3.04%, a stark divergence that signals active sector rotation away from legacy IT. At $249.10, IBM trades in the lower half of its 52-week range ($214.64\u2013$329.23) and is structurally losing share to cloud-native and AI-pure-play competitors; the low beta of 1.04 limits upside participation in tech rallies, and there is no near-term catalyst to reverse the negative price trend \u2014 exit and redeploy into higher-conviction AI infrastructure names.",
+      "price_note": "$249.10",
       "price": "$249.1",
       "name": "IBM"
+    },
+    {
+      "ticker": "GFS",
+      "rating": "BUY",
+      "horizon": "1-YEAR",
+      "reason": "GlobalFoundries at $85.83 is approaching its 52-week high of $89.96 (+117.46% 1-year) on multiple catalysts: first-ever quarterly dividend of $0.12/share (ex-date June 24), completion of the Synopsys Processor IP acquisition on June 2, quantum technology solutions launch, and a new AI-centric technology roadmap unveiled at the May 2026 Investor Day \u2014 all while trading at a significant discount to TSMC and benefiting from the domestic chip manufacturing policy tailwind. The Apple-Intel deal narrative indirectly boosts GFS as investors reprice US foundry capacity scarcity; with Q2 revenue guidance of $1.76B and the inaugural dividend signalling management confidence, this is a catalyst-rich 1-year setup.",
+      "price_note": "$85.83",
+      "price": "$85.83",
+      "name": "GFS"
+    },
+    {
+      "ticker": "RKLB",
+      "rating": "BUY",
+      "horizon": "5-YEAR",
+      "reason": "Rocket Lab (RKLB), newly added to the NDX effective June 22, 2026, sits at the intersection of three powerful themes: NDX inclusion-driven mechanical institutional buying, a record $2.2B backlog, and an upcoming Neutron medium-lift rocket first flight in Q4 2026 that could unlock a new $50\u201355M per mission revenue tier versus the current $8.4M Electron price point. Multiple analyst upgrades in June 2026 following the Neutron development update, combined with the SpaceX IPO-driven rotation of space-sector capital toward more accessible public vehicles, make RKLB a compelling 5-year compounding play for investors who want direct space infrastructure exposure.",
+      "price_note": "$109.45 (approx. current \u2014 not in verified data layer; verify before trading)",
+      "price": "$$109.45 (approx. current \u2014 not in verified data layer; verify before trading)",
+      "name": "RKLB"
     }
   ],
-  "market_trends": "<p>Thursday's session confirmed the US market's resilience: a +2.51% NDX rebound the day after a Fed-shock selloff, led by semiconductors hitting all-time records, shows that institutional buyers view AI-chip earnings power as a stronger force than near-term rate risk. The mixed breadth signal \u2014 only 5 of 11 sectors green, with Energy and Financials under pressure \u2014 suggests leadership remains dangerously narrow, concentrated in the semiconductor and AI infrastructure cluster, meaning the bull market's durability depends on that cluster's earnings continuing to impress when MU reports on June 24 and NDX heavyweights report through July and August.</p><strong>Upside Risks</strong><ul><li>Micron Q3 earnings beat on June 24: MU guided for record $33.5B revenue and ~81% gross margin with EPS of ~$19.15; a beat (MU has beaten consensus in 82 of 157 quarters) would likely trigger a sector-wide AI memory rally, re-rating NVDA, AMD, and AVGO higher simultaneously.</li><li>NDX rebalance mechanical buying: Five new additions (ALAB, CRWV, NBIS, RKLB, TER) become effective June 22, triggering mandatory index-fund purchases; RKLB alone has a $2.2B backlog record and Neutron missions priced at $50-55M, suggesting material upside from forced institutional accumulation.</li><li>US-Iran deal reduces energy/inflation risk premium: The MOU signing in France introduces the possibility of renewed Iranian oil supply, which if formalised could bring crude oil meaningfully lower from ~$75.56, reducing the Fed's inflation concerns and pushing back the rate-hike timeline \u2014 a bullish macro reset for growth equities.</li></ul><strong>Downside Risks</strong><ul><li>Fed rate hike materialises in H2 2026: With 9 of 18 FOMC policymakers already projecting a hike and inflation 'at its highest level in three years' (per Investing.com), a single hot PCE or CPI print in late June/July could accelerate the tightening timeline, compressing the P/E multiples of NDX components trading at 40-53x earnings.</li><li>Bank of America warns of narrowing leadership: BofA analysts flagged that 'rising valuations and narrowing leadership could leave investors increasingly vulnerable' \u2014 with only 5 of 11 sectors green and IBM, MSFT both underperforming over 12 months, a rotation shock triggered by any disappointment in the AI-chip cluster could cascade quickly given concentrated index weights.</li><li>Intel-Apple deal confirmation risk: Neither Apple nor Intel issued an official statement confirming the Trump-announced chip deal as of June 18; the arrangement is based on a preliminary WSJ report from May 2026. A formal denial or material delay in the partnership would erase INTC's +10.64% single-day gain and remove the sector tailwind that drove Thursday's Philadelphia Semiconductor Index record.</li></ul>",
-  "portfolio_allocation": "<p>With VIX at a calm 18.44, the S&P 500 +2.3% above its 50-day average, and the 10-year Treasury at an attractive 4.49%, current conditions support a growth-tilted but increasingly defensive allocation for a 5-8 year retirement horizon \u2014 one that harvests AI and technology upside while building a meaningful fixed-income and dividend buffer against the Fed's clear hawkish pivot and the risk that narrow market leadership eventually broadens or reverses. As J.P. Morgan's 2026 Long-Term Capital Market Assumptions project a 6.9% return for portfolios adding a 30% alternatives/bond sleeve, this allocation blends growth capture with sequence-of-returns risk management appropriate for a professional approaching retirement.</p><table style=\"width:100%;border-collapse:collapse;font-size:13px;margin:12px 0\"><tr><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Bucket</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Allocation %</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Purpose</th></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>US Large-Cap Growth Equities (AI/Tech Leaders)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">30%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Core growth engine targeting AI infrastructure, semiconductor, and mega-cap tech leaders (NVDA, AMD, ANET, INTC, AVGO, QQQ ETF); provides the primary capital appreciation driver over the 5-8 year horizon while remaining highly liquid for tactical rebalancing.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>US Large-Cap Quality / Dividend Equities</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">20%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Dividend-paying blue-chips and low-beta quality names (GOOGL, MSFT once momentum stabilises, Citigroup C) providing income, lower correlation to the AI-chip cycle, and inflation protection through pricing power; targets beta below 1.3.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Short-to-Intermediate US Treasuries & Investment-Grade Bonds</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">25%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">At 4.49% on the 10-year, Treasuries offer the best risk-adjusted yield in years; concentrate in 2-5 year duration to avoid long-duration rate risk if the Fed hikes, generating reliable income while preserving principal as retirement approaches; avoid 20-30 year bonds given higher-for-longer rate environment.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>International Developed Market Equities</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">10%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Diversification away from US-specific AI concentration risk and USD exposure; MSCI EAFE remains below its February 2026 highs but has recovered strongly, and with the dollar showing structural weakness, unhedged international exposure adds currency diversification for overseas investors.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Alternatives & Real Assets (Commodities / Energy / REITs)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">8%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Hedge against the residual inflation and energy-supply risks flagged by Fidelity's midyear outlook; energy equities may be underpriced if the Iran MOU fails to deliver oil supply; REITs provide inflation-linked income; allocation reduces correlation to both equity and bond portfolios.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Quantum Computing & Emerging Tech ETF (WQTM / thematic)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">5%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">High-risk / high-reward thematic satellite position in the next technology wave; WQTM is up +15.31% in a month and +24.83% over 12 months with a beta of 2.38 \u2014 size is deliberately small to limit drawdown impact but provides asymmetric upside if quantum computing commercialisation accelerates within the 5-8 year horizon.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Cash & Money Market / Short-Term Bills</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">2%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Liquidity buffer and dry-powder reserve to exploit tactical opportunities (e.g., post-MU earnings dip, NDX rebalance-driven pullbacks); at current Fed fund rates, cash earns a meaningful risk-free return while maintaining flexibility for opportunistic rebalancing.</td></tr></table><p><strong>Rebalance Trigger:</strong> Initiate a full portfolio rebalance if ANY of the following occur: (1) VIX closes above 25 for two consecutive sessions, signalling a risk-off regime change requiring rotation from growth equities into Treasuries; (2) the 10-year Treasury yield breaks above 4.80%, warranting a 5-percentage-point shift from equities to short-duration bonds; (3) the S&P 500 (SPY) closes more than 8% below its 50-day moving average, triggering a 10-point reduction in the US Large-Cap Growth bucket with proceeds moved to Treasuries and cash; or (4) any single equity position exceeds 10% of total portfolio value, requiring trimming back to target weight.</p>"
+  "market_trends": "<p>Thursday's session revealed a market that is resilient but bifurcated: the Nasdaq 100 (NDX) rally of +2.51% was driven almost entirely by semiconductors and AI infrastructure names responding to a policy narrative (Trump/Apple/Intel), while only 5 of 11 S&P sectors closed green \u2014 a breadth pattern that historically signals the rally lacks the broad participation needed for sustained upside. The paradoxical VIX spike of +12.37% to 18.44 on a positive tape is a tell: options markets are not fully convinced the Fed's hawkish pivot is priced in, and traders are hedging for potential volatility around MU Q3 earnings on June 24 and any follow-up FOMC commentary. Volume at 23.66 billion shares (12% above the 20-session average) suggests institutional conviction in the directional move, but the narrow leadership warns against complacency.</p><strong>Upside Risks</strong><ul><li>MU Q3 earnings beat on June 24: guidance calls for $33.5B revenue at ~81% gross margins \u2014 if Micron delivers, it could re-accelerate the entire AI memory complex and push QQQ through its 52-week high of $746.16, with the current gap to all-time-high just 0.75%.</li><li>Apple-Intel deal confirmation: if Apple formally confirms the foundry partnership, Intel's addressable revenue could roughly double (~$53B annual run rate), triggering a wave of semiconductor ETF re-weightings and broad-based tech buying that would benefit the QQQ's top-heavy semiconductor allocation.</li><li>Iran MOU compliance triggers energy cost relief: if the Strait of Hormuz MOU holds and oil logistics normalise, the resulting decline in energy/transportation inflation could soften the CPI print enough to push the Fed back toward a neutral stance, relieving the rate-hike overhang and potentially re-opening the growth multiple expansion trade.</li></ul><strong>Downside Risks</strong><ul><li>Fed rate-hike materialisation: the FOMC under Warsh has projected inflation at 3.6% in 2026 \u2014 if the July or August CPI print confirms persistent elevation, markets may begin pricing in a 25bp hike, potentially pushing the 10Y Treasury well above its current 4.49% level and compressing tech P/E multiples across the NDX.</li><li>MU earnings sell-the-news: with MU at its 52-week high of $1,133.99 and options pricing a ~10% post-earnings move, a guidance miss or softening of HBM demand commentary on June 24 could spark a sharp semiconductor-wide correction \u2014 a prior MU earnings announcement produced a -10.87% reaction, which at current index weights would be material for QQQ.</li><li>NDX concentration and narrowing leadership: Bank of America has flagged that rising valuations and narrowing leadership leave investors increasingly vulnerable; with QQQ +38.64% over 12 months and only 5/11 sectors participating in Thursday's rally, any rotation away from mega-cap tech \u2014 driven by profit-taking, sector rotation to small-caps, or an AI capex ROI reassessment \u2014 could produce outsized index drawdowns given the top-heavy NDX weighting.</li></ul>",
+  "portfolio_allocation": "<p>With VIX at a calm 18.44, the S&P +2.3% above its 50-day moving average, and the 10Y Treasury yielding 4.49% \u2014 the highest real yield available in years \u2014 a pre-retirement investor 5\u20138 years from drawdown should harvest the current tech rally to gradually shift from pure growth toward a growth-and-income hybrid, while maintaining meaningful equity exposure to outpace the Fed's own 3.6% inflation forecast over the medium term. The AMBER breadth signal and the Fed's hawkish pivot argue for keeping a larger-than-usual cash and short-duration bond buffer to fund opportunistic re-entry and buffer sequence-of-returns risk in the final pre-retirement years.</p><table style=\"width:100%;border-collapse:collapse;font-size:13px;margin:12px 0\"><tr><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Bucket</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Allocation %</th><th style=\"background:#0a3d62;color:#fff;padding:8px;text-align:left;font-size:11px\">Purpose</th></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Core US Large-Cap Growth Equities (NDX/S&P 500 index exposure)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">35%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Capture ongoing AI/tech secular growth via diversified index exposure (QQQ, SPY); primary engine of capital appreciation over the 5\u20138 year horizon. Trim if QQQ exceeds 52-week high by >5% and VIX falls below 14.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Quality Dividend & Low-Volatility US Equities</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">15%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Provide equity participation with downside buffer via dividend-paying blue chips (low-beta, high-FCF names like MSFT, AVGO); reduces sequence-of-returns risk as retirement approaches and generates reinvestable income at 4.49% yield alternative backdrop.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Intermediate US Treasuries & Investment-Grade Bonds (3\u20137yr duration)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">20%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Lock in attractive 4.4\u20134.7% yields before any eventual rate normalisation; provides capital preservation and negative correlation to equity drawdowns. Avoids long-duration exposure given hawkish Fed signals \u2014 keep average duration at 4\u20135 years.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Short-Duration Bonds & T-Bills / Money Market (cash equivalent)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">12%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Liquidity buffer earning 4.8\u20135.0% on T-bills; funds opportunistic re-entry on VIX spikes above 25 and covers 12\u201318 months of anticipated retirement drawdown needs \u2014 the key sequence-of-returns risk mitigation bucket.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Thematic AI & Semiconductor Overweight (active single-stock / sector ETF)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">10%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Concentrated tactical bet on the AI supercycle via high-conviction names (AMD, AVGO, ANET, GFS) and/or SOXX/SMH; expected to be the highest-volatility bucket \u2014 capped at 10% to limit idiosyncratic risk with 5-year horizon pressure building.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>International Developed Markets Equities (hedged)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">5%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Diversifies away from US-centric AI concentration risk and captures emerging-market semiconductor strength (MSCI EAFE up 20%+ YTD); currency-hedged to manage USD volatility given Fed/BoJ policy divergence.</td></tr><tr><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\"><strong>Real Assets & Inflation Hedges (TIPS, REITs, Commodities ETF)</strong></td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">3%</td><td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px\">Direct inflation hedge given the Fed's 3.6% 2026 CPI forecast; TIPS provide real yield protection, while energy/materials commodities benefit if the Iran MOU breaks down and Hormuz costs re-escalate. Small allocation limits drag in the current disinflationary-trend scenario.</td></tr></table><p><strong>Rebalance Trigger:</strong> Rebalance immediately if: (1) VIX closes above 25 for two consecutive sessions \u2014 shift 5% from Core Growth to Short-Duration Cash; (2) QQQ declines more than 10% from its 52-week high of $746.16 (i.e., drops below ~$671) \u2014 deploy cash buffer into Core Growth and Thematic AI buckets; (3) 10Y Treasury yield rises above 5.25% \u2014 reduce Intermediate Bond duration to <3 years and shift proceeds to T-bills; or (4) the Fed explicitly announces a rate hike at any FOMC meeting \u2014 reduce Thematic AI allocation by 3% and increase Investment-Grade Bonds accordingly.</p>"
 }
