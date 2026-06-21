@@ -30,7 +30,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--body);background:var(--i
 button{font-family:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 
-/* Background */
 .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(201,168,76,.014) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.014) 1px,transparent 1px);
   background-size:72px 72px}
@@ -40,7 +39,6 @@ button{font-family:inherit}
   background:radial-gradient(ellipse,rgba(77,142,240,.04) 0%,transparent 60%)}
 .shell{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* Topbar */
 .topbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:0 24px;height:64px;border-bottom:1px solid var(--border);
   background:rgba(5,7,9,.94);backdrop-filter:blur(24px)}
@@ -72,7 +70,6 @@ button{font-family:inherit}
 .rbtn:hover{background:rgba(201,168,76,.16);border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.1)}
 .rbtn:active{transform:scale(.96)}
 
-/* Report nav (prev/next + freshness) */
 .repnav{display:flex;align-items:center;gap:7px}
 .rnbtn{width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:transparent;
   color:var(--silver);cursor:pointer;font-size:11px;transition:all .15s;display:flex;align-items:center;justify-content:center}
@@ -83,7 +80,6 @@ button{font-family:inherit}
 .fresh.recent{background:var(--gold-bg);color:var(--gold2);border:1px solid var(--border2)}
 .fresh.stale{background:var(--abg);color:var(--amber);border:1px solid var(--abd)}
 
-/* Ticker tape */
 .tstrip{flex:0 0 auto;overflow:hidden;border-bottom:1px solid var(--border);background:rgba(9,12,19,.6);position:relative}
 .tstrip::before,.tstrip::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
 .tstrip::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
@@ -100,7 +96,6 @@ button{font-family:inherit}
 
 .body-row{flex:1 1 0;display:flex;overflow:hidden;min-height:0}
 
-/* Sidebar */
 .backdrop{display:none;position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);backdrop-filter:blur(2px)}
 .sidebar{flex:0 0 232px;display:flex;flex-direction:column;overflow:hidden;
   border-right:1px solid var(--border);background:rgba(5,7,9,.7);backdrop-filter:blur(12px)}
@@ -135,7 +130,6 @@ button{font-family:inherit}
   color:var(--silver2);font-family:var(--mono);font-size:9px;letter-spacing:.1em;user-select:none;margin-top:4px}
 .older-toggle:hover{color:var(--silver)}
 
-/* Main */
 .main{flex:1 1 0;overflow-y:auto;overflow-x:hidden;padding:24px 28px 90px;scroll-behavior:smooth;
   transition:opacity .25s ease}
 .main.fading{opacity:0}
@@ -143,7 +137,6 @@ button{font-family:inherit}
   transition:opacity .55s cubic-bezier(.21,.8,.35,1),transform .55s cubic-bezier(.21,.8,.35,1)}
 .section.vis{opacity:1;transform:none}
 
-/* Cards */
 .card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r);
   overflow:hidden;backdrop-filter:blur(14px);border-top:1px solid rgba(201,168,76,.15);
   box-shadow:0 6px 32px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.025) inset}
@@ -165,7 +158,6 @@ button{font-family:inherit}
 .bgb{color:var(--blue);background:var(--bbg);border:1px solid var(--bbd)}
 .bgp{color:var(--purple);background:var(--pbg);border:1px solid rgba(155,127,245,.3)}
 
-/* Hero masthead (Section 1) */
 .hero-card{background:linear-gradient(170deg,rgba(201,168,76,.05) 0%,var(--card-bg) 45%)}
 .edition{display:flex;align-items:center;gap:12px;padding:18px 24px 0;flex-wrap:wrap}
 .edition-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
@@ -200,7 +192,20 @@ button{font-family:inherit}
 .pulse-box strong{color:var(--gold2);font-weight:600;font-family:var(--mono);font-size:9px;
   letter-spacing:.22em;text-transform:uppercase;display:block;margin-bottom:6px}
 
-/* Watchlist table */
+/* Macro indicators table */
+.macro-tbl{width:100%;border-collapse:collapse;margin-top:4px}
+.macro-tbl th{font-family:var(--mono);font-size:8px;color:var(--gold2);letter-spacing:.14em;
+  text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border2);
+  font-weight:500;background:var(--gold-bg)}
+.macro-tbl td{padding:10px 12px;border-bottom:1px solid rgba(201,168,76,.05);font-size:12px;color:var(--silver);font-variant-numeric:tabular-nums}
+.macro-tbl tr:last-child td{border-bottom:none}
+.macro-tbl tbody tr:hover td{background:rgba(255,255,255,.02)}
+.macro-tbl .ml{color:var(--white);font-weight:600;font-size:12.5px}
+.macro-tbl .mv{font-family:var(--mono);font-size:12px}
+.macro-tbl .mn{font-family:var(--mono);font-size:9px;color:var(--silver2)}
+.macro-wrap{margin-top:16px}
+.macro-wrap-lbl{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+
 .wtbl-wrap{overflow-x:auto}
 .wtbl{width:100%;border-collapse:collapse;min-width:660px}
 .wtbl th{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.14em;
@@ -221,7 +226,6 @@ button{font-family:inherit}
 .spark-cell{padding:12px 12px 12px 6px!important}
 canvas.spark{display:block}
 
-/* Raw email-HTML sections */
 .raw-section{font-size:13px;color:var(--silver);line-height:1.8;font-family:var(--body)}
 .raw-section table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
 .raw-section th{background:var(--gold-bg);color:var(--gold2);padding:10px 12px;text-align:left;font-size:10px;
@@ -229,23 +233,23 @@ canvas.spark{display:block}
 .raw-section td{padding:11px 12px;border-bottom:1px solid rgba(201,168,76,.05);color:var(--silver)}
 .raw-section tr:hover td{background:rgba(255,255,255,.02)}
 .raw-section p{margin-bottom:13px;font-size:13px;line-height:1.8}
-.raw-section ul{padding-left:20px;margin-bottom:13px}
+.raw-section ul,.raw-section ol{padding-left:20px;margin-bottom:13px}
 .raw-section li{margin-bottom:8px;font-size:13px;line-height:1.7}
 .raw-section strong{color:var(--white);font-weight:600}
+.raw-section em{color:var(--silver2);font-style:italic}
 .raw-section h3{color:var(--gold2);font-family:var(--display);font-size:17px;font-weight:500;margin:20px 0 11px}
 .raw-section [style*="color:#1a7a3c"]{color:var(--green)!important}
 .raw-section [style*="color:#c0392b"]{color:var(--red)!important}
+.raw-section [style*="color:#f59e0b"]{color:var(--amber)!important}
 .raw-section [style*="background:#0a3d62"]{background:var(--gold-bg)!important;color:var(--gold2)!important;border:none!important}
 .raw-section [style*="background:#f8f9fa"]{background:rgba(255,255,255,.03)!important;border-left-color:var(--gold)!important}
 .raw-section [style*="background:#c0392b"]{background:rgba(240,96,122,.14)!important;color:var(--red)!important;border-radius:6px}
 
-/* Prose */
 .prose p{font-size:14px;color:var(--silver);line-height:1.95;margin-bottom:15px}
 .prose p:last-child{margin-bottom:0}
 .prose p::first-letter{font-family:var(--display)}
 .prose strong{color:var(--white);font-weight:600}
 
-/* Sectors */
 .sec-wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px}
 .sec-col-lbl{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.22em;
   text-transform:uppercase;margin-bottom:14px}
@@ -254,7 +258,6 @@ canvas.spark{display:block}
 .macro-desc{font-size:12.5px;color:var(--silver);line-height:1.7}
 .sec-chart-wrap{margin-top:6px}
 
-/* Earnings */
 .cal-lbl{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px}
 .cal-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(201,168,76,.05)}
 .cal-tk{font-family:var(--mono);font-size:11.5px;color:var(--gold);min-width:58px;font-weight:500}
@@ -262,7 +265,7 @@ canvas.spark{display:block}
 .cal-date{font-family:var(--mono);font-size:11px;color:var(--silver)}
 .cal-rel{font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:5px;letter-spacing:.06em}
 
-/* STW */
+/* STW kept for backwards compat with older report JSONs */
 .stw-list{display:flex;flex-direction:column;gap:12px}
 .stw-card{display:flex;gap:18px;padding:18px 20px;
   background:linear-gradient(135deg,rgba(255,255,255,.025) 0%,rgba(255,255,255,.008) 100%);
@@ -281,7 +284,6 @@ canvas.spark{display:block}
 .stw-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:7px}
 .stw-reason{font-size:12.5px;color:var(--silver);line-height:1.75}
 
-/* Trends */
 .trends-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:4px}
 .trend-col-lbl{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.22em;
   text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
@@ -291,7 +293,6 @@ canvas.spark{display:block}
 .trend-icon{font-size:11px;flex-shrink:0;margin-top:2px}
 .trend-text{font-size:12.5px;color:var(--silver);line-height:1.7}
 
-/* Allocation */
 .alloc-table{width:100%;border-collapse:collapse;margin-top:4px}
 .alloc-table th{font-family:var(--mono);font-size:7.5px;color:var(--silver2);letter-spacing:.18em;
   text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-weight:400}
@@ -318,13 +319,11 @@ canvas.spark{display:block}
 .alloc-leg-name{flex:1}
 .alloc-leg-pct{font-family:var(--mono);font-size:11px;color:var(--gold2);font-weight:500}
 
-/* States */
 .state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:16px;text-align:center;padding:40px}
 .st{font-family:var(--display);font-size:22px;font-weight:500;color:var(--white)}
 .ss{font-size:13px;color:var(--silver);line-height:1.8;max-width:380px}
 .ss a{color:var(--gold)}
 
-/* Skeleton */
 .sk-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:22px}
 .sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,.03) 25%,rgba(201,168,76,.07) 50%,rgba(255,255,255,.03) 75%);
   background-size:200% 100%;animation:shimmer 1.4s infinite}
@@ -406,7 +405,7 @@ canvas.spark{display:block}
         <div class="ni" data-sec="s5"  onclick="navTo('s5',this)"><span class="n">05</span>Sectors</div>
         <div class="ni" data-sec="s6"  onclick="navTo('s6',this)"><span class="n">06</span>Earnings</div>
         <div class="ni" data-sec="s6b" onclick="navTo('s6b',this)"><span class="n">6B</span>Opp. Radar</div>
-        <div class="ni" data-sec="s7"  onclick="navTo('s7',this)"><span class="n">07</span>Stocks to Watch</div>
+        <div class="ni" data-sec="s7"  onclick="navTo('s7',this)"><span class="n">07</span>Sector Opp. Radar</div>
         <div class="ni" data-sec="s8"  onclick="navTo('s8',this)"><span class="n">08</span>Market Trends</div>
         <div class="ni" data-sec="s9"  onclick="navTo('s9',this)"><span class="n">09</span>Portfolio Allocation</div>
       </div>
@@ -424,8 +423,8 @@ canvas.spark{display:block}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-const FINNHUB_KEY = 'd80dkv9r01qq9ln3g0ugd80dkv9r01qq9ln3g0v0';
-const TICK_SYMS   = ['NVDA','MSFT','AAPL','META','GOOGL','AMZN','TSLA','AMD','AVGO','MU','C','IONQ'];
+const FINNHUB_KEY  = 'd80dkv9r01qq9ln3g0ugd80dkv9r01qq9ln3g0v0';
+const TICK_SYMS    = ['NVDA','MSFT','AAPL','META','GOOGL','AMZN','TSLA','AMD','AVGO','MU','C','IONQ'];
 const TICK_SPECIAL = {'SPY':'SPY','QQQ':'QQQ','VIX':'CBOE:VIX'};
 const TAPE_ORDER   = ['SPY','QQQ',...TICK_SYMS,'VIX','SGT'];
 const DONUT_COLORS = ['#c9a84c','#4d8ef0','#1ecb96','#f0607a','#9b7ff5','#e8a020','#50596b'];
@@ -433,8 +432,8 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let REPORT_INDEX = [];
 let CURRENT_DATE = null;
-let WATCH_ROWS = [];
-let WATCH_SORT = {key:null, dir:-1};
+let WATCH_ROWS   = [];
+let WATCH_SORT   = {key:null, dir:-1};
 
 /* Tape */
 (function buildTape(){
@@ -501,7 +500,6 @@ function setActiveNav(id){
   document.querySelectorAll('.ni').forEach(n=>n.classList.toggle('active',n.dataset.sec===id));
 }
 
-/* Scrollspy + reveal + progress thread */
 let spyObs=null, revealObs=null;
 function observeSections(){
   if(spyObs)spyObs.disconnect();
@@ -593,6 +591,86 @@ function renderMkt(rows,pulse,label){
   return `<div class="idx-grid">${tiles}</div>${pb}`;
 }
 
+/* Macro indicators (Section 1 supplement) */
+function renderMacroIndicators(macro){
+  if(!macro||typeof macro!=='object'||!Object.keys(macro).length) return '';
+  const rows=[];
+
+  const spread=macro.spread_10y2y;
+  if(spread!=null){
+    const inv=macro.spread_inverted;
+    const col=inv?'var(--red)':'var(--green)';
+    const label=inv?'INVERTED':'NORMAL';
+    const bgCol=inv?'rgba(240,96,122,.12)':'rgba(30,203,150,.1)';
+    const sc=macro.spread_chg;
+    const chgStr=sc!=null?` <span style="color:var(--silver2);font-size:9px;font-family:var(--mono)">(${sc>=0?'+':''}${sc.toFixed(3)}pp)</span>`:'';
+    rows.push(`<tr>
+      <td class="ml">2Y/10Y Spread</td>
+      <td class="mv" style="color:${col}">${spread>=0?'+':''}${spread.toFixed(3)}%${chgStr}</td>
+      <td><span style="background:${bgCol};color:${col};padding:2px 9px;border-radius:4px;font-size:8px;font-family:var(--mono);letter-spacing:.1em;font-weight:500">${label}</span></td>
+    </tr>`);
+  }
+
+  const t5=macro.tips_5y;
+  if(t5!=null){
+    const flag=macro.tips_5y_flag;
+    const flagHtml=flag?` <span style="color:var(--amber);font-size:9px;font-family:var(--mono);font-weight:500">FLAG</span>`:'';
+    rows.push(`<tr>
+      <td class="ml">TIPS 5Y Breakeven</td>
+      <td class="mv" style="color:var(--white)">${t5.toFixed(2)}%${flagHtml}</td>
+      <td class="mn">Fed target 2.00%</td>
+    </tr>`);
+  }
+
+  const t10=macro.tips_10y;
+  if(t10!=null){
+    const flag=macro.tips_10y_flag;
+    const flagHtml=flag?` <span style="color:var(--amber);font-size:9px;font-family:var(--mono);font-weight:500">FLAG</span>`:'';
+    rows.push(`<tr>
+      <td class="ml">TIPS 10Y Breakeven</td>
+      <td class="mv" style="color:var(--white)">${t10.toFixed(2)}%${flagHtml}</td>
+      <td class="mn">Fed target 2.00%</td>
+    </tr>`);
+  }
+
+  const sofr=macro.sofr;
+  if(sofr!=null){
+    const spike=macro.sofr_spike;
+    const col=spike?'var(--red)':'var(--white)';
+    const flo=macro.ff_lower,fhi=macro.ff_upper;
+    const note=spike
+      ?`<span style="color:var(--red);font-size:9px;font-family:var(--mono);font-weight:500">SPIKE</span>`
+      :(flo!=null&&fhi!=null?`<span class="mn">target ${flo.toFixed(2)}-${fhi.toFixed(2)}%</span>`:'');
+    rows.push(`<tr>
+      <td class="ml">SOFR</td>
+      <td class="mv" style="color:${col}">${sofr.toFixed(4)}%</td>
+      <td>${note}</td>
+    </tr>`);
+  }
+
+  const dxy=macro.dxy;
+  if(dxy!=null){
+    const dc=macro.dxy_chg;
+    const chgHtml=dc!=null?` ${pct(dc.toFixed(2)+'%')}`:'';
+    rows.push(`<tr>
+      <td class="ml">DXY Broad USD</td>
+      <td class="mv" style="color:var(--white)">${dxy.toFixed(2)}${chgHtml}</td>
+      <td class="mn">weekly · DTWEXBGS</td>
+    </tr>`);
+  }
+
+  if(!rows.length) return '';
+  return `<div class="macro-wrap">
+    <div class="macro-wrap-lbl">Macro Indicators</div>
+    <table class="macro-tbl">
+      <thead><tr>
+        <th>Indicator</th><th>Value</th><th>Signal / Note</th>
+      </tr></thead>
+      <tbody>${rows.join('')}</tbody>
+    </table>
+  </div>`;
+}
+
 /* Section 3 — sortable watchlist */
 const SORT_KEYS={'Symbol':'ticker','Price':'price','Day':'day_change','1 Wk':'1_week','1 Mo':'1_month','1 Yr':'1_year','52W Range':'_range','Beta':'beta'};
 function sortVal(r,key){
@@ -677,7 +755,7 @@ function renderSectors(winners,losers,macro){
   </div>`;
 }
 
-/* Section 6 — earnings with relative chips */
+/* Section 6 — earnings */
 function relChip(dateStr){
   const t=Date.parse(dateStr);
   if(isNaN(t))return '';
@@ -699,9 +777,9 @@ function renderCalendar(earnings){
   return `<div class="cal-lbl">Upcoming Earnings</div>${rows}`;
 }
 
-/* Section 7 — STW */
+/* Section 7 — legacy STW (backwards compat for old report JSONs) */
 function renderSTW(stw){
-  if(!stw?.length)return '<p style="color:var(--silver2);font-size:12px">Stocks to watch unavailable.</p>';
+  if(!stw?.length)return '<p style="color:var(--silver2);font-size:12px">No data available.</p>';
   return `<div class="stw-list">${stw.map(s=>{
     const rc=s.rating==='BUY'?'bgg':s.rating==='SELL'?'bgr':'bga';
     const cc=s.rating==='BUY'?'buy':s.rating==='SELL'?'sell':'hold';
@@ -817,11 +895,20 @@ function renderDashboard(d,meta){
   const dateObj=meta?.date?new Date(meta.date+'T12:00:00'):new Date();
   const label=dateObj.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   const spotBadges=(d.spotlights||[]).map(s=>`${s.ticker} ${rBadge(s.rating)}`).join(' ')||'';
+
+  // S7: use sector_opportunity_radar if present, fall back to legacy stw
+  const s7Content = d.sector_opportunity_radar
+    ? renderRaw(d.sector_opportunity_radar)
+    : renderSTW(d.stw);
+
   document.getElementById('mainArea').innerHTML=`
     <div id="s1" class="section card hero-card">
       <div class="edition"><span class="edition-txt">Daily Intelligence · After US Close</span><div class="edition-rule"></div></div>
       <div class="hero-title">${label}</div>
-      <div class="cb">${renderMkt(d.mkt_data,d.pulse,label)}</div>
+      <div class="cb">
+        ${renderMkt(d.mkt_data,d.pulse,label)}
+        ${renderMacroIndicators(d.macro_indicators||{})}
+      </div>
     </div>
     <div id="s1b" class="section card"><div class="ch"><div class="ct"><div class="ci">⚡</div>Early Warning</div><span class="badge bga">SIGNALS</span></div><div class="cb">${renderRaw(d.early_warning)}</div></div>
     <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">◎</div>Stock Spotlights</div><div class="chr">${spotBadges}</div></div><div class="cb">${renderRaw(d.spotlights_html)}</div></div>
@@ -830,7 +917,7 @@ function renderDashboard(d,meta){
     <div id="s5"  class="section card"><div class="ch"><div class="ct"><div class="ci">⟳</div>Sector Rotation &amp; Macro</div></div><div class="cb">${renderSectors(d.winners,d.losers,d.macro)}</div></div>
     <div id="s6"  class="section card"><div class="ch"><div class="ct"><div class="ci">◷</div>Earnings Calendar</div></div><div class="cb">${renderCalendar(d.earnings)}</div></div>
     <div id="s6b" class="section card"><div class="ch"><div class="ct"><div class="ci">◉</div>Opportunity Radar</div><span class="badge bgb">6B</span></div><div class="cb">${renderRaw(d.opportunity_radar)}</div></div>
-    <div id="s7"  class="section card"><div class="ch"><div class="ct"><div class="ci">◐</div>Stocks to Watch</div><span class="badge bg2">${(d.stw||[]).length} PICKS</span></div><div class="cb">${renderSTW(d.stw)}</div></div>
+    <div id="s7"  class="section card"><div class="ch"><div class="ct"><div class="ci">◐</div>Sector Opportunity Radar</div><span class="badge bgp">SECTOR FIRST</span></div><div class="cb">${s7Content}</div></div>
     <div id="s8"  class="section card"><div class="ch"><div class="ct"><div class="ci">◈</div>Market Trends</div><span class="badge bgp">SIGNALS</span></div><div class="cb">${renderMarketTrends(d.market_trends)}</div></div>
     <div id="s9"  class="section card"><div class="ch"><div class="ct"><div class="ci">◎</div>Portfolio Allocation</div><span class="badge bg2">5–8 YR HORIZON</span></div><div class="cb">${renderPortfolioAlloc(d.portfolio_allocation)}</div></div>`;
   updateRepNav();
@@ -842,7 +929,6 @@ function renderDashboard(d,meta){
   }
 }
 
-/* Loading and errors */
 const mainEl=document.getElementById('mainArea');
 function showLoading(){
   mainEl.innerHTML=`

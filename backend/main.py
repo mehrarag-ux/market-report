@@ -81,6 +81,73 @@ def render_indices(rows):
     return f"<table {TBL}><tr>{head}</tr>{body}</table>"
 
 
+def render_macro_indicators(macro):
+    if not macro:
+        return ""
+    rows = ""
+
+    spread = macro.get("spread_10y2y")
+    sc     = macro.get("spread_chg")
+    if spread is not None:
+        col   = "#c0392b" if macro.get("spread_inverted") else "#1a7a3c"
+        label = "INVERTED" if macro.get("spread_inverted") else "NORMAL"
+        chg   = f" ({sc:+.3f}pp)" if sc is not None else ""
+        rows += (
+            f"<tr><td {TD}><strong>2Y/10Y Spread</strong></td>"
+            f"<td {TD}><span style='color:{col};font-weight:bold'>{spread:+.3f}%{chg}</span></td>"
+            f"<td {TD}><span style='background:{col};color:#fff;padding:2px 8px;"
+            f"border-radius:3px;font-size:11px'>{label}</span></td></tr>"
+        )
+
+    t5 = macro.get("tips_5y")
+    if t5 is not None:
+        flag = " (FLAG: diverging from 2% target)" if macro.get("tips_5y_flag") else ""
+        rows += (
+            f"<tr><td {TD}><strong>TIPS 5Y Breakeven</strong></td>"
+            f"<td {TD}>{t5:.2f}%{flag}</td>"
+            f"<td {TD}>Fed target: 2.0%</td></tr>"
+        )
+
+    t10 = macro.get("tips_10y")
+    if t10 is not None:
+        flag = " (FLAG: diverging from 2% target)" if macro.get("tips_10y_flag") else ""
+        rows += (
+            f"<tr><td {TD}><strong>TIPS 10Y Breakeven</strong></td>"
+            f"<td {TD}>{t10:.2f}%{flag}</td>"
+            f"<td {TD}>Fed target: 2.0%</td></tr>"
+        )
+
+    sofr  = macro.get("sofr")
+    ff_lo = macro.get("ff_lower")
+    ff_hi = macro.get("ff_upper")
+    if sofr is not None:
+        spike = macro.get("sofr_spike", False)
+        col   = "#c0392b" if spike else "#333"
+        note  = "SPIKE - above Fed Funds upper bound" if spike else (
+            f"within target {ff_lo:.2f}%-{ff_hi:.2f}%" if (ff_lo and ff_hi) else ""
+        )
+        rows += (
+            f"<tr><td {TD}><strong>SOFR</strong></td>"
+            f"<td {TD}><span style='color:{col}'>{sofr:.4f}%</span></td>"
+            f"<td {TD}>{note}</td></tr>"
+        )
+
+    dxy     = macro.get("dxy")
+    dxy_chg = macro.get("dxy_chg")
+    if dxy is not None:
+        chg_html = span(dxy_chg) if dxy_chg is not None else ""
+        rows += (
+            f"<tr><td {TD}><strong>DXY Broad USD (weekly)</strong></td>"
+            f"<td {TD}>{dxy:.2f} {chg_html}</td>"
+            f"<td {TD}>DTWEXBGS — week-over-week change</td></tr>"
+        )
+
+    if not rows:
+        return ""
+    head = "".join(f"<th {TH}>{h}</th>" for h in ["Macro Indicator","Value","Signal / Note"])
+    return f"<table {TBL}><tr>{head}</tr>{rows}</table>"
+
+
 def render_early_warning(ew):
     badge = {"GREEN": "#1a7a3c", "AMBER": "#f59e0b", "RED": "#c0392b", "GREY": "#888"}
     rows  = "".join(
@@ -170,6 +237,61 @@ def render_earnings(narr_earnings, fund_cache):
     return f"<table {TBL}><tr>{head}</tr>{rows}</table>"
 
 
+def render_sector_opportunity_radar(sor):
+    if not sor:
+        return "<p>No sector opportunity data available.</p>"
+
+    out = ""
+    mc  = sor.get("macro_context", "")
+    if mc:
+        out += f"<p><strong>{mc}</strong></p>"
+
+    themes = sor.get("themes", [])
+    if themes:
+        conv_col = {"HIGH": "#1a7a3c", "MEDIUM": "#f59e0b", "LOW": "#888"}
+        head = "".join(
+            f"<th {TH}>{h}</th>"
+            for h in ["Sector","Theme","Opportunity Driver","Conviction","Time Horizon","Illustrative Names"]
+        )
+        body = ""
+        for t in themes:
+            c   = t.get("conviction", "MEDIUM").upper()
+            col = conv_col.get(c, "#888")
+            body += (
+                f"<tr>"
+                f"<td {TD}><strong>{t.get('sector','')}</strong></td>"
+                f"<td {TD}>{t.get('theme','')}</td>"
+                f"<td {TD}>{t.get('opportunity_driver','')}</td>"
+                f"<td {TD}><span style='color:{col};font-weight:bold'>{c}</span></td>"
+                f"<td {TD}>{t.get('time_horizon','')}</td>"
+                f"<td {TD}><em>{t.get('illustrative_names','')}</em></td>"
+                f"</tr>"
+            )
+        out += '<h3 style="color:#0a3d62;font-size:14px;margin-top:16px">Thematic Opportunity Table</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    for dd in sor.get("deep_dives", []):
+        out += (
+            f'<h3 style="color:#0a3d62;font-size:14px;margin-top:20px">'
+            f'Sector Deep Dive: {dd.get("sector","")}</h3>'
+        )
+        out += f"<p><strong>Sector Snapshot:</strong> {dd.get('snapshot','')}</p>"
+        out += f"<p><strong>Why Today Matters:</strong> {dd.get('why_today','')}</p>"
+        sub = dd.get("sub_industries", [])
+        if sub:
+            out += "<p><strong>Sub-Industry Conviction Ranking:</strong></p><ol>"
+            for si in sub:
+                out += (
+                    f"<li><strong>{si.get('name','')} ({si.get('conviction','')})</strong> - "
+                    f"{si.get('rationale','')} "
+                    f"<em>Illustrative: {si.get('illustrative','')}</em></li>"
+                )
+            out += "</ol>"
+        out += f"<p><strong>Key Risk:</strong> {dd.get('key_risk','')}</p>"
+
+    return out
+
+
 def render_market_trends(mt):
     if not mt:
         return "<p>No trend data available.</p>"
@@ -201,21 +323,30 @@ def render_portfolio_allocation(pa):
 
 
 def render_email(mkt, data, narr, fund_cache):
-    # always after-close report; mkt["last_trading_day"] is the US session covered
     h = (
         f'<div style="background:#0a3d62;color:#fff;padding:16px 20px;border-radius:6px;margin-bottom:24px">'
         f'<h1 style="margin:0;font-size:20px">Daily Market Report</h1>'
         f'<p style="margin:4px 0 0;font-size:13px;opacity:.85">'
         f'{mkt["last_trading_day"]} - After Market Close | Singapore</p></div>'
     )
-    h += f'<h2 {H2}>SECTION 1 - Market Summary</h2>{render_indices(data["indices"])}'
+
+    h += f'<h2 {H2}>SECTION 1 - Market Summary</h2>'
+    h += render_indices(data["indices"])
     h += f'<p>{narr.get("pulse","")}</p>'
-    h += f'<h2 {H2}>SECTION 1B - Early Warning</h2>{render_early_warning(data["early_warning"])}'
+    h += render_macro_indicators(data.get("macro", {}))
+
+    h += f'<h2 {H2}>SECTION 1B - Early Warning</h2>'
+    h += render_early_warning(data["early_warning"])
+
     h += f'<h2 {H2}>SECTION 2 - Stock Spotlights</h2>'
     h += "".join(render_spotlight(s, narr, fund_cache.get(s["ticker"], {})) for s in data["spotlights"])
-    h += f'<h2 {H2}>SECTION 3 - Watchlist</h2>{render_ai_table(data["ai_rows"])}'
+
+    h += f'<h2 {H2}>SECTION 3 - Watchlist</h2>'
+    h += render_ai_table(data["ai_rows"])
+
     h += f'<h2 {H2}>SECTION 4 - Why Markets Moved</h2>'
     h += "".join(f"<p>{p}</p>" for p in narr.get("why_paras", []))
+
     win = "".join(f"<li>{w['name']}: {span_str(w['pct'])}</li>" for w in data["winners"])
     los = "".join(f"<li>{l['name']}: {span_str(l['pct'])}</li>" for l in data["losers"])
     mac = "".join(f"<li>{m}</li>" for m in narr.get("macro", []))
@@ -225,12 +356,14 @@ def render_email(mkt, data, narr, fund_cache):
         f'<strong>Losers</strong><ul>{los}</ul>'
         f'<strong>Macro</strong><ul>{mac}</ul>'
     )
+
     h += (
         f'<h2 {H2}>SECTION 6 - Earnings Calendar</h2>'
         f'<p style="font-size:11px;color:#888;margin-bottom:8px">'
         f'Watchlist stocks verified. Broader NDX dates sourced via web search - confirm before trading.</p>'
         + render_earnings(narr.get("earnings_calendar", []), fund_cache)
     )
+
     radar = "".join(
         f"<li><strong>{r.get('theme')}</strong> - {r.get('why')} (e.g. {r.get('example')})</li>"
         for r in narr.get("opportunity_radar", [])
@@ -239,16 +372,16 @@ def render_email(mkt, data, narr, fund_cache):
         f'<h2 {H2}>SECTION 6B - Opportunity Radar</h2>'
         f'<ul>{radar}</ul><p>{narr.get("portfolio_direction","")}</p>'
     )
-    stw = "".join(
-        f'<div style="margin-bottom:12px"><p><strong>{s.get("ticker")}</strong> | '
-        f'Price: ${data["stw_data"].get(s.get("ticker"), {}).get("price", s.get("price_note", ""))} | '
-        f'<strong>{s.get("rating")}</strong> | Horizon: {s.get("horizon")}</p>'
-        f'<p>{s.get("reason")}</p></div>'
-        for s in narr.get("stw", [])
-    )
-    h += f'<h2 {H2}>SECTION 7 - Stocks to Watch</h2>{stw}'
-    h += f'<h2 {H2}>SECTION 8 - Market Trends</h2>{render_market_trends(narr.get("market_trends"))}'
-    h += f'<h2 {H2}>SECTION 9 - Portfolio Allocation (5-8 Year Horizon)</h2>{render_portfolio_allocation(narr.get("portfolio_allocation"))}'
+
+    h += f'<h2 {H2}>SECTION 7 - Sector Opportunity Radar</h2>'
+    h += render_sector_opportunity_radar(narr.get("sector_opportunity_radar", {}))
+
+    h += f'<h2 {H2}>SECTION 8 - Market Trends</h2>'
+    h += render_market_trends(narr.get("market_trends"))
+
+    h += f'<h2 {H2}>SECTION 9 - Portfolio Allocation (5-8 Year Horizon)</h2>'
+    h += render_portfolio_allocation(narr.get("portfolio_allocation"))
+
     h += (
         '<p style="font-size:11px;color:#888;border-top:1px solid #eee;'
         'padding-top:12px;margin-top:32px">Auto-generated. Prices from public market data; '
@@ -273,14 +406,6 @@ def build_frontend_json(mkt, data, narr, fund_cache):
         render_spotlight(s, narr, fund_cache.get(s["ticker"], {}))
         for s in data["spotlights"]
     )
-    stw = [
-        {
-            **s,
-            "price": f"${data['stw_data'].get(s.get('ticker'), {}).get('price', s.get('price_note', ''))}",
-            "name":  s.get("ticker"),
-        }
-        for s in narr.get("stw", [])
-    ]
     fmt_pct = lambda v: f"{v:+.2f}%" if v is not None else "-"
 
     earnings_out = [
@@ -291,6 +416,8 @@ def build_frontend_json(mkt, data, narr, fund_cache):
     for e in (narr.get("earnings_calendar") or []):
         if e.get("ticker") not in spotlight_tickers:
             earnings_out.append(e)
+
+    sor_html = render_sector_opportunity_radar(narr.get("sector_opportunity_radar", {}))
 
     return {
         "date":      mkt["last_trading_day_iso"],
@@ -308,10 +435,11 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             }
             for r in data["indices"]
         ],
-        "pulse":           narr.get("pulse", ""),
-        "early_warning":   render_early_warning(data["early_warning"]),
-        "spotlights_html": spot_html,
-        "spotlights":      sp,
+        "pulse":             narr.get("pulse", ""),
+        "macro_indicators":  data.get("macro", {}),
+        "early_warning":     render_early_warning(data["early_warning"]),
+        "spotlights_html":   spot_html,
+        "spotlights":        sp,
         "ai_rows": [
             {
                 "ticker":     r["ticker"],
@@ -341,9 +469,9 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             )
             + f"</ul><p>{narr.get('portfolio_direction','')}</p>"
         ),
-        "stw":                  stw,
-        "market_trends":        render_market_trends(narr.get("market_trends")),
-        "portfolio_allocation": render_portfolio_allocation(narr.get("portfolio_allocation")),
+        "sector_opportunity_radar": sor_html,
+        "market_trends":            render_market_trends(narr.get("market_trends")),
+        "portfolio_allocation":     render_portfolio_allocation(narr.get("portfolio_allocation")),
     }
 
 
@@ -364,7 +492,7 @@ def save_report(html, fe_json, ds):
         idx.insert(0, {"date": ds, "file": f"report_{ds}.html", "generated_at": datetime.datetime.now().isoformat()})
     with open(idx_path, "w") as f:
         json.dump(idx[:30], f, indent=2)
-    log.info(f"Saved report + JSON ({len(fe_json['ai_rows'])} AI rows, {len(fe_json['stw'])} STW)")
+    log.info("Saved report + JSON")
 
 
 def generate_pdf(html, ds):

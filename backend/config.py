@@ -2,7 +2,7 @@
 Static configuration only. No logic, no fetching.
 NOTE: INDICES use ETF proxies (SPY/QQQ) — Twelve Data free tier does not
 support raw index symbols (^GSPC, ^NDX).
-VIX and 10Y yield are fetched from FRED — kept as ^VIX / ^TNX internally.
+VIX fetched via Twelve Data. 10Y yield via FRED.
 """
 
 import os
@@ -49,7 +49,6 @@ WATCHLIST_AI = [
     {"symbol": "ANET",  "name": "Arista Networks"},
     {"symbol": "WQTM",  "name": "Quantum ETF (WQTM)"},
     {"symbol": "GFS",   "name": "GlobalFoundries"},
-    
 ]
 
 STW_POOL = [
@@ -72,13 +71,10 @@ SECTOR_ETFS = {
     "XLC":  "Communications",
 }
 
-# One of: "rising", "stable", "falling", "sharply_falling" — or None
-CONSUMER_CONFIDENCE = None
-
 
 def all_tickers():
-    """Every symbol needing price history, deduped.
-    ^VIX and ^TNX excluded here — fetched from FRED in data.py."""
+    """Every equity/ETF/index symbol needing price history, deduped.
+    ^VIX via Twelve Data alias. ^TNX via FRED. Macro series fetched separately."""
     syms  = [s for s in INDICES if not s.startswith("^")]
     syms += [TNX]
     syms += ["^VIX"]
