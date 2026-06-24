@@ -31,12 +31,14 @@ INDICES = {
 }
 TNX = "^TNX"
 
+# SPOTLIGHTS: earnings date tracking only — Section 2 removed
 SPOTLIGHTS = [
     {"symbol": "MU", "name": "Micron Technology"},
 ]
 
 WATCHLIST_AI = [
-    {"symbol": "SPCX", "name": "SpaceX"},
+    {"symbol": "MU",    "name": "Micron Technology"},
+    {"symbol": "SPCX",  "name": "SpaceX"},
     {"symbol": "NVDA",  "name": "Nvidia"},
     {"symbol": "AMD",   "name": "AMD"},
     {"symbol": "AVGO",  "name": "Broadcom"},
@@ -52,9 +54,9 @@ WATCHLIST_AI = [
 ]
 
 STW_POOL = [
-    "SPCX","MSFT", "GOOGL", "NVDA", "AMD", "AVGO", "IBM",
-    "C", "MU", "QRVO", "ANET",
-    "IONQ", "QUBT", "RGTI", "ARQQ", "GFS", "QTUM",
+    "SPCX","MSFT","GOOGL","NVDA","AMD","AVGO","IBM",
+    "C","MU","QRVO","ANET",
+    "IONQ","QUBT","RGTI","ARQQ","GFS","QTUM",
 ]
 
 SECTOR_ETFS = {
@@ -78,7 +80,6 @@ def all_tickers():
     syms  = [s for s in INDICES if not s.startswith("^")]
     syms += [TNX]
     syms += ["^VIX"]
-    syms += [s["symbol"] for s in SPOTLIGHTS]
     syms += [s["symbol"] for s in WATCHLIST_AI]
     syms += list(SECTOR_ETFS)
     syms += STW_POOL

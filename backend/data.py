@@ -431,16 +431,6 @@ def build_report_data() -> dict:
             "beta": beta_vs_market(closes[s], mkt),
         })
 
-    spotlights = []
-    for sp in SPOTLIGHTS:
-        s = sp["symbol"]
-        if s not in closes:
-            continue
-        m = metrics_for(closes[s])
-        f = fundamentals_for(s)
-        spotlights.append({"ticker": s, "name": sp["name"], **m, **f,
-                           "beta": beta_vs_market(closes[s], mkt)})
-
     sec = []
     for c, name in SECTOR_ETFS.items():
         if c not in closes:
@@ -453,19 +443,18 @@ def build_report_data() -> dict:
     losers  = [{"name": s["name"], "pct": s["pct"]} for s in sec[-2:]]
 
     candidate_data = {}
-    for t in set([s["ticker"] for s in spotlights] + [r["ticker"] for r in ai_rows]):
+    for t in set(r["ticker"] for r in ai_rows):
         if t in closes:
             m = metrics_for(closes[t])
             candidate_data[t] = {"price": m.get("price"), "y1": m.get("y1"),
                                   "beta": beta_vs_market(closes[t], mkt)}
 
     return {
-        "indices":       indices,
-        "ai_rows":       ai_rows,
-        "spotlights":    spotlights,
-        "winners":       winners,
-        "losers":        losers,
-        "early_warning": early_warning(closes),
-        "macro":         macro_snapshot(closes),
+        "indices":        indices,
+        "ai_rows":        ai_rows,
+        "winners":        winners,
+        "losers":         losers,
+        "early_warning":  early_warning(closes),
+        "macro":          macro_snapshot(closes),
         "candidate_data": candidate_data,
     }
