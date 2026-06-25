@@ -399,14 +399,13 @@ canvas.spark{display:block}
         <div class="thread-fill" id="threadFill"></div>
         <div class="ni active" data-sec="s1"  onclick="navTo('s1',this)"><span class="n">01</span>Market Summary</div>
         <div class="ni" data-sec="s1b" onclick="navTo('s1b',this)"><span class="n">1B</span>Early Warning</div>
-        <div class="ni" data-sec="s2"  onclick="navTo('s2',this)"><span class="n">02</span>Spotlights</div>
         <div class="ni" data-sec="s3"  onclick="navTo('s3',this)"><span class="n">03</span>Watchlist</div>
         <div class="ni" data-sec="s4"  onclick="navTo('s4',this)"><span class="n">04</span>Why Moved</div>
         <div class="ni" data-sec="s5"  onclick="navTo('s5',this)"><span class="n">05</span>Sectors</div>
         <div class="ni" data-sec="s6"  onclick="navTo('s6',this)"><span class="n">06</span>Earnings</div>
         <div class="ni" data-sec="s6b" onclick="navTo('s6b',this)"><span class="n">6B</span>Opp. Radar</div>
         <div class="ni" data-sec="s7"  onclick="navTo('s7',this)"><span class="n">07</span>Sector Opp. Radar</div>
-        <div class="ni" data-sec="s8"  onclick="navTo('s8',this)"><span class="n">08</span>Market Trends</div>
+        <div class="ni" data-sec="s8"  onclick="navTo('s8',this)"><span class="n">08</span>Risk Heat Map</div>
         <div class="ni" data-sec="s9"  onclick="navTo('s9',this)"><span class="n">09</span>Portfolio Allocation</div>
       </div>
     </div>
@@ -894,12 +893,9 @@ function renderDashboard(d,meta){
   CURRENT_DATE=meta?.date??null;
   const dateObj=meta?.date?new Date(meta.date+'T12:00:00'):new Date();
   const label=dateObj.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const spotBadges=(d.spotlights||[]).map(s=>`${s.ticker} ${rBadge(s.rating)}`).join(' ')||'';
-
-  // S7: use sector_opportunity_radar if present, fall back to legacy stw
-  const s7Content = d.sector_opportunity_radar
-    ? renderRaw(d.sector_opportunity_radar)
-    : renderSTW(d.stw);
+  const s8Content = d.risk_heat_map_outlook
+    ? renderRaw(d.risk_heat_map_outlook)
+    : renderMarketTrends(d.market_trends);
 
   document.getElementById('mainArea').innerHTML=`
     <div id="s1" class="section card hero-card">
@@ -911,14 +907,13 @@ function renderDashboard(d,meta){
       </div>
     </div>
     <div id="s1b" class="section card"><div class="ch"><div class="ct"><div class="ci">⚡</div>Early Warning</div><span class="badge bga">SIGNALS</span></div><div class="cb">${renderRaw(d.early_warning)}</div></div>
-    <div id="s2"  class="section card"><div class="ch"><div class="ct"><div class="ci">◎</div>Stock Spotlights</div><div class="chr">${spotBadges}</div></div><div class="cb">${renderRaw(d.spotlights_html)}</div></div>
     <div id="s3"  class="section card"><div class="ch"><div class="ct"><div class="ci">◆</div>Watchlist</div><span class="badge bgb">${(d.ai_rows||[]).length} STOCKS · SORTABLE</span></div><div class="cb">${renderWatch(d.ai_rows)}</div></div>
     <div id="s4"  class="section card"><div class="ch"><div class="ct"><div class="ci">▣</div>Why Markets Moved</div></div><div class="cb"><div class="prose">${(d.why_paras||[]).map(p=>`<p>${p}</p>`).join('')||'<p>See full report.</p>'}</div></div></div>
     <div id="s5"  class="section card"><div class="ch"><div class="ct"><div class="ci">⟳</div>Sector Rotation &amp; Macro</div></div><div class="cb">${renderSectors(d.winners,d.losers,d.macro)}</div></div>
     <div id="s6"  class="section card"><div class="ch"><div class="ct"><div class="ci">◷</div>Earnings Calendar</div></div><div class="cb">${renderCalendar(d.earnings)}</div></div>
     <div id="s6b" class="section card"><div class="ch"><div class="ct"><div class="ci">◉</div>Opportunity Radar</div><span class="badge bgb">6B</span></div><div class="cb">${renderRaw(d.opportunity_radar)}</div></div>
     <div id="s7"  class="section card"><div class="ch"><div class="ct"><div class="ci">◐</div>Sector Opportunity Radar</div><span class="badge bgp">SECTOR FIRST</span></div><div class="cb">${s7Content}</div></div>
-    <div id="s8"  class="section card"><div class="ch"><div class="ct"><div class="ci">◈</div>Market Trends</div><span class="badge bgp">SIGNALS</span></div><div class="cb">${renderMarketTrends(d.market_trends)}</div></div>
+    <div id="s8"  class="section card"><div class="ch"><div class="ct"><div class="ci">◈</div>Risk Heat Map &amp; Market Outlook</div><span class="badge bgp">FORWARD-LOOKING</span></div><div class="cb">${s8Content}</div></div>
     <div id="s9"  class="section card"><div class="ch"><div class="ct"><div class="ci">◎</div>Portfolio Allocation</div><span class="badge bg2">5–8 YR HORIZON</span></div><div class="cb">${renderPortfolioAlloc(d.portfolio_allocation)}</div></div>`;
   updateRepNav();
   observeSections();
