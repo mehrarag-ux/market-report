@@ -893,6 +893,9 @@ function renderDashboard(d,meta){
   CURRENT_DATE=meta?.date??null;
   const dateObj=meta?.date?new Date(meta.date+'T12:00:00'):new Date();
   const label=dateObj.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const s7Content = d.sector_opportunity_radar
+    ? renderRaw(d.sector_opportunity_radar)
+    : renderSTW(d.stw);
   const s8Content = d.risk_heat_map_outlook
     ? renderRaw(d.risk_heat_map_outlook)
     : renderMarketTrends(d.market_trends);
