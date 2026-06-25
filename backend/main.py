@@ -405,24 +405,24 @@ def render_email(mkt, data, narr, fund_cache):
     h += f'<h2 {H2}>SECTION 1B - Early Warning</h2>'
     h += render_early_warning(data["early_warning"])
 
-    h += f'<h2 {H2}>SECTION 3 - Watchlist</h2>'
+    h += f'<h2 {H2}>SECTION 2 - Watchlist</h2>'
     h += render_ai_table(data["ai_rows"])
 
-    h += f'<h2 {H2}>SECTION 4 - Why Markets Moved</h2>'
+    h += f'<h2 {H2}>SECTION 3 - Why Markets Moved</h2>'
     h += "".join(f"<p>{p}</p>" for p in narr.get("why_paras", []))
 
     win = "".join(f"<li>{w['name']}: {span_str(w['pct'])}</li>" for w in data["winners"])
     los = "".join(f"<li>{l['name']}: {span_str(l['pct'])}</li>" for l in data["losers"])
     mac = "".join(f"<li>{m}</li>" for m in narr.get("macro", []))
     h += (
-        f'<h2 {H2}>SECTION 5 - Sector Rotation & Macro</h2>'
+        f'<h2 {H2}>SECTION 4 - Sector Rotation & Macro</h2>'
         f'<strong>Winners</strong><ul>{win}</ul>'
         f'<strong>Losers</strong><ul>{los}</ul>'
         f'<strong>Macro</strong><ul>{mac}</ul>'
     )
 
     h += (
-        f'<h2 {H2}>SECTION 6 - Earnings Calendar</h2>'
+        f'<h2 {H2}>SECTION 5 - Earnings Calendar</h2>'
         f'<p style="font-size:11px;color:#888;margin-bottom:8px">'
         f'Watchlist stocks verified. Broader NDX dates sourced via web search - confirm before trading.</p>'
         + render_earnings(narr.get("earnings_calendar", []), fund_cache)
@@ -437,13 +437,13 @@ def render_email(mkt, data, narr, fund_cache):
         f'<ul>{radar}</ul><p>{narr.get("portfolio_direction","")}</p>'
     )
 
-    h += f'<h2 {H2}>SECTION 7 - Sector Opportunity Radar</h2>'
+    h += f'<h2 {H2}>SECTION 6 - Sector Opportunity Radar</h2>'
     h += render_sector_opportunity_radar(narr.get("sector_opportunity_radar", {}))
 
-    h += f'<h2 {H2}>SECTION 8 - Risk Heat Map & Market Outlook</h2>'
+    h += f'<h2 {H2}>SECTION 7 - Risk Heat Map & Market Outlook</h2>'
     h += render_risk_heat_map_outlook(narr.get("risk_heat_map_outlook", {}))
 
-    h += f'<h2 {H2}>SECTION 9 - Portfolio Allocation (5-8 Year Horizon)</h2>'
+    h += f'<h2 {H2}>SECTION 8 - Portfolio Allocation (5-8 Year Horizon)</h2>'
     h += render_portfolio_allocation(narr.get("portfolio_allocation"))
 
     h += (
