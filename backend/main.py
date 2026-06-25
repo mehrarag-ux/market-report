@@ -1,6 +1,7 @@
 """
 Orchestrator: data -> LLM narrative -> render HTML + JSON -> save/email.
 Numbers from data.py (Twelve Data + FRED). LLM writes narrative only.
+Section 2 (Spotlights) removed. Section 8 = Risk Heat Map & Market Outlook.
 """
 
 import os, sys, json, re, smtplib, logging, datetime, time
@@ -169,36 +170,6 @@ def render_early_warning(ew):
     )
 
 
-def render_spotlight(s, narr, fund):
-    n       = narr.get("spotlights", {}).get(s["ticker"], {})
-    dc      = s.get("day_change")
-    dc_html = span(dc) if dc is not None else '<span style="color:#888">N/A</span>'
-    at      = n.get("analyst_target") or fund.get("target", "N/A")
-    metrics = [
-        ("Closing Price",  s.get("price")),
-        ("Day Change",     dc_html),
-        ("52W High",       s.get("hi52")),
-        ("52W Low",        s.get("lo52")),
-        ("P/E Ratio",      fund.get("pe",       "N/A")),
-        ("Dividend Yield", fund.get("div",       "N/A")),
-        ("Analyst View",   fund.get("analyst",   "N/A")),
-        ("Analyst Target", at),
-        ("Next Earnings",  fund.get("earnings",  "N/A")),
-        ("Beta (1Y)",      s.get("beta")),
-    ]
-    body = "".join(
-        f"<tr><td {TD}><strong>{k}</strong></td><td {TD}>{v}</td></tr>"
-        for k, v in metrics
-    )
-    rating  = n.get("rating", "HOLD")
-    verdict = n.get("verdict", "")
-    return (
-        f"<h3 style='color:#0a3d62'>{s['name']} ({s['ticker']})</h3>"
-        f"<table {TBL}><tr><th {TH}>Metric</th><th {TH}>Value</th></tr>{body}</table>"
-        f"<p><strong>{rating}</strong> - {verdict}</p>"
-    )
-
-
 def render_ai_table(rows):
     head = "".join(
         f"<th {TH}>{h}</th>"
@@ -225,7 +196,7 @@ def render_earnings(narr_earnings, fund_cache):
             f"<td {TD}><span style='background:#0a3d62;color:#fff;padding:1px 6px;"
             f"border-radius:3px;font-size:10px'>WATCHLIST</span></td></tr>"
         )
-    spotlight_syms = [s["symbol"] for s in SPOTLIGHTS]
+    spotlight_syms = {s["symbol"] for s in SPOTLIGHTS}
     for e in (narr_earnings or []):
         if e.get("ticker") in spotlight_syms:
             continue
@@ -292,16 +263,112 @@ def render_sector_opportunity_radar(sor):
     return out
 
 
-def render_market_trends(mt):
-    if not mt:
-        return "<p>No trend data available.</p>"
-    up   = "".join(f"<li>{r}</li>" for r in mt.get("upside_risks", []))
-    down = "".join(f"<li>{r}</li>" for r in mt.get("downside_risks", []))
-    return (
-        f"<p>{mt.get('commentary','')}</p>"
-        f"<strong>Upside Risks</strong><ul>{up}</ul>"
-        f"<strong>Downside Risks</strong><ul>{down}</ul>"
-    )
+def render_risk_heat_map_outlook(rho):
+    if not rho:
+        return "<p>No data available.</p>"
+
+    out = ""
+    posture = rho.get("posture", "")
+    if posture:
+        out += f"<p><strong>{posture}</strong></p>"
+
+    # Risk heat map
+    rhm = rho.get("risk_heat_map", [])
+    if rhm:
+        risk_col = {"Low": "#1a7a3c", "Medium": "#f59e0b", "High": "#c0392b"}
+        sig_col  = {"OVERWEIGHT": "#1a7a3c", "SELECTIVE": "#f59e0b", "NEUTRAL": "#929db2", "UNDERWEIGHT": "#c0392b"}
+        def risk_cell(level, note):
+            col = risk_col.get(level, "#929db2")
+            dot = f"<span style='display:inline-block;width:8px;height:8px;border-radius:50%;background:{col};margin-right:5px;vertical-align:middle'></span>"
+            n   = f" <span style='color:#888;font-size:10px'>({note})</span>" if note else ""
+            return f"<td {TD}>{dot}{level}{n}</td>"
+        head = "".join(f"<th {TH}>{h}</th>" for h in ["Sector","Macro Risk","Thematic Risk","Geo Risk","Valuation Risk","Signal"])
+        body = ""
+        for r in rhm:
+            sc  = r.get("overall_signal", "NEUTRAL")
+            col = sig_col.get(sc, "#929db2")
+            body += (
+                f"<tr><td {TD}><strong>{r.get('sector','')}</strong></td>"
+                + risk_cell(r.get("macro_risk",""), r.get("macro_note",""))
+                + risk_cell(r.get("thematic_risk",""), r.get("thematic_note",""))
+                + risk_cell(r.get("geo_risk",""), r.get("geo_note",""))
+                + risk_cell(r.get("valuation_risk",""), r.get("valuation_note",""))
+                + f"<td {TD}><span style='color:{col};font-weight:bold'>{sc}</span></td></tr>"
+            )
+        out += f'<h3 style="color:#0a3d62;font-size:14px;margin-top:16px">Sector Risk Heat Map</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    # Catalysts vs risks
+    cr = rho.get("catalysts_risks", [])
+    if cr:
+        head = "".join(f"<th {TH}>{h}</th>" for h in ["Sector","Top 2 Catalysts","Top 2 Risks","Illustrative Names"])
+        body = ""
+        for r in cr:
+            cats  = "".join(f"<li>{c}</li>" for c in (r.get("catalysts") or []))
+            risks = "".join(f"<li>{k}</li>" for k in (r.get("risks") or []))
+            body += (
+                f"<tr><td {TD}><strong>{r.get('sector','')}</strong></td>"
+                f"<td {TD}><ul style='padding-left:16px;margin:0'>{cats}</ul></td>"
+                f"<td {TD}><ul style='padding-left:16px;margin:0'>{risks}</ul></td>"
+                f"<td {TD}><em>{r.get('illustrative_names','')}</em></td></tr>"
+            )
+        out += f'<h3 style="color:#0a3d62;font-size:14px;margin-top:20px">Upside Catalysts vs Downside Risks</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    # 7-day catalyst calendar
+    cal = rho.get("catalyst_calendar", [])
+    if cal:
+        head = "".join(f"<th {TH}>{h}</th>" for h in ["Date","Event","Sectors Impacted","Bull Scenario","Bear Scenario"])
+        body = "".join(
+            f"<tr><td {TD}><strong>{r.get('date','')}</strong></td>"
+            f"<td {TD}>{r.get('event','')}</td>"
+            f"<td {TD}>{r.get('sectors_impacted','')}</td>"
+            f"<td {TD}><span style='color:#1a7a3c'>{r.get('bull_scenario','')}</span></td>"
+            f"<td {TD}><span style='color:#c0392b'>{r.get('bear_scenario','')}</span></td></tr>"
+            for r in cal
+        )
+        out += f'<h3 style="color:#0a3d62;font-size:14px;margin-top:20px">7-Day Catalyst Calendar</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    # 3-scenario outlook
+    scens = rho.get("scenarios", [])
+    if scens:
+        sc_col = {"Bull Case": "#1a7a3c", "Base Case": "#f59e0b", "Bear Case": "#c0392b"}
+        head = "".join(f"<th {TH}>{h}</th>" for h in ["Scenario","Prob","Key Trigger","Beneficiary Sectors","Vulnerable Sectors","SPY Implication"])
+        body = ""
+        for r in scens:
+            sc  = r.get("scenario", "")
+            col = sc_col.get(sc, "#929db2")
+            body += (
+                f"<tr><td {TD}><span style='color:{col};font-weight:bold'>{sc}</span></td>"
+                f"<td {TD}><strong>{r.get('probability','')}</strong></td>"
+                f"<td {TD}>{r.get('key_trigger','')}</td>"
+                f"<td {TD}>{r.get('beneficiary_sectors','')}</td>"
+                f"<td {TD}>{r.get('vulnerable_sectors','')}</td>"
+                f"<td {TD}>{r.get('spy_implication','')}</td></tr>"
+            )
+        out += f'<h3 style="color:#0a3d62;font-size:14px;margin-top:20px">3-Scenario Market Outlook</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    # Health dashboard
+    hd = rho.get("health_dashboard", [])
+    if hd:
+        badge_col = {"GREEN": "#1a7a3c", "AMBER": "#f59e0b", "RED": "#c0392b"}
+        head = "".join(f"<th {TH}>{h}</th>" for h in ["Signal","Reading","Status","Change from Prior Session"])
+        body = ""
+        for r in hd:
+            st  = r.get("status", "GREEN")
+            col = badge_col.get(st, "#929db2")
+            body += (
+                f"<tr><td {TD}><strong>{r.get('signal','')}</strong></td>"
+                f"<td {TD}>{r.get('reading','')}</td>"
+                f"<td {TD}><span style='background:{col};color:#fff;padding:2px 8px;border-radius:3px;font-size:11px'>{st}</span></td>"
+                f"<td {TD}>{r.get('change','')}</td></tr>"
+            )
+        out += f'<h3 style="color:#0a3d62;font-size:14px;margin-top:20px">Market Health Dashboard</h3>'
+        out += f"<table {TBL}><tr>{head}</tr>{body}</table>"
+
+    return out
 
 
 def render_portfolio_allocation(pa):
@@ -338,9 +405,6 @@ def render_email(mkt, data, narr, fund_cache):
     h += f'<h2 {H2}>SECTION 1B - Early Warning</h2>'
     h += render_early_warning(data["early_warning"])
 
-    h += f'<h2 {H2}>SECTION 2 - Stock Spotlights</h2>'
-    h += "".join(render_spotlight(s, narr, fund_cache.get(s["ticker"], {})) for s in data["spotlights"])
-
     h += f'<h2 {H2}>SECTION 3 - Watchlist</h2>'
     h += render_ai_table(data["ai_rows"])
 
@@ -376,8 +440,8 @@ def render_email(mkt, data, narr, fund_cache):
     h += f'<h2 {H2}>SECTION 7 - Sector Opportunity Radar</h2>'
     h += render_sector_opportunity_radar(narr.get("sector_opportunity_radar", {}))
 
-    h += f'<h2 {H2}>SECTION 8 - Market Trends</h2>'
-    h += render_market_trends(narr.get("market_trends"))
+    h += f'<h2 {H2}>SECTION 8 - Risk Heat Map & Market Outlook</h2>'
+    h += render_risk_heat_map_outlook(narr.get("risk_heat_map_outlook", {}))
 
     h += f'<h2 {H2}>SECTION 9 - Portfolio Allocation (5-8 Year Horizon)</h2>'
     h += render_portfolio_allocation(narr.get("portfolio_allocation"))
@@ -391,21 +455,6 @@ def render_email(mkt, data, narr, fund_cache):
 
 
 def build_frontend_json(mkt, data, narr, fund_cache):
-    sp = [
-        {
-            "ticker":     s["ticker"],
-            "name":       s["name"],
-            "price":      s.get("price"),
-            "day_change": s.get("day_change"),
-            "rating":     narr.get("spotlights", {}).get(s["ticker"], {}).get("rating"),
-            "verdict":    narr.get("spotlights", {}).get(s["ticker"], {}).get("verdict"),
-        }
-        for s in data["spotlights"]
-    ]
-    spot_html = "".join(
-        render_spotlight(s, narr, fund_cache.get(s["ticker"], {}))
-        for s in data["spotlights"]
-    )
     fmt_pct = lambda v: f"{v:+.2f}%" if v is not None else "-"
 
     earnings_out = [
@@ -418,6 +467,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             earnings_out.append(e)
 
     sor_html = render_sector_opportunity_radar(narr.get("sector_opportunity_radar", {}))
+    rho_html = render_risk_heat_map_outlook(narr.get("risk_heat_map_outlook", {}))
 
     return {
         "date":      mkt["last_trading_day_iso"],
@@ -435,11 +485,9 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             }
             for r in data["indices"]
         ],
-        "pulse":             narr.get("pulse", ""),
-        "macro_indicators":  data.get("macro", {}),
-        "early_warning":     render_early_warning(data["early_warning"]),
-        "spotlights_html":   spot_html,
-        "spotlights":        sp,
+        "pulse":            narr.get("pulse", ""),
+        "macro_indicators": data.get("macro", {}),
+        "early_warning":    render_early_warning(data["early_warning"]),
         "ai_rows": [
             {
                 "ticker":     r["ticker"],
@@ -470,7 +518,7 @@ def build_frontend_json(mkt, data, narr, fund_cache):
             + f"</ul><p>{narr.get('portfolio_direction','')}</p>"
         ),
         "sector_opportunity_radar": sor_html,
-        "market_trends":            render_market_trends(narr.get("market_trends")),
+        "risk_heat_map_outlook":    rho_html,
         "portfolio_allocation":     render_portfolio_allocation(narr.get("portfolio_allocation")),
     }
 
@@ -543,13 +591,13 @@ def main():
 
     try:
         data = build_report_data()
-        log.info(f"Data built: {len(data['ai_rows'])} AI rows, {len(data['spotlights'])} spotlights")
+        log.info(f"Data built: {len(data['ai_rows'])} watchlist rows")
 
         fund_cache = {}
         for s in SPOTLIGHTS:
             fund_cache[s["symbol"]] = fundamentals_for(s["symbol"])
             time.sleep(4)
-        log.info(f"Fundamentals fetched for {list(fund_cache.keys())}")
+        log.info(f"Earnings dates fetched for {list(fund_cache.keys())}")
 
         narr = get_narrative(mkt, data)
         if not narr:
