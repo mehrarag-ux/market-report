@@ -27,12 +27,13 @@ TD_BASE    = "https://api.twelvedata.com"
 
 # only ^TNX stays on FRED; VIX moved to Twelve Data to avoid FRED T+1 publish lag
 FRED_MAP = {
-    "^TNX": "DGS10",
+    # "^TNX": "DGS10",
 }
 
 # internal symbol -> Twelve Data symbol (caret prefix not accepted by TD)
 TD_ALIAS = {
     "^VIX": "VIX",
+    "^TNX": "TNX"
 }
 
 # macro indicators fetched from FRED separately from price tickers

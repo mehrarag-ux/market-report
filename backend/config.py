@@ -17,6 +17,7 @@ CONFIG = {
         "pranav2vis@gmail.com",
         "khyatibgupta234@gmail.com",
         "bharatdgupta@gmail.com",
+        "mmohnot@gmail.com"
     ],
     "from_name":    "Daily Market Report",
     "claude_model": "claude-sonnet-4-6",
